@@ -50,9 +50,9 @@ let load_event = function () {
             if (this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[0] === "hidden" ||
                 this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[1] === "hidden" ||
                 this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[2] === "hidden") {
-                if(document.getElementsByClassName("w2").length === div.length - 1){
+                if (document.getElementsByClassName("w2").length === div.length - 1) {
                     for (let j = 0; j < div.length; j++) {
-                        if(div[j].classList.length===1){
+                        if (div[j].classList.length === 1) {
                             div[j].classList.add("w2");
                             div[j].parentElement.parentElement.parentElement.getElementsByClassName("open")[0].classList.add("hidden");
                             div[j].parentElement.parentElement.parentElement.getElementsByClassName("hidden")[0].classList.add("open");
@@ -71,19 +71,19 @@ let load_event = function () {
         button_load_img[i].addEventListener('click', function () {
             if (this.parentElement.getElementsByClassName("load_img")[0].innerHTML === "") {
                 this.parentElement.getElementsByClassName("load_img")[0].innerHTML =
-                    load_img(this.parentElement.parentElement.getElementsByClassName("title")[0].innerText.toLocaleLowerCase());
+                    load_img(this.parentElement.parentElement.getElementsByClassName("title")[0].innerText.toLocaleLowerCase(), (i + 1) * 2);
             }
         });
     }
 };
-let load_img = function (dog_lineage) {
+let load_img = function (dog_lineage, con) {
     let load_random_image = ajax('GET', 'https://dog.ceo/api/breed/hound/' + dog_lineage + '/images', false)
     if (!isNaN(load_random_image)) {
         return alert("Ошибка " + load_random_image);
     }
     let json = load_random_image.message;
     let info = "";
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < con - 1; i++) {
         let rand2 = Math.floor(Math.random() * json.length);
         info += "<img class='w' src='" + json[rand2] + "'>"
     }
