@@ -47,25 +47,18 @@ let load_event = function () {
     let button_load_img = document.getElementsByClassName("button_load_img");
     for (let i = 0; i < div.length; i++) {
         div[i].addEventListener('click', function () {
-            for (let j = 0; j < document.getElementsByClassName("accordion")[0].getElementsByClassName("item").length; j++) {
-                /*
-                if(document.getElementsByClassName("accordion")[0].getElementsByClassName("w1")[j].classList.length===1){
-                    document.getElementsByClassName("accordion")[0].getElementsByClassName("w1")[j].classList.add("w2");
-                    console.log(document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j])
-                    try {
-                        document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j].classList.remove("open");
-                        document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j].classList.add("hidden");
-                    }catch (e) {
-                        console.log(e)
-                    }
-                }
-                */
-            }
-        });
-        div[i].addEventListener('click', function () {
             if (this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[0] === "hidden" ||
                 this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[1] === "hidden" ||
                 this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[2] === "hidden") {
+                if(document.getElementsByClassName("w2").length === div.length - 1){
+                    for (let j = 0; j < div.length; j++) {
+                        if(div[j].classList.length===1){
+                            div[j].classList.add("w2");
+                            div[j].parentElement.parentElement.parentElement.getElementsByClassName("open")[0].classList.add("hidden");
+                            div[j].parentElement.parentElement.parentElement.getElementsByClassName("hidden")[0].classList.add("open");
+                        }
+                    }
+                }
                 this.classList.remove("w2");
                 this.parentElement.parentElement.parentElement.getElementsByClassName("hidden")[0].classList.add("open");
                 this.parentElement.parentElement.parentElement.getElementsByClassName("open")[0].classList.remove("hidden");
