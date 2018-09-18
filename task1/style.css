@@ -301,12 +301,10 @@ select {
 .open, .hidden {
     z-index: 1;
     position: absolute;
-
 }
 
 .open:hover {
     display: block;
-
 }
 
 .buttons {
