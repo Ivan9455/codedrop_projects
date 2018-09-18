@@ -1,0 +1,398 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.width {
+    width: 470px;
+}
+
+.container {
+    margin: 0 auto;
+}
+
+nav {
+    height: 40px;
+}
+
+svg {
+    position: relative;
+}
+
+.nav li {
+    float: left;
+    width: 117.5px;
+    height: 40px;
+    background: #4E88CD;
+    display: inline-grid;
+    list-style: none;
+    cursor: pointer;
+    line-height: 40px;
+    position: relative;
+    font-size: 11pt;
+}
+
+.nav li:after {
+    content: "";
+    height: 0;
+    width: 0;
+    position: relative;
+    left: 117.5px;
+    bottom: 40px;
+    border-style: solid;
+    border-width: 20px 0 20px 20px;
+    border-color: transparent transparent transparent #4E88CD;
+}
+
+.nav4:after {
+    display: none;
+}
+
+.nav li:hover {
+    background: yellow;
+}
+.nav li:hover:after {
+    border-color: transparent transparent transparent yellow;
+}
+.nav li:active {
+    background: red;
+}
+.nav li:active:after{
+    border-color: transparent transparent transparent red;
+}
+
+
+.nav img {
+    position: absolute;
+}
+
+.nav1 {
+    z-index: 10;
+    text-indent: 35px;
+}
+
+.nav1 img {
+    top: 10px;
+    left: 8px;
+}
+
+.nav2 {
+    z-index: 9;
+    text-indent: 35px;
+}
+
+.nav2 img {
+    top: 8px;
+    left: 19px;
+}
+
+.nav3 {
+    z-index: 8;
+    text-indent: 47px;
+}
+
+.nav3 img {
+    top: 8px;
+    left: 15px;
+}
+
+.nav4 img {
+    top: 10px;
+    left: 28px;
+}
+
+.nav4 {
+    z-index: 7;
+    text-indent: 50px;
+}
+
+.svg5 {
+    height: 20px;
+}
+
+li div {
+    position: absolute;
+}
+
+/*-----------------------*/
+.ingredients {
+    background: #E9E9E9;
+}
+
+.ingredients_head {
+    height: 50px;
+    box-shadow: 0 8px 3px -3px #aeb3b7 inset;
+}
+
+select {
+    cursor: pointer;
+    border: none;
+    position: relative;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
+}
+
+.select4 {
+    padding: 10px;
+    width: 30px;
+}
+
+[id^=c] {
+    display: none;
+}
+
+[id^=c] + label {
+    top: 5px;
+    left: 11px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #B7BEC3;
+    border-radius: 2px;
+    text-align: center;
+    position: relative;
+}
+
+[id^=c] + label:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 80%;
+    height: 80%;
+    background: #5187B9;
+    -webkit-clip-path: polygon(45% 64%, 84% 14%, 100% 28%, 47% 100%, 0 49%, 15% 32%);
+    clip-path: polygon(45% 64%, 84% 14%, 100% 28%, 47% 100%, 0 49%, 15% 32%);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: transform .3s;
+    transition: transform .3s;
+}
+
+[id^=c]:checked + label:before {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.block1 {
+    margin: 0 auto;
+    width: 450px;
+    font-family: sans-serif;
+    font-size: 11pt;
+    display: table;
+}
+
+.block1_1, .block1_2, .block1_3, .block1_4 {
+    padding: 5px 7px;
+    float: left;
+    cursor: pointer;
+}
+
+.select_text {
+    position: absolute;
+}
+
+.select_1 {
+    width: 200px;
+    border: 1px solid #C0C0C0;
+    border-radius: 4px;
+    height: 25px;
+    box-sizing: border-box;
+    background: white;
+    line-height: 23px;
+    text-indent: 5px;
+    color: #808080;
+}
+
+.select_1_1 {
+    background: #6CA5DD;
+    width: 30px;
+    height: 23px;
+    float: right;
+}
+
+.select_1_1_arrow {
+    width: 0;
+    height: 0;
+    position: relative;
+    left: 8px;
+    top: 8px;
+    border-style: solid;
+    border-width: 7px 7px 0 7px;
+    border-color: white transparent transparent transparent;
+}
+
+.select_2 {
+    width: 60px;
+    border: 1px solid #C0C0C0;
+    border-radius: 4px;
+    height: 25px;
+    box-sizing: border-box;
+    background: white;
+    line-height: 23px;
+    text-indent: 5px;
+    cursor: auto;
+}
+
+#select2 {
+    position: absolute;
+}
+
+.select_2_2 {
+    background: #6CA5DD;
+    width: 20px;
+    height: 23px;
+    float: right;
+    cursor: pointer;
+    cursor: pointer;
+}
+
+.select_2_2_arrow1 {
+    width: 0;
+    height: 0;
+    left: 5px;
+    top: 3px;
+    position: relative;
+    border-style: solid;
+    border-width: 0 5px 5px 5px;
+    border-color: transparent transparent white transparent;
+
+}
+
+.select_2_2_arrow2 {
+    width: 0;
+    height: 0;
+    position: relative;
+    left: 5px;
+    top: 10px;
+    border-style: solid;
+    border-width: 5px 5px 0 5px;
+    border-color: white transparent transparent transparent;
+}
+
+.select_3 {
+    width: 100px;
+    border: 1px solid #C0C0C0;
+    border-radius: 4px;
+    height: 25px;
+    box-sizing: border-box;
+    background: white;
+    line-height: 23px;
+    text-indent: 5px;
+    /*color:#808080;*/
+}
+
+/*option{*/
+/*display: none;*/
+/*}*/
+.select {
+    position: absolute;
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+
+}
+
+.open, .hidden {
+    z-index: 1;
+    position: absolute;
+
+}
+
+.open:hover {
+    display: block;
+
+}
+
+.buttons {
+    height: 60pt;
+    background: url("image/svg/5.svg") no-repeat right bottom;
+
+}
+
+.button1, .button2 {
+    width: 120px;
+    height: 35px;
+    margin: 25px 40px 20px 40px;;
+    cursor: pointer;
+    background: #4E88CD;
+    line-height: 35px;
+    text-align: center;
+    display: inline-grid;
+}
+
+.button1 {
+    float: left;
+    border-radius: 0 4px 4px 0;
+}
+
+.button1:after {
+    content: "";
+    height: 0;
+    width: 0;
+    position: relative;
+    left: -17.5px;
+    bottom: 35px;
+    border-style: solid;
+    border-width: 17.5px 17.5px 17.5px 0 ;
+    border-color: transparent #4E88CD transparent transparent;
+}
+
+.button2 {
+    float: right;
+    border-radius: 4px 0 0 4px;
+}
+
+.button2:after {
+    content: "";
+    height: 0;
+    width: 0;
+    position: relative;
+    left: 120px;
+    bottom: 35px;
+    border-style: solid;
+    border-width: 17.5px 0 17.5px 17.5px;
+    border-color: transparent transparent transparent #4E88CD;
+}
+
+.blocks_h {
+    height: 290px;
+}
+
+select:hover {
+    border: 1px solid #6CA5DD;
+    box-sizing: border-box;
+}
+
+select:active {
+    border: 1px solid #7C85DD;
+    box-sizing: border-box;
+}
+
+.button1:hover, .button2:hover {
+    background: yellow;
+}
+.button1:hover:after{
+    border-color: transparent yellow transparent transparent;
+}
+.button2:hover:after {
+    border-color: transparent transparent transparent yellow;
+}
+
+.button1:active , .button2:active {
+    background: red;
+}
+.button1:active:after{
+    border-color: transparent red transparent transparent;
+}
+.button2:active:after {
+    border-color: transparent transparent transparent red;
+}
+label {
+    cursor: pointer;
+}

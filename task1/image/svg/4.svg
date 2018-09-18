@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+     width="90pt" height="25pt" viewBox="0 0 90 25"
+     preserveAspectRatio="xMidYMid meet" >
+    <polygon points="0,0 79,0 90,11 90,14 79,25 0,25"
+             fill="#6CA5DD" />
+    <text x="10" y="16" font-family="sans-serif" fill="white" font-size="12">Параметры</text>
+</svg>

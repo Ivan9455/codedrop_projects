@@ -1,0 +1,27 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.content{
+    width: 500px;
+    margin: auto;
+}
+.loading_info{
+
+}
+.load{
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 8px;
+    background: #7C85DD;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 auto;
+}
+.load:hover{
+    background: #5C85DD;
+}
+.load:active{
+    background: #9C85DD;
+}

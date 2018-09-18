@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+     width="15pt" height="20pt" viewBox="0 0 15 20"
+     preserveAspectRatio="xMidYMid meet" >
+    <polygon points="0,0 15,0 15,20 0,20"
+             fill="#6CA5DD" />
+
+    <polygon points="7.5,3 10,6 5,6"
+             fill="white" />
+    <line x1="0" y1="9.5" x2="15" y2="9.5" style="stroke:#457EB5;stroke-width:0.5" />
+    <polygon points="7.5,17 10,14 5,14"
+             fill="white" />
+
+</svg>

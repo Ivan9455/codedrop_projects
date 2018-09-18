@@ -1,0 +1,12 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+        "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+     width="20pt" height="20pt" viewBox="0 0 20 20"
+     preserveAspectRatio="xMidYMid meet" >
+    <polygon points="3,20 4,20 20,4 20,3 " fill="#8C969F"/>
+    <polygon points="7,20 8,20 20,8 20,7" fill="#8C969F"/>
+    <polygon points="11,20 12,20 20,12 20,11" fill="#8C969F"/>
+    <polygon points="15,20 16,20 20,16 20,15" fill="#8C969F"/>
+
+</svg>
