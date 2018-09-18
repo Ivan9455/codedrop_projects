@@ -23,14 +23,13 @@ let load_accordion = function () {
             "<div class='w1 w2'></div>" +
             "</div>" +
             "</div>" +
-            "<div class='hidden w'>" +
+            "<div class='hidden w bl'>" +
             "<img src='" + load_random_image[rand2] + "' class='w'>" +
             "<div class='load_img w'></div>" +
             "<div class='button_load_img'>Загрузить</div> " +
             "</div>" +
             "</div>";
     }
-    //document.getElementsByClassName("title")[0].innerText.toLocaleLowerCase()
     document.getElementsByClassName("accordion")[0].innerHTML = info;
 };
 let ajax = function (method, url_api, asinc) {
@@ -42,13 +41,31 @@ let ajax = function (method, url_api, asinc) {
     }
     return xhr.status;
 };
+
 let load_event = function () {
     let div = document.getElementsByClassName("w1");
     let button_load_img = document.getElementsByClassName("button_load_img");
     for (let i = 0; i < div.length; i++) {
         div[i].addEventListener('click', function () {
+            for (let j = 0; j < document.getElementsByClassName("accordion")[0].getElementsByClassName("item").length; j++) {
+                /*
+                if(document.getElementsByClassName("accordion")[0].getElementsByClassName("w1")[j].classList.length===1){
+                    document.getElementsByClassName("accordion")[0].getElementsByClassName("w1")[j].classList.add("w2");
+                    console.log(document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j])
+                    try {
+                        document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j].classList.remove("open");
+                        document.getElementsByClassName("accordion")[0].getElementsByClassName("bl")[j].classList.add("hidden");
+                    }catch (e) {
+                        console.log(e)
+                    }
+                }
+                */
+            }
+        });
+        div[i].addEventListener('click', function () {
             if (this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[0] === "hidden" ||
-                this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[1] === "hidden") {
+                this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[1] === "hidden" ||
+                this.parentElement.parentElement.parentElement.getElementsByClassName("w")[1].classList[2] === "hidden") {
                 this.classList.remove("w2");
                 this.parentElement.parentElement.parentElement.getElementsByClassName("hidden")[0].classList.add("open");
                 this.parentElement.parentElement.parentElement.getElementsByClassName("open")[0].classList.remove("hidden");
