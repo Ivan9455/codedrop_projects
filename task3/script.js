@@ -72,6 +72,9 @@ let load_event = function () {
             if (this.parentElement.getElementsByClassName("load_img")[0].innerHTML === "") {
                 this.parentElement.getElementsByClassName("load_img")[0].innerHTML =
                     load_img(this.parentElement.parentElement.getElementsByClassName("title")[0].innerText.toLocaleLowerCase(), (i + 1) * 2);
+            } else {
+                this.parentElement.getElementsByClassName("load_img")[0].innerHTML +=
+                    load_img(this.parentElement.parentElement.getElementsByClassName("title")[0].innerText.toLocaleLowerCase(), 2);
             }
         });
     }
@@ -83,7 +86,7 @@ let load_img = function (dog_lineage, con) {
     }
     let json = load_random_image.message;
     let info = "";
-    for (let i = 0; i < con - 1; i++) {
+    for (let i = 0; i < con; i++) {
         let rand2 = Math.floor(Math.random() * json.length);
         info += "<img class='w' src='" + json[rand2] + "'>"
     }
