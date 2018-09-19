@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.content {
+    margin: 0 auto;
+    overflow-x: hidden;
+    min-height: 50px;
+    max-height: 100%;
+    height: 50px;
+}
+
+.w {
+    width: 100%;
+    max-width: 900px;
+}
+
+.info {
+    position: absolute;
+    background: #E7F2AE;
+}
+
+input {
+    border: 0;
+    outline: 0
+}
+
+textarea {
+    outline: none;
+    -moz-appearance: none;
+    border: 1px solid #999; /* указание этого свойства также удалит обводку в FireFox */
+    resize: none;
+    box-sizing: border-box;
+}
+
+.info_content {
+    overflow-y: hidden;
+    height: 100px;
+    margin: 12px 20px;
+    width: calc(100% - 90px);
+    display: inline-table;
+    word-wrap: break-word;
+    border: 0;
+}
+
+.info_content_block {
+    display: inline-block;
+    height: 50px;
+    float: left;
+    width: calc(100% - 90px);
+}
+
+.info_add {
+    height: 50px;
+    background: #27BFDD;
+    width: 50px;
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+.info_add:hover {
+    transition: .5s;
+    -webkit-transform: scale(0.9, 0.9);
+    -ms-transform: scale(0.9, 0.9);
+    transform: scale(0.9, 0.9);
+    background: #6CA5DD;
+}
+
+.info_add:active {
+    transition: .1s;
+    -webkit-transform: scale(0.3, 0.3);
+    -ms-transform: scale(0.3, 0.3);
+    transform: scale(0.3, 0.3);
+    background: #27BF7D;
+}
+
+.load {
+    height: 100%;
+}
+
+.entry {
+    position: relative;
+    height: 50px;
+    float: left;
+}
+
+.entry_text {
+    position: absolute;
+    width: calc(100% - 40px);
+    padding: 5px;
+    margin: 12px 20px;
+    border: 1px solid #9E9699;
+    border-radius: 4px;
+}
+
+.entry_edit_button {
+    content: '\2710';
+    -webkit-transform:scale(1.8,1.8) rotate(170deg);
+    -ms-transform: scale(1.8,1.8) rotate(170deg);
+    transform: scale(1.8,1.8) rotate(170deg);
+    text-align: center;
+    background: #E7F2AE;
+    position: absolute;
+    right: 70px;
+    float: right;
+    cursor: pointer;
+}
+.entry_edit_button:hover{
+    transition: .3s;
+    -webkit-transform:scale(1.8,1.8) rotate(140deg);
+    -ms-transform: scale(1.8,1.8) rotate(140deg);
+    transform: scale(1.8,1.8) rotate(140deg);
+    background: #E7F2AE;
+}
+.entry_edit_button:active{
+    transition: .1s;
+    -webkit-transform:scale(2,2) rotate(140deg);
+    -ms-transform: scale(2,2) rotate(140deg);
+    transform: scale(2,2) rotate(140deg);
+    background: #E7F2AE;
+}
+
+.entry_del {
+    content: '\2710';
+    -webkit-transform:scale(1.8,1.8) rotate(170deg);
+    -ms-transform: scale(1.8,1.8) rotate(170deg);
+    transform: scale(1.8,1.8) rotate(170deg);
+    text-align: center;
+    background: #E7F2AE;
+    position: absolute;
+    right: 35px;
+    float: right;
+    cursor: pointer;
+}
+.entry_del:hover{
+    transition: .3s;
+    -webkit-transform:scale(1.9,1.9) rotate(170deg);
+    -ms-transform: scale(1.9,1.9) rotate(170deg);
+    transform: scale(1.9,1.9) rotate(170deg);
+    background: #E7F2AE;
+}
+.entry_del:active{
+    transition: .1s;
+    -webkit-transform:scale(2,2) rotate(170deg);
+    -ms-transform: scale(2,2) rotate(170deg);
+    transform: scale(2,2) rotate(170deg);
+    background: #E7F2AE;
+}
