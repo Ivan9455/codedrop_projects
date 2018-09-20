@@ -7,9 +7,9 @@
 .content {
     margin: 0 auto;
     overflow-x: hidden;
-    min-height: 50px;
-    max-height: 100%;
-    height: 50px;
+    /*min-height: 50px;*/
+    /*max-height: 100%;*/
+    /*height: 50px;*/
 }
 
 .w {
@@ -39,7 +39,7 @@ textarea {
     overflow-y: hidden;
     height: 100px;
     margin: 12px 20px;
-    width: calc(100% - 90px);
+    width: calc(100% - 110px);
     display: inline-table;
     word-wrap: break-word;
     border: 0;
@@ -53,6 +53,8 @@ textarea {
 }
 
 .info_add {
+    left: -20px;
+    top: 10px;
     height: 50px;
     background: #27BFDD;
     width: 50px;
@@ -61,42 +63,55 @@ textarea {
     cursor: pointer;
 }
 
+.error {
+    border: 2px solid red;
+}
+
+.time_error, .text_error {
+    color: red;
+    font-size: 11pt;
+    margin: 10px 20px;
+}
+
 /*.info_add:hover {*/
-    /*transition: .5s;*/
-    /*-webkit-transform: scale(0.9, 0.9);*/
-    /*-ms-transform: scale(0.9, 0.9);*/
-    /*transform: scale(0.9, 0.9);*/
-    /*background: #6CA5DD;*/
+/*transition: .5s;*/
+/*-webkit-transform: scale(0.9, 0.9);*/
+/*-ms-transform: scale(0.9, 0.9);*/
+/*transform: scale(0.9, 0.9);*/
+/*background: #6CA5DD;*/
 /*}*/
 
 /*.info_add:active {*/
-    /*transition: .1s;*/
-    /*-webkit-transform: scale(0.3, 0.3);*/
-    /*-ms-transform: scale(0.3, 0.3);*/
-    /*transform: scale(0.3, 0.3);*/
-    /*background: #27BF7D;*/
+/*transition: .1s;*/
+/*-webkit-transform: scale(0.3, 0.3);*/
+/*-ms-transform: scale(0.3, 0.3);*/
+/*transform: scale(0.3, 0.3);*/
+/*background: #27BF7D;*/
 /*}*/
 
 .load {
+    display: inline-block;
     height: 100%;
 }
 
 .entry {
     position: relative;
-    height: 50px;
+    /*height: 50px;*/
     float: left;
 }
 
 .entry_text {
-    position: absolute;
+    position: relative;
     width: calc(100% - 40px);
     padding: 5px;
     margin: 10px 20px;
     border: 1px solid #9E9699;
     border-radius: 4px;
+    word-wrap: break-word;
 }
 
 .entry_edit_button {
+    top: 0px;
     width: 20px;
     height: 20px;
     background: yellow;
@@ -107,6 +122,7 @@ textarea {
 }
 
 .entry_del {
+    top: 0px;
     width: 20px;
     height: 20px;
     background: red;
@@ -126,7 +142,8 @@ textarea {
     top: -50px;
     z-index: 1;
 }
-.update_block{
+
+.update_block {
     position: relative;
     top: 50px;
     margin: 0 auto;
@@ -134,15 +151,18 @@ textarea {
     height: 300px;
     background: #6CA5DD;
 }
-.update_block textarea{
+
+.update_block textarea {
     margin: 10px;
     width: 280px;
     height: 220px;
 }
-.update_footer{
+
+.update_footer {
     margin: 10px;
 }
-.save , .exit{
+
+.save, .exit {
     cursor: pointer;
     margin: 0 5px;
     background: #27BF7D;
@@ -153,4 +173,8 @@ textarea {
     line-height: 30px;
     font-family: cursive;
     border-radius: 8px;
+}
+
+.time {
+    margin: 10px 20px;
 }
