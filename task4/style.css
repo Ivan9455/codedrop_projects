@@ -148,7 +148,7 @@ textarea {
     top: 50px;
     margin: 0 auto;
     width: 300px;
-    height: 300px;
+    height: 430px;
     background: #6CA5DD;
 }
 
@@ -180,4 +180,21 @@ textarea {
 }
 .entry_time{
     margin: 5px 20px;
+}
+.update_time{
+    height: 100px;
+    margin: 5px 10px;
+}
+.update_time_input{
+    margin: 5px;
+}
+.time_create{
+    margin: 5px;
+}
+.time_create_up{
+    margin: 5px;
+    padding: 10px 0;
+}
+.update_text_error{
+    margin: 0 15px;
 }
