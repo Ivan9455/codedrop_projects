@@ -54,7 +54,7 @@ textarea {
 
 .info_add {
     left: -20px;
-    top: 10px;
+    top: 12px;
     height: 50px;
     background: #27BFDD;
     width: 50px;
@@ -177,4 +177,7 @@ textarea {
 
 .time {
     margin: 10px 20px;
+}
+.entry_time{
+    margin: 5px 20px;
 }
