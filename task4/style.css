@@ -68,8 +68,6 @@ textarea {
 }
 
 .time_error, .text_error {
-    color: red;
-    font-size: 11pt;
     margin: 10px 20px;
 }
 
@@ -178,23 +176,34 @@ textarea {
 .time {
     margin: 10px 20px;
 }
-.entry_time{
+
+.entry_time {
     margin: 5px 20px;
 }
-.update_time{
+
+.update_time {
     height: 100px;
     margin: 5px 10px;
 }
-.update_time_input{
+
+.update_time_input {
     margin: 5px;
 }
-.time_create{
+
+.time_create {
     margin: 5px;
 }
-.time_create_up{
+
+.time_create_up {
     margin: 5px;
     padding: 10px 0;
 }
-.update_text_error{
+
+.update_text_error {
     margin: 0 15px;
+}
+
+.update_time_input_error, .update_text_error, .time_error, .text_error {
+    color: red;
+    font-size: 11pt;
 }

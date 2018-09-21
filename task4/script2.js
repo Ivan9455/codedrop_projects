@@ -193,9 +193,9 @@ function Todo() {
             let m = JSON.parse(localStorage.getItem(key));//.replace(/"/g,'').replace(/\\/g,'');
             //console.log(JSON.parse(m))
             //console.log(m)
-            if (isNaN(key)) {
+            if (isNaN(key)||isNaN(m.time)||isNaN(m.time_create)) {
                 localStorage.removeItem(key);
-                break;
+                continue;//было break
             }
             if (key > load_id) {
                 load_id = key + 1;
@@ -205,7 +205,7 @@ function Todo() {
             }
             str += "" +
                 "<div class='entry w'>" +
-                "<div class='entry_time w'>" +
+                "<div class='entry_time'>" +
                 "<div class='time_create'>Время создание записи  " + dat_format(m.time_create) + "</div >" +
                 "<div class='time_create'>Время события   " + dat_format(m.time) + "</div>" +
                 "</div>" +
