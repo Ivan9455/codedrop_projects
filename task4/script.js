@@ -1,105 +1,186 @@
-let load_id = 0;
-let div_up = document.getElementsByClassName("update")[0];
-let save = document.getElementsByClassName("save")[0];
-let exit = document.getElementsByClassName("exit")[0];
-let info_add = document.getElementsByClassName("info_add")[0];
-let info_content = document.getElementsByClassName("info_content")[0];
-window.onload = function () {
-    load_localstorage();
-    load_event();
-    $("body").on('click', ".entry_del", function () {
-        localStorage.removeItem($(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key);
-        load_localstorage();
-    }).on('click', ".entry_edit_button", function () {
-        $(".update").css('display', 'block');
-        $('.update_text').html("");
-        $(".update_text").html(
-            localStorage.getItem($(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key));
-        $(".update_text").attr("data-key",
-            $(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key);
-        load_localstorage();
-    });
+$(document).ready(function () {
+    new Todo().go();
+});
+
+let obj = function (time, time_create, text) {
+    this.time = time;
+    this.time_create = time_create;
+    this.text = text;
 
 };
-// let load_events = function () {
-//     let entry_edit_button = document.getElementsByClassName("entry_edit_button");
-//     let entry_del = document.getElementsByClassName("entry_del");
-//     for (let i = 0; i < entry_edit_button.length; i++) {
-//         entry_edit_button[i].addEventListener('click', function () {
-//             div_up.style.display = "block";
-//             div_up.getElementsByClassName("update_text")[0].innerText =
-//                 localStorage.getItem(
-//                     this.parentElement.getElementsByClassName("entry_text")[0].getAttribute("data-key"));
-//             div_up.getElementsByClassName("update_text")[0].setAttribute("data-key",
-//                 this.parentElement.getElementsByClassName("entry_text")[0].getAttribute("data-key"))
-//             console.log(this.parentElement.getElementsByClassName("entry_text")[0].getAttribute("data-key"))
-//             //load_localstorage();
-//         });
-//     }
-//     for (let i = 0; i < entry_del.length; i++) {
-//         entry_del[i].addEventListener('click', function () {
-//             console.log(this.parentElement.getElementsByClassName("entry_text")[0])
-//             localStorage.removeItem(this.parentElement.getElementsByClassName("entry_text")[0].getAttribute("data-key"));
-//             //document.getElementsByClassName("load")[0].innerHTML = "";
-//             load_localstorage();
-//         });
-//     }
-//
-// };
-let load_event = function () {
-    $("body").on('click', ".info_add", function () {
-        if (info_content.value !== "") {
-            console.log(localStorage.length + "  - " + info_content.value);
-            localStorage.setItem(++load_id, info_content.value);
-            info_content.value = "";
-            load_localstorage();
-        }
-    });
-    info_add.addEventListener('click', function () {
-        if (info_content.value !== "") {
-            console.log(localStorage.length + "  - " + info_content.value);
-            localStorage.setItem(++load_id, info_content.value);
-            info_content.value = "";
-            load_localstorage();
-        }
-    });
-    save.addEventListener('click', function () {
-            localStorage.setItem(
-            document.getElementsByClassName("update_text")[0].getAttribute("data-key"),
-            document.getElementsByClassName("update_text")[0].value);
-        document.getElementsByClassName("update_text")[0].value =
-            console.log(document.getElementsByClassName("update_text")[0].getAttribute("data-key"))
-        console.log(document.getElementsByClassName("update_text")[0].value);
-        $('.update_text').removeAttr("data-key");
-        $('.update_text').html("");
-        $(".update").css('display', 'none');
-        load_localstorage();
-    });
-    exit.addEventListener('click', function () {
-        $('.update_text').removeAttr("data-key");
-        $('.update_text').html("");
-        $(".update").css('display', 'none');
-        load_localstorage();
-    })
 
-};
-let load_localstorage = function () {
-    let str = "";
+function Todo() {
+    var load_id = 0;
+    let time_add = function () {
+        $(document).on('change', ".time", function () {
+            check_time(".time_error", ".time", new Date().getTime())
+        })
+    };
+    let check_time = function (block_error, block_time, date) {
+        if ($(block_time).val() === "") {
+            $(block_error).html("Заполните поле");
+            $(block_time).addClass("error");
+            return false;
+        } else if (date > new Date($(block_time).val()).getTime()) {
+            $(block_error).html("Вы не можете создать событие задним числом");
+            $(block_time).addClass("error");
+            return false;
+        }
+        else {
+            $(block_error).html("");
+            $(block_time).removeClass("error");
+            return true;
+        }
+    };
+    let check_textarea = function (block, block_error) {
+        if ($(block).val() === "") {
+            $(block_error).html("Заполните поле");
+            $(block).addClass("error");
+            return false;
+        } else {
+            $(block_error).html("");
+            $(block).removeClass("error");
+            return true;
+        }
+    };
+    let add = function () {
+        $(document).on('click', ".info_add", function () {
+            if (check_textarea(".info_content", ".text_error") &
+                check_time(".time_error", ".time", new Date().getTime())) {
+                let json = new obj(
+                    new Date($(".time").val()).getTime(),
+                    new Date().getTime(),
+                    escapeHtmlEntities($(".info_content").val()));
+                localStorage.setItem(++load_id, JSON.stringify(json));
+                $(".info_content").val("");
+                load_localstorage();
+            }
+        });
+    };
+    let del = function () {
+        $(document).on('click', ".entry_del", function () {
+            localStorage.removeItem(
+                $(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key);
+            load_localstorage();
+        });
+    };
+    let edit = function () {
+        $(document).on('click', ".entry_edit_button", function () {
+            $(".update").css('display', 'block');
+            $('.update_text').val("");
+            let str = JSON.parse(localStorage.getItem(
+                $(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key))
+            $(".time_create_up").html("Время создание записи  " + dat_format(str.time_create));
+            $(".update_text").val(str.text);
+            $(".update_time_input").attr("value", dat_format_input(str.time));
+            $(".update_text").attr("data-key",
+                escapeHtmlEntities($(this.parentElement.getElementsByClassName("entry_text")[0])[0].dataset.key));
+        });
+    };
+    let save = function () {
+        $(document).on('click', ".save", function () {
+            let str = JSON.parse(localStorage.getItem(
+                escapeHtmlEntities($('.update_text').attr("data-key"))));
+            if (check_textarea(".update_text", ".update_text_error") &
+                check_time(".update_time_input_error", ".update_time_input", new Date(str.time_create).getTime())) {
+                let json = new obj(
+                    new Date($(".update_time_input").val()).getTime(),
+                    new Date(str.time_create).getTime(),
+                    escapeHtmlEntities($('.update_text').val())
+                );
+                localStorage.setItem(
+                    escapeHtmlEntities($('.update_text').attr("data-key")),
+                    JSON.stringify(json));
+                $('.update_text').removeAttr("data-key");
+                $('.update_text').val("");
+                $(".update").css('display', 'none');
+                load_localstorage();
+            }
+        });
+    };
+    let exit = function () {
+        $(document).on('click', ".exit", function () {
+            $('.update_time_input').removeClass("error");
+            $('.update_text').removeClass("error");
+            $('.update_text').removeAttr("data-key");
+            $('.update_text').val("");
+            $(".update").css('display', 'none');
+            load_localstorage();
+        });
+    };
+    let load_localstorage = function () {
+        let str = "";
+        $(".load").html(str)
+        for (let key in localStorage) {
+            let m = JSON.parse(localStorage.getItem(key));
+            if (isNaN(key) || isNaN(m.time) || isNaN(m.time_create)) {
+                localStorage.removeItem(key);
+                continue;//было break
+            }
+            if (key > load_id) {
+                load_id = key + 1;
+            }
+            if (re(m.text) === m.text) {
+                m.text = escapeHtmlEntities(m.text)
+            }
+            str += "" +
+                "<div class='entry w'>" +
+                "<div class='entry_time'>" +
+                "<div class='time_create'>Время создание записи  " + dat_format(m.time_create) + "</div >" +
+                "<div class='time_create'>Время события   " + dat_format(m.time) + "</div>" +
+                "</div>" +
+                "<div class='entry_text' data-key='" + key + "'>" + m.text + "</div>" +
+                "<div class='entry_edit_button'></div>" +
+                "<div class='entry_del'></div>" +
+                "</div>";
+        }
+        $(".load").html(str);
+    };
+    let escapeHtmlEntities = function (str) {
+        if (typeof jQuery !== 'undefined') {
+            return jQuery('<div/>').text(str).html();
+        }
+        return str
+            .replace(/&/g, '&amp;')
+            .replace(/>/g, '&gt;')
+            .replace(/</g, '&lt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&apos;');
+    };
+    let re = function (str) {
+        return str
+            .replace(/&amp;/g, "&")
+            .replace(/&gt;/g, ">")
+            .replace(/&lt;/g, "<")
+            .replace(/&quot;/g, '"')
+            .replace(/&apos;/g, "'");
+    };
+    let f_Date = function (str) {
+        str += "";
+        if (str.length === 1) {
+            return "0" + str;
+        } else {
+            return str;
+        }
+    };
+    let dat_format_input = function (t) {
+        return new Date(t).getFullYear() + "-" +
+            f_Date(new Date(t).getMonth() + 1) + "-" +
+            f_Date(new Date(t).getDate());
+    };
+    let dat_format = function (t) {
+        return f_Date(new Date(t).getDate()) + "-" +
+            f_Date(new Date(t).getMonth() + 1) + "-" +
+            new Date(t).getFullYear();
+    };
+    this.go = function () {
+        load_localstorage();
+        time_add();
+        add();
+        del();
+        edit();
+        save();
+        exit();
 
-    for (let key in localStorage) {
-        if (key === "length") {
-            break;
-        }
-        if (key > load_id) {
-            load_id = key;
-        }
-        str += "" +
-            "<div class='entry w'>" +
-            "<div class='entry_text' data-key='" + key + "'>" + localStorage.getItem(key) + "</div>" +
-            "<div class='entry_edit_button'></div>" +
-            "<div class='entry_del'></div>" +
-            "</div>";
     }
-    document.getElementsByClassName("load")[0].innerHTML = str;
-
 };
