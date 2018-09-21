@@ -115,7 +115,7 @@ function Todo() {
             let m = JSON.parse(localStorage.getItem(key));
             if (isNaN(key) || isNaN(m.time) || isNaN(m.time_create)) {
                 localStorage.removeItem(key);
-                continue;//было break
+                continue;
             }
             if (key > load_id) {
                 load_id = key + 1;
