@@ -148,6 +148,9 @@ let Valid = {
         return true;
     },
     textarea: function (text) {
+        if(text>500){
+            text = text.substr(0,500);
+        }
         if (Escape.screen_conversely(text) === text) {
             return Escape.screen(text);
         }
