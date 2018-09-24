@@ -175,7 +175,7 @@ let Valid = {
         $(block_text).html("");
         $(block_time).html("");
     },
-    render: function (key) {//проблема тут
+    render: function (key) {
         let m = JSON.parse(localStorage.getItem(key));
         if (isNaN(key)) {
             return true;
