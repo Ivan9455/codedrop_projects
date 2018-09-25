@@ -1,26 +1,34 @@
 $(document).ready(function () {
+    LocalInfo.init();
     Events.init();
     Status.render();
-
-    // let str = localStorage.getItem("status").replace(/},{/g,"};{").split(";");
-    // for (let item in str){
-    //     console.log(JSON.parse(str[item]).status_text)
-    // }
-    // let statusSet = [];
-    // statusSet[0] = JSON.stringify(new StatusObj(0, "status1"));
-    // statusSet[1] = JSON.stringify(new StatusObj(1, "status2"));
-    // statusSet[2] = JSON.stringify(new StatusObj(2, "status3"));
-    // statusSet[3] = JSON.stringify(new StatusObj(3, "status4"));
-    // localStorage.setItem("status", statusSet);
-    //console.log(localStorage.getItem("status").replace(/},{/g,"};{").split(";"))
-    // let str = localStorage.getItem("status").replace(/},{/g,"};{").split(";");
-    // str.forEach(function (item ,i , arr) {
-    //     console.log(JSON.parse(arr[i]).key + " " + JSON.parse(arr[i]).status_text)
-    // })
-    //console.log(str)
-    //$(".update").css("display", "none");
 });
-let status_id = 0;
+// JSON.stringify(new StatusObj(1, "asdasd")),
+// JSON.stringify(new StatusObj(2, "asdasdasda"))
+let LocalInfo = {
+    list:[],
+    list_id:0,
+    status:[],
+    status_id:0,
+    init: function () {
+        let content = JSON.parse(localStorage.getItem("content"));
+        if (localStorage.getItem("content") === null ||
+            content === null ||
+            content.list === "undefined" ||
+            content.status === "undefined") {
+            localStorage.setItem("content", JSON.stringify(new Content([], [])))
+            content = JSON.parse(localStorage.getItem("content"));
+            //console.log(JSON.parse(localStorage.getItem("content")))
+        }
+        this.list = content.list;
+        this.status = content.status;
+    }
+};
+let Content = function (list = [], status = []) {
+    this.list = list;
+    this.status = status;
+};
+
 let Events = {
     init: function () {
         EventStatus.init();
@@ -33,6 +41,19 @@ let EventStatus = {
         $(".status_exit_button").click(function () {
             $(".overlay").css("display", "none");
             $(".status").css("display", "none");
+            $(".status_text").val("");
+        });
+        $(".status_save").click(function () {
+            let text = $(".status_text").val();
+            Status.add(LocalInfo.status_id++, text)
+
+        });
+        $(".status").on('click',".status_item_remove",function () {
+            let key = $(this).attr("data-key");
+            //Status.add(LocalInfo.status_id++, text)
+            console.log(key)
+
+            Status.remove(key);
         });
     }
 };
@@ -50,61 +71,48 @@ let EventUpdate = {
     }
 };
 let Status = {
-    add: function () {
-
+    add: function (key,text) {
+        let str = LocalInfo.status;
+        str.push(JSON.stringify(new StatusObj(key,text)));
+        localStorage.setItem("content",
+            JSON.stringify(new Content(LocalInfo.list, str)))
+        console.log(str)
         this.render();
     },
-    remove: function () {
-
-        this.render();
-    },
-    statusArray: function () {
-        let str = localStorage.getItem("status").replace(/},{/g, "};{").split(";");
-        let array = [];
-        for (let item in str) {
-            let obj = JSON.parse(str[item]);
-            if (this.keyValid(obj.key)) {
+    remove: function (key) {//остановился тут
+        let str = LocalInfo.status;
+        //str.splice(key,1);
+        for (let i = 0; i < str.length; i++) {
+            console.log(JSON.parse(str[i]).key)
+            if(str[i].key===key){
+                str.splice(i,1);
                 continue;
             }
-            if (status_id < obj.key) {
-                status_id = obj.key;
-            }
-            obj.status_text = this.statusTextValid(obj.status_text);
-            array[item] = obj
         }
-        return array;
+        // localStorage.setItem("content",
+        //     JSON.stringify(new Content(LocalInfo.list, str)))
+        this.render();
     },
-    statusTextValid: function (text) {
-        if (text > 32) {
-            text = text.substr(0, 32);
-        }
-        if (Escape.screen_conversely(text) === text) {
-            return Escape.screen(text);
-        }
-        return text;
-    },
-    keyValid: function (obj) {
-        if (isNaN(obj)) {
-            return true;
-        }
-        return false;
-    },
+
     render: function () {
         let str = "";
         $(".status_load").html(str);
-        let status = this.statusArray();
-        console.log(status)
-        for (let i = 0; i < status.length; i++) {
-            //console.log(status)
+        let statusArr = LocalInfo.status;
+        console.log(statusArr)
+        for (let item in statusArr) {
+            let json = JSON.parse(statusArr[item])
+            if(item > LocalInfo.status_id){
+                LocalInfo.status_id = item;
+            }
             str += "" +
                 "<div class='status_item'>" +
                 "<div class='select_item_text'>" +
-                status[i].status_text +
+                json.status_text +
                 "</div>" +
                 "<div class='status_item_edit' " +
-                "data-key='" + status[i].key + "'>Edit</div>" +
+                "data-key='" + json.key + "'>Edit</div>" +
                 "<div class='status_item_remove' " +
-                "data-key='" + status[i].key + "'>Remove</div>" +
+                "data-key='" + json.key + "'>Remove</div>" +
                 "</div>";
         }
         $(".status_load").html(str);

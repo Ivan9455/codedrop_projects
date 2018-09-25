@@ -133,3 +133,11 @@ div {
 .status_item_remove{
     cursor: pointer;
 }
+
+.status_text_error{
+    font-size: 11pt;
+    color:red;
+}
+.error{
+    border: 2px solid red;
+}
