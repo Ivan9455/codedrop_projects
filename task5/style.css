@@ -49,6 +49,11 @@ div {
     z-index: 50;
 }
 
+.status_add label {
+    height: 85px;
+    display: block;
+}
+
 .status_save {
     width: 200px;
     margin: 0 auto;
@@ -58,17 +63,21 @@ div {
     border-radius: 4px;
     line-height: 30px;
 }
-.status_text{
+
+.status_text {
     width: 240px;
     margin: 10px;
 }
-.status_load{
+
+.status_load {
     margin: 20px 0;
 }
+
 /*/////////////////////exit////////////////////////*/
-.status_exit{
+.status_exit {
     height: 40px;
 }
+
 .status_exit_button {
     position: absolute;
     top: 5px;
@@ -77,11 +86,13 @@ div {
     height: 30px;
     cursor: pointer;
 }
+
 .status_exit_button:hover {
     -webkit-transform: scale(1.1);
     -ms-transform: scale(1.1);
     transform: scale(1.1);
 }
+
 .status_exit_button::before,
 .status_exit_button::after {
     content: "";
@@ -93,51 +104,86 @@ div {
     background-color: black;
     border-radius: 2px;
 }
+
 .status_exit_button::before {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
 .status_exit_button::after {
     -webkit-transform: rotate(-45deg);
     -ms-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
+
 /*/////////////////////////////////////////////*/
-.status_item{
+.status_item {
     height: 50px;
 }
-.select_item_text ,
-.status_item_edit ,
-.status_item_remove{
+
+.select_item_text,
+.status_item_edit,
+.status_item_remove {
     float: left;
     height: 30px;
     line-height: 30px;
     margin: 10px;
     border-radius: 8px;
 }
-.select_item_text{
+
+.select_item_text {
     width: 180px;
     text-align: left;
     text-indent: 20px;
 }
-.status_item_edit{
+
+.status_item_edit {
     width: 60px;
     background: #E1F24C;
 }
-.status_item_remove{
+
+.status_item_remove {
     width: 60px;
     background: #F23426;
 }
-.status_item_edit ,
-.status_item_remove{
+
+.status_item_edit,
+.status_item_remove {
     cursor: pointer;
 }
 
-.status_text_error{
+.status_text_error, .todo_list_time_error {
     font-size: 11pt;
-    color:red;
+    color: red;
 }
-.error{
+
+.error {
     border: 2px solid red;
+}
+
+/*///////////todolist///////////*/
+.todo_list_text {
+    overflow-y: hidden;
+    height: 100px;
+    margin: 12px 20px;
+    width: calc(100% - 110px);
+    display: inline-table;
+    word-wrap: break-word;
+    border: 0;
+}
+
+.todo_list_add {
+    margin: 10px 0;
+}
+
+.todo_list_add_btn {
+    left: -20px;
+    top: 12px;
+    height: 50px;
+    background: #27BFDD;
+    width: 50px;
+    position: relative;
+    float: right;
+    cursor: pointer;
 }

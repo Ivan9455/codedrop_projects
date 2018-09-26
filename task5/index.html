@@ -23,12 +23,22 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="todo_list">
+        <div class="todo_list col-12">
             <div class="menu">
                 <div class="btn_status">Статус</div>
             </div>
         </div>
+        <div class="todo_list_add col-12">
+            <input type="datetime-local" class="todo_list_time"
+                   min="2018-09-01T00:00" max="2021-09-01T00:00">
+            <div class="todo_list_time_error"></div>
+            <select class="status_select"></select><br>
+            <textarea class="todo_list_text"></textarea>
+            <div class="todo_list_add_btn"></div>
+        </div>
+        <div class="todo_list_load col-12">
 
+        </div>
     </div>
 </div>
 <div class="update col-12">

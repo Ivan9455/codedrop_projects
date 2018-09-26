@@ -111,7 +111,7 @@ let Event = {
                 .removeClass("error")
                 .removeAttr("data-key")
                 .val("");
-            Valid.clearDiv(".update_text_error",".update_time_input_error",);
+            Valid.clearDiv(".update_text_error", ".update_time_input_error",);
             $(".update").css('display', 'none');
         });
     }
@@ -148,8 +148,8 @@ let Valid = {
         return true;
     },
     textarea: function (text) {
-        if(text>500){
-            text = text.substr(0,500);
+        if (text.length > 500) {
+            text = text.substr(0, 500);
         }
         if (Escape.screen_conversely(text) === text) {
             return Escape.screen(text);
