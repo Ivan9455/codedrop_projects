@@ -1,12 +1,22 @@
-/*
-по умолчанию должно быть 2 статуса активно выполнено
- */
 $(document).ready(function () {
     LocalInfo.init();
     List.render();
     Status.render();
     Events.init();
-
+    let test1 = JSON.parse(localStorage.getItem("content"))
+    let test2 = localStorage.getItem("content")
+    console.log(window.btoa(test2))
+    let  z = window.btoa(test1)
+    console.log(window.atob(z))
+    // var txt = "I Love JavaScript!";
+    // var result = "Исходная строка: " + txt;
+    // var result = "<br />";
+    // var encode = window.btoa(txt);
+    // result += "Закодированная строка: " + encode;
+    // result += "<br />";
+    // var decode = window.atob(encode);
+    // result +="Декодированная строка: " + decode;
+    // console.log(result);
 });
 let obj = function (time, time_create, text, status) {
     this.time = time;
@@ -160,7 +170,6 @@ let EventTodoList = {
             let arr = LocalInfo.list;
             let set = new Set(LocalInfo.list);
             let json = JSON.parse(arr[key]);
-            //console.log(json)
             if(set.has(arr[key])){
                 $(".update_time_create").html(dat_format_input(json.time_create))
                 $(".update_time").val(dat_format_input(json.time))
@@ -196,7 +205,6 @@ let EventUpdate = {
                 List.update(key,text, time, status);
                 Valid.clearInput(".todo_list_time")
                 Valid.clearInput(".todo_list_text")
-                console.log("work")
                 $(".overlay").css("display", "none");
                 $(".update").css("display", "none");
             }
@@ -249,9 +257,6 @@ let Status = {
             }
 
         }
-        //тут можно написать алекрт что значение не верно
-        //и можно написать вызов этой же функции (рекурсия)
-
     },
     render: function () {
         this.load_status(".status_select");
@@ -308,10 +313,6 @@ let Valid = {
             return true;
         }
     },
-    ///////////////////////
-    /*
-    использовать методы для валидации
-     */
     time: function (time, time_create) {
         let min = new Date("2018-09-01T00:00").getTime();
         let max = new Date("2023-09-01T00:00").getTime();
@@ -377,8 +378,6 @@ let Valid = {
 
     },
     render: function (json) {
-        // console.log(this.time(json.time, json.time_create)&&
-        //     !Status.renderValid(json.status))
         if (this.time(json.time, json.time_create)&&
             !Status.renderValid(json.status)) {
             json.text = this.textarea(json.text,200);
