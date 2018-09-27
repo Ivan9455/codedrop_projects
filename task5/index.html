@@ -23,17 +23,23 @@
 </div>
 <div class="container">
     <div class="row">
-        <div class="todo_list col-12">
+        <div class="todo_list col-12 m-20">
             <div class="menu">
                 <div class="btn_status">Статус</div>
             </div>
         </div>
         <div class="todo_list_add col-12">
-            <input type="datetime-local" class="todo_list_time"
+            <input type="datetime-local" class="todo_list_time m-20"
                    min="2018-09-01T00:00" max="2021-09-01T00:00">
-            <div class="todo_list_time_error"></div>
-            <select class="status_select"></select><br>
-            <textarea class="todo_list_text"></textarea>
+            <div class="todo_list_time_error m-20"></div>
+            <div class="status_select_block m-20">
+                <select class="status_select"></select>
+                <div class="status_select_error"></div>
+            </div><br>
+            <div class="textarea_block">
+                <textarea class="todo_list_text" maxlength="200"></textarea>
+                <div class="todo_list_text_error"></div>
+            </div>
             <div class="todo_list_add_btn"></div>
         </div>
         <div class="todo_list_load col-12">
@@ -42,7 +48,24 @@
     </div>
 </div>
 <div class="update col-12">
-
+    <div class="update_time_create"></div>
+    <div class="update_time_block">
+        <input type="datetime-local" class="update_time"
+               min="2018-09-01T00:00" max="2021-09-01T00:00">
+        <div class="update_time_error"></div>
+    </div>
+    <div class="status_block">
+        <select class="update_status_select"></select>
+        <div class="update_status_select_error"></div>
+    </div>
+    <div class="text_block">
+        <textarea class="update_textarea" maxlength="200"></textarea>
+        <div class="update_textarea_error"></div>
+    </div>
+    <div class="update_button">
+        <div class="update_save">Save</div>
+        <div class="update_exit">Exit</div>
+    </div>
 </div>
 <div class="overlay"></div>
 <script type="text/javascript" src="jquery.js"></script>

@@ -8,6 +8,12 @@ $(document).ready(function () {
     Events.init();
 
 });
+let obj = function (time, time_create, text, status) {
+    this.time = time;
+    this.time_create = time_create;
+    this.text = text;
+    this.status = status;
+};
 let LocalInfo = {
     base_value: ["active", "complete"],
     list: [],
@@ -26,34 +32,67 @@ let LocalInfo = {
         this.status = this.statusValid(content.status);
         console.log(JSON.parse(localStorage.getItem("content")))
     },
-    /*
-    listValid:function (list) {
-        for(let item in list){
-            list[item] = Valid.textValid(list[item],32)
-        }
-        return list
-    },
-    */
     statusValid: function (status) {
         for (let item in status) {
-            status[item] = Valid.textValid(status[item], 32)
+            status[item] = Valid.textarea(status[item], 32)
         }
         return status
     }
 };
 let List = {
-    add: function () {
-
+    add: function (text, time, status, time_create = new Date().getTime()) {
+        let set = new Set(LocalInfo.list);
+        set.add(JSON.stringify(new obj(time, time_create, text, status)))
+        LocalInfo.list = Array.from(set);
+        console.log(LocalInfo.list)
+        localStorage.setItem("content", JSON.stringify(
+            new Content(LocalInfo.list, LocalInfo.status)))
+        this.render();
     },
-    update: function () {
-
+    update: function (key,text, time, status) {
+        let json = JSON.parse(LocalInfo.list[key]);
+        console.log(json);
+        json.text = text;
+        json.time = time;
+        json.status = status;
+        LocalInfo.list[key] = JSON.stringify(json)
+        localStorage.setItem("content", JSON.stringify(
+            new Content(LocalInfo.list, LocalInfo.status)))
+        this.render();
     },
-    remove: function () {
-
+    remove: function (key) {
+        let arr = LocalInfo.list;
+        let set = new Set(LocalInfo.list);
+        if(set.has(arr[key])){
+            set.delete(arr[key])
+            LocalInfo.list = Array.from(set)
+            localStorage.setItem("content", JSON.stringify(
+                new Content(LocalInfo.list, LocalInfo.status)))
+            this.render();
+        }
     },
     render: function () {
         let str = "";
         $(".todo_list_load").html(str);
+        let listArr = LocalInfo.list;
+        for (let item in listArr) {
+            let json = JSON.parse(listArr[item]);
+            str += "" +
+                "<div class='item'>" +
+                "<div class='item_time_create'>Дата создания события" +
+                dat_format(json.time_create) + "</div>" +
+                "<div class='item_time_event'>" +
+                "Дата события " +
+                dat_format(json.time) + "</div>" +
+                "<div class='item_status'>" +
+                "Статус : " + json.status + "</div>" +
+                "<div class='item_text'>" + json.text + "</div>" +
+                "<div class='item_setting'>" +
+                "<div class='item_edit' data-key='" + item + "'>Edit</div> " +
+                "<div class='item_remove' data-key='" + item + "'>Remove</div> " +
+                "</div>" +
+                "</div>";
+        }
         $(".todo_list_load").html(str);
     },
 
@@ -70,7 +109,8 @@ let EventStatus = {
         });
         $(".status_save").click(function () {
             let text = $(".status_text").val();
-            if (Valid.getTextAreaBlockError(".status_text", ".status_text_error")) {
+            if (Valid.getTextAreaBlockError(
+                ".status_text", ".status_text_error")) {
                 Status.add(text)
             }
         });
@@ -93,21 +133,79 @@ let EventTodoList = {
             $(".status").css("display", "block");
         });
         $(".todo_list_add_btn").click(function () {
-            let time = new Date($(".todo_list_time").val()).getTime();
-            console.log($(".todo_list_time").val() === "")
-            if (time) {
-                console.log("bitch!")
+            if (Valid.getTextAreaBlockError(
+                ".todo_list_text", ".todo_list_text_error") &
+                Valid.getTimeBlockError(
+                    ".todo_list_time", ".todo_list_time_error") &
+                Valid.statusCheck(
+                    ".status_select", ".status_select_error")) {
+
+                let text = Valid.textarea($(".todo_list_text").val());
+                let time = new Date($(".todo_list_time").val()).getTime()
+                let status = $(".status_select").val();
+                List.add(text, time, status);
+                Valid.clearInput(".todo_list_time")
+                Valid.clearInput(".todo_list_text")
+                $(".status_select").val(LocalInfo.base_value[0])
             }
         });
-        $(".todo_list_add").on('click', ".todo_list_time", function () {
-            let time = new Date($(".todo_list_time").val()).getTime();
-            List.selectTimeValid(time)
+        $(".todo_list_add").on('change', ".todo_list_time", function () {
+            Valid.getTimeBlockError(
+                ".todo_list_time", ".todo_list_time_error");
+        });
+        $(".todo_list_load").on('click',".item_edit",function () {
+            $(".overlay").css("display", "block");
+            $(".update").css("display", "block");
+            let key = $(this).attr("data-key");
+            let arr = LocalInfo.list;
+            let set = new Set(LocalInfo.list);
+            let json = JSON.parse(arr[key]);
+            //console.log(json)
+            if(set.has(arr[key])){
+                $(".update_time_create").html(dat_format_input(json.time_create))
+                $(".update_time").val(dat_format_input(json.time))
+                Status.load_status(".update_status_select");
+                $(".update_status_select").val(json.status)
+                $(".update_textarea").val(json.text)
+                $(".update_save").attr("data-key",key);
+            }
+        });
+        $(".todo_list_load").on('click',".item_remove",function () {
+            List.remove($(this).attr("data-key"));
         });
     }
 };
 let EventUpdate = {
     init: function () {
+        $(".update_exit").click(function () {
+            $(".overlay").css("display", "none");
+            $(".update").css("display", "none");
+        })
+        $(".update_save").click(function () {
+            let key = $(this).attr("data-key");
+            let time_create = new Date($(".update_time_create").html()).getTime()
+            if (Valid.getTextAreaBlockError(
+                ".update_textarea", ".update_textarea_error") &
+                Valid.getTimeBlockError(
+                    ".update_time", ".update_time_error", time_create) &
+                Valid.statusCheck(
+                    ".update_status_select", ".update_status_select_error")) {
+                let text = Valid.textarea($(".update_textarea").val());
+                let time = new Date($(".update_time").val()).getTime()
+                let status = $(".update_status_select").val();
+                List.update(key,text, time, status);
+                Valid.clearInput(".todo_list_time")
+                Valid.clearInput(".todo_list_text")
+                console.log("work")
+                $(".overlay").css("display", "none");
+                $(".update").css("display", "none");
+            }
 
+        })
+        $(".update").on('change', ".update_time", function () {
+            Valid.getTimeBlockError(
+                ".update_time", ".update_time_error");
+        });
     }
 };
 let Status = {
@@ -146,13 +244,17 @@ let Status = {
                     localStorage.setItem("content", JSON.stringify(
                         new Content(LocalInfo.list, LocalInfo.status)))
                     this.render();
-                    break;
+                    return;
                 }
             }
+
         }
+        //тут можно написать алекрт что значение не верно
+        //и можно написать вызов этой же функции (рекурсия)
+
     },
     render: function () {
-        this.load_status();
+        this.load_status(".status_select");
         let str = "";
         $(".status_load").html(str);
         let statusArr = LocalInfo.status;
@@ -172,9 +274,9 @@ let Status = {
         }
         $(".status_load").html(str);
     },
-    load_status: function () {
+    load_status: function (block) {
         let str = "";
-        $(".status_select").html(str);
+        $(block).html(str);
         let statusArr = LocalInfo.status;
         for (let item in statusArr) {
             if (item == 0) {
@@ -184,7 +286,7 @@ let Status = {
                 str += "<option>" + statusArr[item] + "</option>";
             }
         }
-        $(".status_select").html(str);
+        $(block).html(str);
     },
     renderValid: function (status) {
         if (new Set(LocalInfo.base_value).has(status)) {
@@ -195,15 +297,6 @@ let Status = {
 
 };
 let Valid = {
-    textValid: function (text, text_length) {
-        if (text.length > text_length) {
-            text = text.substr(0, text_length);
-        }
-        if (Escape.screen_conversely(text) === text) {
-            return Escape.screen(text);
-        }
-        return text;
-    },
     getTextAreaBlockError: function (block, block_error) {
         if ($(block).val() === "") {
             $(block_error).html("Заполните поле");
@@ -216,12 +309,13 @@ let Valid = {
         }
     },
     ///////////////////////
-/*
-использовать методы для валидации
- */
+    /*
+    использовать методы для валидации
+     */
     time: function (time, time_create) {
-        let min = new Date("2018-09-01").getTime();
-        let max = new Date("2023-09-01").getTime();
+        let min = new Date("2018-09-01T00:00").getTime();
+        let max = new Date("2023-09-01T00:00").getTime();
+
         if (!isNaN(time) && !isNaN(time_create) &&
             time < max && time_create < max &&
             min < time && min < time_create &&
@@ -231,7 +325,9 @@ let Valid = {
         return false;
     },
     getTimeBlockError: function (block_time,
-                                 block_time_error, time_create = null) {
+                                 block_time_error,
+                                 time_create = null) {
+        console.log($(block_time).val(),time_create)
         if (time_create === null) {
             time_create = new Date().getTime();
         }
@@ -249,7 +345,7 @@ let Valid = {
         $(block_time).removeClass("error");
         return true;
     },
-    textarea: function (text,text_length) {
+    textarea: function (text, text_length) {
         if (text.length > text_length) {
             text = text.substr(0, text_length);
         }
@@ -266,6 +362,31 @@ let Valid = {
     clearDiv: function (block) {
         $(block).html("");
     },
+    statusCheck: function (block_status, block_status_error) {
+        let set = new Set(LocalInfo.status);
+        if (set.has($(block_status).val())) {
+            $(block_status_error).html("")
+            $(block_status).removeClass("error")
+            return true;
+        }
+        else {
+            $(block_status).addClass("error")
+            $(block_status_error).html("Таково статуса не существует!")
+            return false;
+        }
+
+    },
+    render: function (json) {
+        // console.log(this.time(json.time, json.time_create)&&
+        //     !Status.renderValid(json.status))
+        if (this.time(json.time, json.time_create)&&
+            !Status.renderValid(json.status)) {
+            json.text = this.textarea(json.text,200);
+            return json;
+        }
+        return true;
+
+    }
 };
 let Escape = {
     screen: function (str) {
@@ -300,9 +421,25 @@ let Events = {
         EventUpdate.init();
     }
 };
-let obj = function (time, time_create, text, status) {
-    this.time = time;
-    this.time_create = time_create;
-    this.text = text;
-    this.status = status;
+let f_Date = function (str) {
+    str += "";
+    if (str.length === 1) {
+        return "0" + str;
+    } else {
+        return str;
+    }
+};
+let dat_format_input = function (t) {
+    return new Date(t).getFullYear() + "-" +
+        f_Date(new Date(t).getMonth() + 1) + "-" +
+        f_Date(new Date(t).getDate()) + "T" +
+        f_Date(new Date(t).getHours()) + ":" +
+        f_Date(new Date(t).getMinutes());
+};
+let dat_format = function (t) {
+    return f_Date(new Date(t).getDate()) + "-" +
+        f_Date(new Date(t).getMonth() + 1) + "-" +
+        new Date(t).getFullYear() + " " +
+        f_Date(new Date(t).getHours()) + ":" +
+        f_Date(new Date(t).getMinutes());
 };

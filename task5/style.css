@@ -153,7 +153,7 @@ div {
     cursor: pointer;
 }
 
-.status_text_error, .todo_list_time_error {
+.status_text_error, .todo_list_time_error, .todo_list_text_error {
     font-size: 11pt;
     color: red;
 }
@@ -167,23 +167,92 @@ div {
     overflow-y: hidden;
     height: 100px;
     margin: 12px 20px;
-    width: calc(100% - 110px);
+    width: 100%;
     display: inline-table;
     word-wrap: break-word;
-    border: 0;
 }
 
 .todo_list_add {
     margin: 10px 0;
+    position: relative;
 }
 
 .todo_list_add_btn {
-    left: -20px;
-    top: 12px;
+    right: 30px;
+    top: 40px;
     height: 50px;
     background: #27BFDD;
     width: 50px;
     position: relative;
     float: right;
     cursor: pointer;
+}
+
+.textarea_block {
+    float: left;
+    width: calc(100% - 110px);
+}
+.m-20{
+    margin: 0 20px;
+}
+.item {
+    margin: 10px 20px;
+    position: relative;
+}
+.item_text{
+    word-wrap: break-word;
+    margin: 20px 0;
+}
+.item_setting{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.item_edit , .item_remove{
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px;
+}
+.item_edit{
+    background: yellow;
+}
+.item_remove{
+    background: red;
+}
+.update{
+    top: 10px;
+    width: 360px;
+    display: none;
+    margin-left: -180px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    background-color: #fff;
+    z-index: 100;
+}
+.update_textarea{
+    overflow-y: hidden;
+    height: 100px;
+    width: 100%;
+    display: inline-table;
+    word-wrap: break-word;
+}
+.update_button{
+    height: 60px;
+}
+.update_save , .update_exit{
+    padding: 10px;
+    background: #98F2C8;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+.update_save {
+    float: left;
+}
+.update_exit{
+    float: right;
 }
