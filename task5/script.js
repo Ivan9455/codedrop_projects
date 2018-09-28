@@ -1,13 +1,32 @@
+let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3NjYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidGV4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVwiLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzODA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxcInRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1widGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1MzgwNTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwiNVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMiLCIyIiwiMSIsIjQiLCI1Il19"
+
 $(document).ready(function () {
     LocalInfo.init();
     List.render();
     Status.render();
     Events.init();
-    let test1 = JSON.parse(localStorage.getItem("content"))
-    let test2 = localStorage.getItem("content")
-    console.log(window.btoa(test2))
-    let  z = window.btoa(test1)
-    console.log(window.atob(z))
+    //console.log(JSON.parse(localStorage.getItem("content")))
+    let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3NjYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidGV4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVwiLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzODA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxcInRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1widGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1MzgwNTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwiNVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMiLCIyIiwiMSIsIjQiLCI1Il19"
+    let test = window.btoa(localStorage.getItem("content"))
+    console.log(test)
+    console.log(window.atob(test))
+    //localStorage.setItem("content",window.atob(content))
+    // if(window.loc
+    // ation.search.length!==0){
+    //     let str = window.location.search;
+    //     console.log(str)
+    //     str = str.slice(1)
+    //     console.log(str)
+    //     console.log(window.atob(str))
+    //     //str = atob(str);
+    // }
+
+    console.log(localStorage.getItem("content"))
+    // let w = window.location.href;
+    // //window.location.href = w +"?"+ window.btoa(localStorage.getItem("content"))
+    // console.log(w +"?"+ window.btoa(localStorage.getItem("content")))
+    //
+    // console.log(w.search("?"))
     // var txt = "I Love JavaScript!";
     // var result = "Исходная строка: " + txt;
     // var result = "<br />";
@@ -18,6 +37,12 @@ $(document).ready(function () {
     // result +="Декодированная строка: " + decode;
     // console.log(result);
 });
+let url = function () {
+    let w = window.location.href;
+    let str = "";
+    str += "<a href='" + "'></a>"
+    $(".url").html()
+}
 let obj = function (time, time_create, text, status) {
     this.time = time;
     this.time_create = time_create;
@@ -31,7 +56,11 @@ let LocalInfo = {
     status: [],
     init: function () {
         let content = JSON.parse(localStorage.getItem("content"));
-        if (localStorage.getItem("content") === null ||
+        if (window.location.search.length !== 0) {
+            let str = window.location.search;
+            str = str.slice(1)
+            localStorage.setItem("content", window.atob(str))
+        } else if (localStorage.getItem("content") === null ||
             content === null ||
             content.list === "undefined" ||
             content.status === "undefined") {
@@ -59,7 +88,7 @@ let List = {
             new Content(LocalInfo.list, LocalInfo.status)))
         this.render();
     },
-    update: function (key,text, time, status) {
+    update: function (key, text, time, status) {
         let json = JSON.parse(LocalInfo.list[key]);
         console.log(json);
         json.text = text;
@@ -73,7 +102,7 @@ let List = {
     remove: function (key) {
         let arr = LocalInfo.list;
         let set = new Set(LocalInfo.list);
-        if(set.has(arr[key])){
+        if (set.has(arr[key])) {
             set.delete(arr[key])
             LocalInfo.list = Array.from(set)
             localStorage.setItem("content", JSON.stringify(
@@ -163,23 +192,23 @@ let EventTodoList = {
             Valid.getTimeBlockError(
                 ".todo_list_time", ".todo_list_time_error");
         });
-        $(".todo_list_load").on('click',".item_edit",function () {
+        $(".todo_list_load").on('click', ".item_edit", function () {
             $(".overlay").css("display", "block");
             $(".update").css("display", "block");
             let key = $(this).attr("data-key");
             let arr = LocalInfo.list;
             let set = new Set(LocalInfo.list);
             let json = JSON.parse(arr[key]);
-            if(set.has(arr[key])){
+            if (set.has(arr[key])) {
                 $(".update_time_create").html(dat_format_input(json.time_create))
                 $(".update_time").val(dat_format_input(json.time))
                 Status.load_status(".update_status_select");
                 $(".update_status_select").val(json.status)
                 $(".update_textarea").val(json.text)
-                $(".update_save").attr("data-key",key);
+                $(".update_save").attr("data-key", key);
             }
         });
-        $(".todo_list_load").on('click',".item_remove",function () {
+        $(".todo_list_load").on('click', ".item_remove", function () {
             List.remove($(this).attr("data-key"));
         });
     }
@@ -202,7 +231,7 @@ let EventUpdate = {
                 let text = Valid.textarea($(".update_textarea").val());
                 let time = new Date($(".update_time").val()).getTime()
                 let status = $(".update_status_select").val();
-                List.update(key,text, time, status);
+                List.update(key, text, time, status);
                 Valid.clearInput(".todo_list_time")
                 Valid.clearInput(".todo_list_text")
                 $(".overlay").css("display", "none");
@@ -328,7 +357,7 @@ let Valid = {
     getTimeBlockError: function (block_time,
                                  block_time_error,
                                  time_create = null) {
-        console.log($(block_time).val(),time_create)
+        console.log($(block_time).val(), time_create)
         if (time_create === null) {
             time_create = new Date().getTime();
         }
@@ -378,9 +407,9 @@ let Valid = {
 
     },
     render: function (json) {
-        if (this.time(json.time, json.time_create)&&
+        if (this.time(json.time, json.time_create) &&
             !Status.renderValid(json.status)) {
-            json.text = this.textarea(json.text,200);
+            json.text = this.textarea(json.text, 200);
             return json;
         }
         return true;
@@ -418,6 +447,13 @@ let Events = {
         EventStatus.init();
         EventTodoList.init();
         EventUpdate.init();
+        $(".url_generate").click(function () {
+            let str = window.location.host
+                + window.location.pathname
+                + "?" + window.btoa(localStorage.getItem("content"))
+            console.log(str)
+            prompt("Скопируйте", str)
+        })
     }
 };
 let f_Date = function (str) {
@@ -442,3 +478,5 @@ let dat_format = function (t) {
         f_Date(new Date(t).getHours()) + ":" +
         f_Date(new Date(t).getMinutes());
 };
+
+

@@ -14,16 +14,17 @@ div {
     /*border:  1px solid black;*/
 }
 
-.menu, .btn_status {
+.menu, .btn_status, .url_generate {
     height: 40px;
 }
 
-.btn_status {
+.btn_status, .url_generate {
     line-height: 40px;
     text-align: center;
     width: 120px;
     background: #6CA5DD;
     cursor: pointer;
+    float: left;
 }
 
 .status {
@@ -192,36 +193,44 @@ div {
     float: left;
     width: calc(100% - 110px);
 }
-.m-20{
+
+.m-20 {
     margin: 0 20px;
 }
+
 .item {
     margin: 10px 20px;
     position: relative;
 }
-.item_text{
+
+.item_text {
     word-wrap: break-word;
     margin: 20px 0;
 }
-.item_setting{
+
+.item_setting {
     position: absolute;
     top: 0;
     right: 0;
 }
-.item_edit , .item_remove{
+
+.item_edit, .item_remove {
     cursor: pointer;
     padding: 5px;
     text-align: center;
     border-radius: 4px;
     margin: 5px;
 }
-.item_edit{
+
+.item_edit {
     background: yellow;
 }
-.item_remove{
+
+.item_remove {
     background: red;
 }
-.update{
+
+.update {
     top: 10px;
     width: 360px;
     display: none;
@@ -232,17 +241,20 @@ div {
     background-color: #fff;
     z-index: 100;
 }
-.update_textarea{
+
+.update_textarea {
     overflow-y: hidden;
     height: 100px;
     width: 100%;
     display: inline-table;
     word-wrap: break-word;
 }
-.update_button{
+
+.update_button {
     height: 60px;
 }
-.update_save , .update_exit{
+
+.update_save, .update_exit {
     padding: 10px;
     background: #98F2C8;
     cursor: pointer;
@@ -250,9 +262,12 @@ div {
     border-radius: 5px;
     margin: 5px auto;
 }
+
 .update_save {
     float: left;
 }
-.update_exit{
+
+.update_exit {
     float: right;
 }
+
