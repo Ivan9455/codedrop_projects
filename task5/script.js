@@ -1,48 +1,30 @@
-let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3NjYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidGV4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVwiLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzODA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxcInRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1widGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1MzgwNTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwiNVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMiLCIyIiwiMSIsIjQiLCI1Il19"
+// let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3Nj" +
+//     "YwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidG" +
+//     "V4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl" +
+//     "2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jc" +
+//     "mVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVw" +
+//     "iLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzO" +
+//     "DA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxc" +
+//     "InRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1wi" +
+//     "dGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1Mzgw" +
+//     "NTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwi" +
+//     "NVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMi" +
+//     "LCIyIiwiMSIsIjQiLCI1Il19";
+
+function $_GET(key) {
+    var p = window.location.search;
+    p = p.match(new RegExp(key + '=([^&=]+)'));
+    return p ? p[1] : false;
+}
 
 $(document).ready(function () {
     LocalInfo.init();
     List.render();
     Status.render();
     Events.init();
-    //console.log(JSON.parse(localStorage.getItem("content")))
-    let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3NjYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidGV4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVwiLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzODA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxcInRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1widGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1MzgwNTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwiNVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMiLCIyIiwiMSIsIjQiLCI1Il19"
-    let test = window.btoa(localStorage.getItem("content"))
-    console.log(test)
-    console.log(window.atob(test))
-    //localStorage.setItem("content",window.atob(content))
-    // if(window.loc
-    // ation.search.length!==0){
-    //     let str = window.location.search;
-    //     console.log(str)
-    //     str = str.slice(1)
-    //     console.log(str)
-    //     console.log(window.atob(str))
-    //     //str = atob(str);
-    // }
 
-    console.log(localStorage.getItem("content"))
-    // let w = window.location.href;
-    // //window.location.href = w +"?"+ window.btoa(localStorage.getItem("content"))
-    // console.log(w +"?"+ window.btoa(localStorage.getItem("content")))
-    //
-    // console.log(w.search("?"))
-    // var txt = "I Love JavaScript!";
-    // var result = "Исходная строка: " + txt;
-    // var result = "<br />";
-    // var encode = window.btoa(txt);
-    // result += "Закодированная строка: " + encode;
-    // result += "<br />";
-    // var decode = window.atob(encode);
-    // result +="Декодированная строка: " + decode;
-    // console.log(result);
 });
-let url = function () {
-    let w = window.location.href;
-    let str = "";
-    str += "<a href='" + "'></a>"
-    $(".url").html()
-}
+
 let obj = function (time, time_create, text, status) {
     this.time = time;
     this.time_create = time_create;
@@ -56,11 +38,12 @@ let LocalInfo = {
     status: [],
     init: function () {
         let content = JSON.parse(localStorage.getItem("content"));
-        if (window.location.search.length !== 0) {
-            let str = window.location.search;
-            str = str.slice(1)
-            localStorage.setItem("content", window.atob(str))
-        } else if (localStorage.getItem("content") === null ||
+        if($_GET("content")!==false){
+            let str = $_GET("content");
+            localStorage.setItem("content",decodeURI(str));
+            //console.log(str)
+        }else
+            if (localStorage.getItem("content") === null ||
             content === null ||
             content.list === "undefined" ||
             content.status === "undefined") {
@@ -450,7 +433,7 @@ let Events = {
         $(".url_generate").click(function () {
             let str = window.location.host
                 + window.location.pathname
-                + "?" + window.btoa(localStorage.getItem("content"))
+                + "?content=" + encodeURI(localStorage.getItem("content"))
             console.log(str)
             prompt("Скопируйте", str)
         })
