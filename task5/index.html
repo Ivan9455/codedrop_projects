@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Local Storage</title>
+    <link rel="stylesheet" href="bootstrap-grid.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="status">
+    <div class="status_add">
+        <div class="status_exit">
+            <div class="status_exit_button"></div>
+        </div>
+        <label>Статус<br>
+            <input type="text" class="status_text" maxlength="32">
+            <div class="status_text_error"></div>
+        </label>
+        <div class="status_save">Save</div>
+    </div>
+    <div class="status_load"></div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="todo_list col-12 m-20">
+            <div class="menu">
+                <div class="btn_status">Статус</div>
+                <div class="url_generate">Get Url</div>
+                <div class="clear_local">Clear_local</div>
+            </div>
+        </div>
+        <div class="todo_list_add col-12">
+            <input type="datetime-local" class="todo_list_time m-20"
+                   min="2018-09-01T00:00" max="2021-09-01T00:00">
+            <div class="todo_list_time_error m-20"></div>
+            <div class="status_select_block m-20">
+                <select class="status_select"></select>
+                <div class="status_select_error"></div>
+            </div><br>
+            <div class="textarea_block">
+                <textarea class="todo_list_text" maxlength="200"></textarea>
+                <div class="todo_list_text_error"></div>
+            </div>
+            <div class="todo_list_add_btn"></div>
+        </div>
+        <div class="todo_list_load col-12">
+
+        </div>
+    </div>
+</div>
+<div class="update col-12">
+    <div class="update_time_create"></div>
+    <div class="update_time_block">
+        <input type="datetime-local" class="update_time"
+               min="2018-09-01T00:00" max="2021-09-01T00:00">
+        <div class="update_time_error"></div>
+    </div>
+    <div class="status_block">
+        <select class="update_status_select"></select>
+        <div class="update_status_select_error"></div>
+    </div>
+    <div class="text_block">
+        <textarea class="update_textarea" maxlength="200"></textarea>
+        <div class="update_textarea_error"></div>
+    </div>
+    <div class="update_button">
+        <div class="update_save">Save</div>
+        <div class="update_exit">Exit</div>
+    </div>
+</div>
+<div class="overlay"></div>
+<div class="url"></div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+    min-width: 360px;
+    background: #AEC1C6;
+}
+
+div {
+    box-sizing: border-box;
+    /*border:  1px solid black;*/
+}
+
+.menu, .btn_status, .url_generate {
+    height: 40px;
+}
+
+.btn_status, .url_generate ,.clear_local{
+    line-height: 40px;
+    text-align: center;
+    width: 120px;
+    background: #6CA5DD;
+    cursor: pointer;
+    float: left;
+}
+
+.status {
+    top: 10px;
+    width: 360px;
+    display: none;
+    margin-left: -180px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    background-color: #fff;
+    z-index: 100;
+}
+
+.overlay {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.73);
+    z-index: 50;
+}
+
+.status_add label {
+    height: 85px;
+    display: block;
+}
+
+.status_save {
+    width: 200px;
+    margin: 0 auto;
+    background: #98F2A5;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 30px;
+}
+
+.status_text {
+    width: 240px;
+    margin: 10px;
+}
+
+.status_load {
+    margin: 20px 0;
+}
+
+/*/////////////////////exit////////////////////////*/
+.status_exit {
+    height: 40px;
+}
+
+.status_exit_button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.status_exit_button:hover {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.status_exit_button::before,
+.status_exit_button::after {
+    content: "";
+    position: absolute;
+    top: 14px;
+    right: 1px;
+    width: 30px;
+    height: 4px;
+    background-color: black;
+    border-radius: 2px;
+}
+
+.status_exit_button::before {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.status_exit_button::after {
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+/*/////////////////////////////////////////////*/
+.status_item {
+    height: 50px;
+}
+
+.select_item_text,
+.status_item_edit,
+.status_item_remove {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    margin: 10px;
+    border-radius: 8px;
+}
+
+.select_item_text {
+    width: 180px;
+    text-align: left;
+    text-indent: 20px;
+}
+
+.status_item_edit {
+    width: 60px;
+    background: #E1F24C;
+}
+
+.status_item_remove {
+    width: 60px;
+    background: #F23426;
+}
+
+.status_item_edit,
+.status_item_remove {
+    cursor: pointer;
+}
+
+.status_text_error, .todo_list_time_error, .todo_list_text_error {
+    font-size: 11pt;
+    color: red;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+/*///////////todolist///////////*/
+.todo_list_text {
+    overflow-y: hidden;
+    height: 100px;
+    margin: 12px 20px;
+    width: 100%;
+    display: inline-table;
+    word-wrap: break-word;
+}
+
+.todo_list_add {
+    margin: 10px 0;
+    position: relative;
+}
+
+.todo_list_add_btn {
+    right: 30px;
+    top: 40px;
+    height: 50px;
+    background: #27BFDD;
+    width: 50px;
+    position: relative;
+    float: right;
+    cursor: pointer;
+}
+
+.textarea_block {
+    float: left;
+    width: calc(100% - 110px);
+}
+
+.m-20 {
+    margin: 0 20px;
+}
+
+.item {
+    margin: 10px 20px;
+    position: relative;
+}
+
+.item_text {
+    word-wrap: break-word;
+    margin: 20px 0;
+}
+
+.item_setting {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.item_edit, .item_remove {
+    cursor: pointer;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+    margin: 5px;
+}
+
+.item_edit {
+    background: yellow;
+}
+
+.item_remove {
+    background: red;
+}
+
+.update {
+    top: 10px;
+    width: 360px;
+    display: none;
+    margin-left: -180px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    background-color: #fff;
+    z-index: 100;
+}
+
+.update_textarea {
+    overflow-y: hidden;
+    height: 100px;
+    width: 100%;
+    display: inline-table;
+    word-wrap: break-word;
+}
+
+.update_button {
+    height: 60px;
+}
+
+.update_save, .update_exit {
+    padding: 10px;
+    background: #98F2C8;
+    cursor: pointer;
+    width: 100px;
+    border-radius: 5px;
+    margin: 5px auto;
+}
+
+.update_save {
+    float: left;
+}
+
+.update_exit {
+    float: right;
+}
+
