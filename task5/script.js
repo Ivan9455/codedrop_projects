@@ -22,7 +22,6 @@ $(document).ready(function () {
     List.render();
     Status.render();
     Events.init();
-
 });
 
 let obj = function (time, time_create, text, status) {
@@ -38,21 +37,32 @@ let LocalInfo = {
     status: [],
     init: function () {
         let content = JSON.parse(localStorage.getItem("content"));
-        if($_GET("content")!==false){
-            let str = $_GET("content");
-            localStorage.setItem("content",decodeURI(str));
-            //console.log(str)
-        }else
-            if (localStorage.getItem("content") === null ||
+
+        if (localStorage.getItem("content") === null ||
             content === null ||
             content.list === "undefined" ||
             content.status === "undefined") {
             localStorage.setItem("content", JSON.stringify(new Content([], this.base_value)))
             content = JSON.parse(localStorage.getItem("content"));
+
+        } else if ($_GET("content") !== false) {
+            localStorage.clear();
+            let str = $_GET("content");
+            localStorage.setItem("content", decodeURI(str));
+            List.render();
+            Status.render();
+            Events.init();
+            if(localStorage.getItem("reload")!=="true"){
+                document.location.search=""
+                localStorage.setItem("reload",true);
+            }
         }
         this.list = content.list;
         this.status = this.statusValid(content.status);
-        console.log(JSON.parse(localStorage.getItem("content")))
+
+        //console.log(JSON.parse(localStorage.getItem("content")))
+
+
     },
     statusValid: function (status) {
         for (let item in status) {
@@ -436,6 +446,11 @@ let Events = {
                 + "?content=" + encodeURI(localStorage.getItem("content"))
             console.log(str)
             prompt("Скопируйте", str)
+        })
+        $(".clear_local").click(function () {
+            localStorage.clear();
+            window.location.search = "";
+            window.location.href = "";
         })
     }
 };

@@ -18,7 +18,7 @@ div {
     height: 40px;
 }
 
-.btn_status, .url_generate {
+.btn_status, .url_generate ,.clear_local{
     line-height: 40px;
     text-align: center;
     width: 120px;
