@@ -120,7 +120,7 @@ div {
 
 /*/////////////////////////////////////////////*/
 .status_item {
-    height: 50px;
+    display: inline-flex;
 }
 
 .select_item_text,
@@ -136,7 +136,8 @@ div {
 .select_item_text {
     width: 180px;
     text-align: left;
-    text-indent: 20px;
+    word-break: break-word;
+    height: 100%;
 }
 
 .status_item_edit {

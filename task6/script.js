@@ -30,8 +30,15 @@ let obj = function (time, time_create, text, status) {
     this.text = text;
     this.status = status;
 };
+let stobj = function (name, color) {
+    this.name = name
+    this.color = color
+}
 let LocalInfo = {
-    base_value: ["active", "complete"],
+    base_value: [
+        JSON.stringify(new stobj("active", "#F2CA2B")),
+        JSON.stringify(new stobj("complete", "#74F251"))
+    ],
     list: [],
     list_id: 0,
     status: [],
@@ -52,13 +59,13 @@ let LocalInfo = {
             List.render();
             Status.render();
             Events.init();
-            if(localStorage.getItem("reload")!=="true"){
-                document.location.search=""
-                localStorage.setItem("reload",true);
+            if (localStorage.getItem("reload") !== "true") {
+                document.location.search = ""
+                localStorage.setItem("reload", true);
             }
         }
         this.list = content.list;
-        this.status = this.statusValid(content.status);
+        this.status = content.status;
 
         //console.log(JSON.parse(localStorage.getItem("content")))
 
@@ -286,17 +293,20 @@ let Status = {
         $(".status_load").html(str);
         let statusArr = LocalInfo.status;
         for (let item in statusArr) {
+            let json = JSON.parse(statusArr[item])
+            console.log(JSON.parse(statusArr[item]))
             str += "" +
-                "<div class='status_item'>" +
+                "<div class='status_item' style='background: " +json.color + "'>" +
                 "<div class='select_item_text'>" +
-                statusArr[item] +
+                json.name +
                 "</div>";
-            if (this.renderValid(statusArr[item])) {
-                str += "<div class='status_item_edit' " +
-                    "data-key='" + statusArr[item] + "'>Edit</div>" +
-                    "<div class='status_item_remove' " +
-                    "data-key='" + statusArr[item] + "'>Remove</div>";
+            if (this.renderValid(json)) {
+
             }
+            str += "<div class='status_item_edit' " +
+                "data-key='" + statusArr[item] + "'>Edit</div>" +
+                "<div class='status_item_remove' " +
+                "data-key='" + statusArr[item] + "'>Remove</div>";
             str += "</div>";
         }
         $(".status_load").html(str);
