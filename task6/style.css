@@ -51,7 +51,7 @@ div {
 }
 
 .status_add label {
-    height: 85px;
+    height: 100px;
     display: block;
 }
 
@@ -120,7 +120,9 @@ div {
 
 /*/////////////////////////////////////////////*/
 .status_item {
+    box-sizing: border-box;
     display: inline-flex;
+    width: 100%;
 }
 
 .select_item_text,
@@ -155,7 +157,10 @@ div {
     cursor: pointer;
 }
 
-.status_text_error, .todo_list_time_error, .todo_list_text_error {
+.status_text_error,
+.todo_list_time_error,
+.todo_list_text_error ,
+.status_color_error{
     font-size: 11pt;
     color: red;
 }

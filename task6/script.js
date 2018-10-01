@@ -147,10 +147,10 @@ let EventStatus = {
 
         });
         $(".status_save").click(function () {
-            let text = $(".status_text").val();
             if (Valid.getTextAreaBlockError(
-                ".status_text", ".status_text_error")) {
-                Status.add(text)
+                ".status_text", ".status_text_error") &
+                Valid.colorCheck(".status_color", ".status_color_error")) {
+                Status.add($(".status_text").val(), $(".status_color").val())
             }
         });
         $(".status").on('click', ".status_item_remove", function () {
@@ -159,9 +159,7 @@ let EventStatus = {
         });
         $(".status").on('click', ".status_item_edit", function () {
             let old_text = $(this).attr("data-key");
-            let new_text = prompt('Ведите новое заначение.');
-            console.log(new_text)
-            Status.update(old_text, new_text);
+            Status.update(old_text);
         });
     }
 };
@@ -246,33 +244,58 @@ let EventUpdate = {
     }
 };
 let Status = {
-    add: function (text) {
+    colors: function () {
+        let str = LocalInfo.status;
+        let color = new Set();
+        for (let item in str) {
+            color.add(JSON.parse(str[item]).color)
+        }
+        return color;
+    },
+    text: function () {
+        let str = LocalInfo.status;
+        let name = new Set();
+        for (let item in str) {
+            name.add(JSON.parse(str[item]).name)
+        }
+        return name;
+    },
+    add: function (text, color) {
+
         let str = new Set(LocalInfo.status);
-        if (str.has(text)) {
+        //(Valid.statusNameCheck(text)
+        if (this.text().has(text)) {
             $(".status_text_error").html("Такой статус уже есть!");
             $(".status_text").addClass("error");
+        } else if (this.colors().has(color)) {
+            $(".status_color_error").html("Такой цвет уже есть!");
+            $(".status_color").addClass("error");
         }
         else {
             Valid.clearInput(".status_text");
             Valid.clearDiv(".status_text_error");
-            str.add(Escape.screen(text))
+            Valid.clearInput(".status_color");
+            Valid.clearDiv(".status_color_error");
+            str.add(JSON.stringify(new stobj(text, color)))
             LocalInfo.status = Array.from(str);
             localStorage.setItem("content", JSON.stringify(
                 new Content(LocalInfo.list, LocalInfo.status)))
             this.render();
         }
     },
-    remove: function (text) {
-        let str = new Set(LocalInfo.status);
-        str.delete(text)
-        LocalInfo.status = Array.from(str);
+    remove: function (key) {
+        let obj = new Set(LocalInfo.status);
+        let objdel = LocalInfo.status[key];
+        obj.delete(objdel);
+        LocalInfo.status = Array.from(obj);
         localStorage.setItem("content", JSON.stringify(
             new Content(LocalInfo.list, LocalInfo.status)))
         this.render();
     },
-    update: function (old_text, new_text) {
+    update: function (old_text) {
+        let new_text = prompt('Ведите новое заначение.');
         let str = new Set(LocalInfo.status);
-        if (!str.has(new_text) && new_text !== null) {
+        if (!str.has(new_text) && new_text !== null && new_text !== "") {
             let arr = LocalInfo.status;
             for (let item in arr) {
                 if (arr[item] === old_text) {
@@ -284,7 +307,9 @@ let Status = {
                     return;
                 }
             }
-
+        }
+        else {
+            this.update(old_text);
         }
     },
     render: function () {
@@ -294,19 +319,17 @@ let Status = {
         let statusArr = LocalInfo.status;
         for (let item in statusArr) {
             let json = JSON.parse(statusArr[item])
-            console.log(JSON.parse(statusArr[item]))
             str += "" +
-                "<div class='status_item' style='background: " +json.color + "'>" +
+                "<div class='status_item' style='border: 8px solid " + json.color + "'>" +
                 "<div class='select_item_text'>" +
                 json.name +
                 "</div>";
             if (this.renderValid(json)) {
-
+                str += "<div class='status_item_edit' " +
+                    "data-key='" + item + "'>Edit</div>" +
+                    "<div class='status_item_remove' " +
+                    "data-key='" + item + "'>Remove</div>";
             }
-            str += "<div class='status_item_edit' " +
-                "data-key='" + statusArr[item] + "'>Edit</div>" +
-                "<div class='status_item_remove' " +
-                "data-key='" + statusArr[item] + "'>Remove</div>";
             str += "</div>";
         }
         $(".status_load").html(str);
@@ -316,17 +339,18 @@ let Status = {
         $(block).html(str);
         let statusArr = LocalInfo.status;
         for (let item in statusArr) {
+            let json = JSON.parse(statusArr[item])
             if (item == 0) {
-                str += "<option selected>" + statusArr[item] + "</option>";
+                str += "<option selected >" + json.name + "</option>";
             }
             else {
-                str += "<option>" + statusArr[item] + "</option>";
+                str += "<option >" + json.name + "</option>";
             }
         }
         $(block).html(str);
     },
     renderValid: function (status) {
-        if (new Set(LocalInfo.base_value).has(status)) {
+        if (new Set(LocalInfo.base_value).has(JSON.stringify(status))) {
             return false;
         }
         return true;
@@ -409,6 +433,18 @@ let Valid = {
         }
 
     },
+    colorCheck: function (color, color_error) {
+        if ($(color).val() === "#000000") {
+            $(color_error).html("Не выбран цвет!");
+            $(color).addClass("error");
+            return false;
+        }
+        else {
+            this.clearDiv(color_error);
+            this.clearInput(color);
+            return true;
+        }
+    },
     render: function (json) {
         if (this.time(json.time, json.time_create) &&
             !Status.renderValid(json.status)) {
@@ -416,8 +452,18 @@ let Valid = {
             return json;
         }
         return true;
+    },
+    // statusNameCheck:function (status_text) {
+    //     let arr =  LocalInfo.status;
+    //     for (let item in arr) {
+    //         let json = arr[item];
+    //         if(json.name===status_text){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // },
 
-    }
 };
 let Escape = {
     screen: function (str) {
