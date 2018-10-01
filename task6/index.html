@@ -8,6 +8,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="status_up">
+    <input class="status_up_text" type="text">
+    <div class="status_up_text_error"></div>
+    <input class="status_up_color" type="color">
+    <div class="status_up_color_error"></div>
+    <div class="status_up_save"></div>
+</div>
 <div class="status">
     <div class="status_add">
         <div class="status_exit">
@@ -62,6 +69,10 @@
         <select class="update_status_select"></select>
         <div class="update_status_select_error"></div>
     </div>
+    <div class="status_color_block">
+        <input type="color" class="update_color" disabled>
+        <div class="update_color_error"></div>
+    </div>
     <div class="text_block">
         <textarea class="update_textarea" maxlength="200"></textarea>
         <div class="update_textarea_error"></div>
@@ -72,7 +83,6 @@
     </div>
 </div>
 <div class="overlay"></div>
-<div class="url"></div>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="script.js"></script>
 </body>

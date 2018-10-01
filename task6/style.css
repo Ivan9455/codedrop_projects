@@ -160,7 +160,8 @@ div {
 .status_text_error,
 .todo_list_time_error,
 .todo_list_text_error ,
-.status_color_error{
+.status_color_error,
+.status_select_error{
     font-size: 11pt;
     color: red;
 }
@@ -277,3 +278,15 @@ div {
     float: right;
 }
 
+/*status_up*/
+.status_up{
+    top: 100px;
+    width: 360px;
+    display: none;
+    margin-left: -180px;
+    left: 50%;
+    position: absolute;
+    text-align: center;
+    background-color: #fff;
+    z-index: 100;
+}

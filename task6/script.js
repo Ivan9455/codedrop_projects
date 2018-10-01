@@ -44,7 +44,6 @@ let LocalInfo = {
     status: [],
     init: function () {
         let content = JSON.parse(localStorage.getItem("content"));
-
         if (localStorage.getItem("content") === null ||
             content === null ||
             content.list === "undefined" ||
@@ -116,15 +115,17 @@ let List = {
         let listArr = LocalInfo.list;
         for (let item in listArr) {
             let json = JSON.parse(listArr[item]);
+            let status = JSON.parse(String(json.status));
+            //console.log(status)
             str += "" +
-                "<div class='item'>" +
+                "<div class='item' style='border: 8px solid " + status.color + "'>" +
                 "<div class='item_time_create'>Дата создания события" +
                 dat_format(json.time_create) + "</div>" +
                 "<div class='item_time_event'>" +
                 "Дата события " +
                 dat_format(json.time) + "</div>" +
                 "<div class='item_status'>" +
-                "Статус : " + json.status + "</div>" +
+                "Статус : " + status.name + "</div>" +
                 "<div class='item_text'>" + json.text + "</div>" +
                 "<div class='item_setting'>" +
                 "<div class='item_edit' data-key='" + item + "'>Edit</div> " +
@@ -149,7 +150,8 @@ let EventStatus = {
         $(".status_save").click(function () {
             if (Valid.getTextAreaBlockError(
                 ".status_text", ".status_text_error") &
-                Valid.colorCheck(".status_color", ".status_color_error")) {
+                Valid.colorCheck(".status_color",
+                    ".status_color_error",$(".status_text").val())) {
                 Status.add($(".status_text").val(), $(".status_color").val())
             }
         });
@@ -158,8 +160,10 @@ let EventStatus = {
             Status.remove(key);
         });
         $(".status").on('click', ".status_item_edit", function () {
-            let old_text = $(this).attr("data-key");
-            Status.update(old_text);
+            $(".status_up").css("display", "block")
+            $(".update").css("display", "none")
+            let key = $(this).attr("data-key");
+            Status.update(key);
         });
     }
 };
@@ -179,8 +183,15 @@ let EventTodoList = {
 
                 let text = Valid.textarea($(".todo_list_text").val());
                 let time = new Date($(".todo_list_time").val()).getTime()
-                let status = $(".status_select").val();
-                List.add(text, time, status);
+                let status_val = $(".status_select").val();
+                let res = []
+                for (let item in LocalInfo.status) {
+                    if (status_val === JSON.parse(LocalInfo.status[item]).name) {
+                        res = LocalInfo.status[item]
+                    }
+                }
+                console.log(res.name)
+                List.add(text, time, res);
                 Valid.clearInput(".todo_list_time")
                 Valid.clearInput(".todo_list_text")
                 $(".status_select").val(LocalInfo.base_value[0])
@@ -198,10 +209,16 @@ let EventTodoList = {
             let set = new Set(LocalInfo.list);
             let json = JSON.parse(arr[key]);
             if (set.has(arr[key])) {
+                let status = JSON.parse(json.status);
                 $(".update_time_create").html(dat_format_input(json.time_create))
                 $(".update_time").val(dat_format_input(json.time))
                 Status.load_status(".update_status_select");
-                $(".update_status_select").val(json.status)
+                $(".update_status_select").val(status.name)
+                $(".update_color").val(status.color)
+                if (!new Set(LocalInfo.base_value).has(status.color)) {
+                    $(".update_color").attr("disabled", "disabled");
+                }
+                console.log(JSON.parse(json.status).name)
                 $(".update_textarea").val(json.text)
                 $(".update_save").attr("data-key", key);
             }
@@ -261,27 +278,18 @@ let Status = {
         return name;
     },
     add: function (text, color) {
-
         let str = new Set(LocalInfo.status);
-        //(Valid.statusNameCheck(text)
-        if (this.text().has(text)) {
-            $(".status_text_error").html("Такой статус уже есть!");
-            $(".status_text").addClass("error");
-        } else if (this.colors().has(color)) {
-            $(".status_color_error").html("Такой цвет уже есть!");
-            $(".status_color").addClass("error");
-        }
-        else {
-            Valid.clearInput(".status_text");
-            Valid.clearDiv(".status_text_error");
-            Valid.clearInput(".status_color");
-            Valid.clearDiv(".status_color_error");
-            str.add(JSON.stringify(new stobj(text, color)))
-            LocalInfo.status = Array.from(str);
-            localStorage.setItem("content", JSON.stringify(
-                new Content(LocalInfo.list, LocalInfo.status)))
-            this.render();
-        }
+
+        Valid.clearInput(".status_text");
+        Valid.clearDiv(".status_text_error");
+        Valid.clearInput(".status_color");
+        Valid.clearDiv(".status_color_error");
+        str.add(JSON.stringify(new stobj(text, color)))
+        LocalInfo.status = Array.from(str);
+        localStorage.setItem("content", JSON.stringify(
+            new Content(LocalInfo.list, LocalInfo.status)))
+        this.render();
+
     },
     remove: function (key) {
         let obj = new Set(LocalInfo.status);
@@ -292,25 +300,23 @@ let Status = {
             new Content(LocalInfo.list, LocalInfo.status)))
         this.render();
     },
-    update: function (old_text) {
-        let new_text = prompt('Ведите новое заначение.');
-        let str = new Set(LocalInfo.status);
-        if (!str.has(new_text) && new_text !== null && new_text !== "") {
-            let arr = LocalInfo.status;
-            for (let item in arr) {
-                if (arr[item] === old_text) {
-                    arr[item] = new_text;
-                    LocalInfo.status = arr;
-                    localStorage.setItem("content", JSON.stringify(
-                        new Content(LocalInfo.list, LocalInfo.status)))
-                    this.render();
-                    return;
-                }
-            }
-        }
-        else {
-            this.update(old_text);
-        }
+    update: function (key, new_text, new_color) {
+        // let new_text = prompt('Ведите новое заначение.');79963967674
+        // let str = this.text();
+        // if (!str.has(new_text) && new_text !== null && new_text !== "") {
+        //     let arr = LocalInfo.status;
+        //     console.log(arr)
+        //     for (let item in arr) {
+        //         if (arr[item] === old_text) {
+        //             arr[item] = new_text;
+        //             LocalInfo.status = arr;
+        //             localStorage.setItem("content", JSON.stringify(
+        //                 new Content(LocalInfo.list, LocalInfo.status)))
+        //             this.render();
+        //             return;
+        //         }
+        //     }
+        // }
     },
     render: function () {
         this.load_status(".status_select");
@@ -420,8 +426,7 @@ let Valid = {
         $(block).html("");
     },
     statusCheck: function (block_status, block_status_error) {
-        let set = new Set(LocalInfo.status);
-        if (set.has($(block_status).val())) {
+        if (Status.text().has($(block_status).val())) {
             $(block_status_error).html("")
             $(block_status).removeClass("error")
             return true;
@@ -433,11 +438,17 @@ let Valid = {
         }
 
     },
-    colorCheck: function (color, color_error) {
+    colorCheck: function (color, color_error,text) {
         if ($(color).val() === "#000000") {
             $(color_error).html("Не выбран цвет!");
             $(color).addClass("error");
             return false;
+        } else if (Status.text().has(text)) {
+            $(".status_text_error").html("Такой статус уже есть!");
+            $(".status_text").addClass("error");
+        } else if (Status.colors().has(color)) {
+            $(".status_color_error").html("Такой цвет уже есть!");
+            $(".status_color").addClass("error");
         }
         else {
             this.clearDiv(color_error);
@@ -453,16 +464,7 @@ let Valid = {
         }
         return true;
     },
-    // statusNameCheck:function (status_text) {
-    //     let arr =  LocalInfo.status;
-    //     for (let item in arr) {
-    //         let json = arr[item];
-    //         if(json.name===status_text){
-    //             return true;
-    //         }
-    //     }
-    //     return false;
-    // },
+
 
 };
 let Escape = {
