@@ -1,16 +1,3 @@
-// let content = "eyJsaXN0IjpbIntcInRpbWVcIjoxNTM4MjQ3Nj" +
-//     "YwMDAwLFwidGltZV9jcmVhdGVcIjoxNTM4MDQ5NDc5NjEzLFwidG" +
-//     "V4dFwiOlwiYDEyYDEyYDEyYDEyXCIsXCJzdGF0dXNcIjpcImFjdGl" +
-//     "2ZVwifSIsIntcInRpbWVcIjoxNTM4MTY0ODYwMDAwLFwidGltZV9jc" +
-//     "mVhdGVcIjoxNTM4MDQ5NDkxODQyLFwidGV4dFwiOlwiJmx0OyEtLVw" +
-//     "iLFwic3RhdHVzXCI6XCJhY3RpdmVcIn0iLCJ7XCJ0aW1lXCI6MTUzO" +
-//     "DA3ODU4MDAwMCxcInRpbWVfY3JlYXRlXCI6MTUzODA1MDcwMTE5OSxc" +
-//     "InRleHRcIjpcIjEyMzEyM1wiLFwic3RhdHVzXCI6XCI0XCJ9Iiwie1wi" +
-//     "dGltZVwiOjE1MzgxNjQ5ODAwMDAsXCJ0aW1lX2NyZWF0ZVwiOjE1Mzgw" +
-//     "NTA3MDk4OTAsXCJ0ZXh0XCI6XCIxMjMyMTNcIixcInN0YXR1c1wiOlwi" +
-//     "NVwifSJdLCJzdGF0dXMiOlsiYWN0aXZlIiwiY29tcGxldGUiLCIzMzMi" +
-//     "LCIyIiwiMSIsIjQiLCI1Il19";
-
 function $_GET(key) {
     var p = window.location.search;
     p = p.match(new RegExp(key + '=([^&=]+)'));
@@ -50,11 +37,12 @@ let LocalInfo = {
             content.status === "undefined") {
             localStorage.setItem("content", JSON.stringify(new Content([], this.base_value)))
             content = JSON.parse(localStorage.getItem("content"));
-
+            console.log("www")
         } else if ($_GET("content") !== false) {
+            console.log("www")
             localStorage.clear();
             let str = $_GET("content");
-            localStorage.setItem("content", decodeURI(str));
+            localStorage.setItem("content", Escape.screen_sharp_re(decodeURI(str)));
             List.render();
             Status.render();
             Events.init();
@@ -517,6 +505,14 @@ let Escape = {
             .replace(/&lt;/g, "<")
             .replace(/&quot;/g, '"')
             .replace(/&apos;/g, "'");
+    },
+    screen_sharp: function (str) {
+        return str
+            .replace(/#/g, 'sharp');
+    },
+    screen_sharp_re: function (str) {
+        return str
+            .replace(/sharp/g, "#");
     }
 };
 let Content = function (list = [], status = []) {
@@ -532,14 +528,15 @@ let Events = {
         $(".url_generate").click(function () {
             let str = window.location.host
                 + window.location.pathname
-                + "?content=" + encodeURI(localStorage.getItem("content"))
+                + "?content=" + encodeURI(Escape.screen_sharp(
+                    localStorage.getItem("content")));
             prompt("Скопируйте", str);
-        })
+        });
         $(".clear_local").click(function () {
             localStorage.clear();
             window.location.search = "";
             window.location.href = "";
-        })
+        });
     }
 };
 let f_Date = function (str) {
