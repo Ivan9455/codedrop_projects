@@ -89,7 +89,6 @@ let List = {
     },
     update: function (key, text, time, status) {
         let json = JSON.parse(LocalInfo.list[key]);
-        console.log(json);
         json.text = text;
         json.time = time;
         json.status = JSON.stringify(status);
@@ -159,7 +158,9 @@ let EventStatus = {
         });
         $(".status").on('click', ".status_item_remove", function () {
             let key = $(this).attr("data-key");
-            Status.remove(key);
+            if (Status.statusCheckText(key)) {
+                Status.remove(key);
+            }
         });
         $(".status").on('click', ".status_item_edit", function () {
             $(".status_up").css("display", "block")
@@ -178,10 +179,10 @@ let EventStatus = {
         });
         $(".status_up").on('click', ".status_up_save", function () {
             let text = $(".status_up_text").val();
-            let color  = /^#[0-9A-F]{6}$/i.test($(".status_up_color").val())
+            let color = $(".status_up_color").val()
             let key = $(".status_up_save").attr("data-key");
-            if(color.length===7){
-                Status.update(key,text,color)
+            if (/^#[0-9A-F]{6}$/i.test(color) & Status.statusCheckText(key)) {
+                Status.update(key, text, color)
             }
             $(".status_up").css("display", "none");
             $(".status").css("z-index", "100")
@@ -213,7 +214,7 @@ let EventTodoList = {
                         res = LocalInfo.status[item]
                     }
                 }
-                console.log(res.name)
+                //console.log(res.name)
                 List.add(text, time, res);
                 Valid.clearInput(".todo_list_time")
                 Valid.clearInput(".todo_list_text")
@@ -269,9 +270,10 @@ let EventUpdate = {
                 let text = Valid.textarea($(".update_textarea").val());
                 let time = new Date($(".update_time").val()).getTime()
                 let status = $(".update_status_select").val();
-                for(let item in LocalInfo.status){
+
+                for (let item in LocalInfo.status) {
                     let str = JSON.parse(LocalInfo.status[item])
-                    if(status===str.name){
+                    if (status === str.name) {
                         status = str;
                         break;
                     }
@@ -282,8 +284,7 @@ let EventUpdate = {
                 $(".overlay").css("display", "none");
                 $(".update").css("display", "none");
             }
-
-        })
+        });
         $(".update").on('change', ".update_time", function () {
             Valid.getTimeBlockError(
                 ".update_time", ".update_time_error");
@@ -292,9 +293,9 @@ let EventUpdate = {
             let text = $(".update_status_select").val();
             let json = LocalInfo.status
             console.log(json)
-            for(let item in json){
+            for (let item in json) {
                 let str = JSON.parse(json[item])
-                if(text===str.name){
+                if (text === str.name) {
                     $(".update_color").val(str.color)
                     return
                 }
@@ -321,7 +322,6 @@ let Status = {
     },
     add: function (text, color) {
         let str = new Set(LocalInfo.status);
-
         Valid.clearInput(".status_text");
         Valid.clearDiv(".status_text_error");
         Valid.clearInput(".status_color");
@@ -395,7 +395,16 @@ let Status = {
         }
         return true;
     },
-
+    statusCheckText(key) {
+        for (let item in LocalInfo.list) {
+            let str = JSON.parse(LocalInfo.list[item])
+            if (JSON.parse(str.status).name === JSON.parse(LocalInfo.status[key]).name) {
+                alert("Не возможно изменить/удалить статус \nпока есть хотябы одна запись!")
+                return false;
+            }
+        }
+        return true;
+    }
 };
 let Valid = {
     getTextAreaBlockError: function (block, block_error) {
