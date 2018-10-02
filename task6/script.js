@@ -92,7 +92,7 @@ let List = {
         console.log(json);
         json.text = text;
         json.time = time;
-        json.status = status;
+        json.status = JSON.stringify(status);
         LocalInfo.list[key] = JSON.stringify(json)
         localStorage.setItem("content", JSON.stringify(
             new Content(LocalInfo.list, LocalInfo.status)))
@@ -148,11 +148,13 @@ let EventStatus = {
 
         });
         $(".status_save").click(function () {
+            let text = $(".status_text").val();
+            let color = $(".status_color").val();
             if (Valid.getTextAreaBlockError(
                 ".status_text", ".status_text_error") &
                 Valid.colorCheck(".status_color",
-                    ".status_color_error",$(".status_text").val())) {
-                Status.add($(".status_text").val(), $(".status_color").val())
+                    ".status_color_error", $(".status_text").val())) {
+                Status.add(text, color)
             }
         });
         $(".status").on('click', ".status_item_remove", function () {
@@ -161,9 +163,30 @@ let EventStatus = {
         });
         $(".status").on('click', ".status_item_edit", function () {
             $(".status_up").css("display", "block")
-            $(".update").css("display", "none")
-            let key = $(this).attr("data-key");
-            Status.update(key);
+            //$(".update").css("display", "none")
+            $(".status").css("z-index", "49")
+            let json = JSON.parse(LocalInfo.status[$(this).attr("data-key")]);
+            $(".status_up_text").val(json.name)
+            $(".status_up_color").val(json.color)
+            $(".status_up_save").attr("data-key", $(this).attr("data-key"))
+        });
+        $(".status_up").on('click', ".status_up_exit", function () {
+            $(".status_up").css("display", "none");
+            $(".status").css("z-index", "100")
+            $(".status_up_text").val("");
+            $(".status_up_color").val("");
+        });
+        $(".status_up").on('click', ".status_up_save", function () {
+            let text = $(".status_up_text").val();
+            let color  = /^#[0-9A-F]{6}$/i.test($(".status_up_color").val())
+            let key = $(".status_up_save").attr("data-key");
+            if(color.length===7){
+                Status.update(key,text,color)
+            }
+            $(".status_up").css("display", "none");
+            $(".status").css("z-index", "100")
+            $(".status_up_text").val("");
+            $(".status_up_color").val("");
         });
     }
 };
@@ -246,6 +269,13 @@ let EventUpdate = {
                 let text = Valid.textarea($(".update_textarea").val());
                 let time = new Date($(".update_time").val()).getTime()
                 let status = $(".update_status_select").val();
+                for(let item in LocalInfo.status){
+                    let str = JSON.parse(LocalInfo.status[item])
+                    if(status===str.name){
+                        status = str;
+                        break;
+                    }
+                }
                 List.update(key, text, time, status);
                 Valid.clearInput(".todo_list_time")
                 Valid.clearInput(".todo_list_text")
@@ -257,6 +287,18 @@ let EventUpdate = {
         $(".update").on('change', ".update_time", function () {
             Valid.getTimeBlockError(
                 ".update_time", ".update_time_error");
+        });
+        $(".update").on('change', ".update_status_select", function () {
+            let text = $(".update_status_select").val();
+            let json = LocalInfo.status
+            console.log(json)
+            for(let item in json){
+                let str = JSON.parse(json[item])
+                if(text===str.name){
+                    $(".update_color").val(str.color)
+                    return
+                }
+            }
         });
     }
 };
@@ -300,23 +342,15 @@ let Status = {
             new Content(LocalInfo.list, LocalInfo.status)))
         this.render();
     },
-    update: function (key, new_text, new_color) {
-        // let new_text = prompt('Ведите новое заначение.');79963967674
-        // let str = this.text();
-        // if (!str.has(new_text) && new_text !== null && new_text !== "") {
-        //     let arr = LocalInfo.status;
-        //     console.log(arr)
-        //     for (let item in arr) {
-        //         if (arr[item] === old_text) {
-        //             arr[item] = new_text;
-        //             LocalInfo.status = arr;
-        //             localStorage.setItem("content", JSON.stringify(
-        //                 new Content(LocalInfo.list, LocalInfo.status)))
-        //             this.render();
-        //             return;
-        //         }
-        //     }
-        // }
+    update: function (key, text, color) {
+        console.log(LocalInfo.status)
+        let str = JSON.parse(LocalInfo.status[key])
+        str.name = text;
+        str.color = color;
+        LocalInfo.status[key] = JSON.stringify(str)
+        localStorage.setItem("content", JSON.stringify(
+            new Content(LocalInfo.list, LocalInfo.status)))
+        this.render();
     },
     render: function () {
         this.load_status(".status_select");
@@ -438,7 +472,7 @@ let Valid = {
         }
 
     },
-    colorCheck: function (color, color_error,text) {
+    colorCheck: function (color, color_error, text) {
         if ($(color).val() === "#000000") {
             $(color_error).html("Не выбран цвет!");
             $(color).addClass("error");

@@ -290,3 +290,20 @@ div {
     background-color: #fff;
     z-index: 100;
 }
+.status_up_save,
+.status_up_exit{
+    text-align: center;
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+    background: #98F2A5;
+    border-radius: 8px;
+    margin: 30px;
+    cursor: pointer;
+}
+.status_up_save{
+    float:left;
+ }
+.status_up_exit{
+    float:right;
+}
