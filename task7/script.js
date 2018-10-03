@@ -126,25 +126,12 @@ let List = {
             $("." + status.name).html(r + $("." + status.name).html())
         }
         $("ul.st").sortable({
-            group: 'drop',
+            group: 'st',
             handle: 'li.item',
-
-            onDragStart: function ($item, container, _super) {
-                // Duplicate items of the no drop area
-                console.log(container.target.context.classList[1])
-                console.log(container)
-                if (!container.options.drop)
-                    $item.clone().insertAfter($item);
-                _super($item, container);
-                //this.render();
-            },
+            pullPlaceholder: false,
             onDrop: function ($item, container, _super, event) {
-
                 $item.removeClass(container.group.options.draggedClass).removeAttr("style")
                 $("body").removeClass(container.group.options.bodyClass)
-
-            },
-            onCancel: function ($item, container, _super, event) {
                 let new_class = container.target.context.classList[1];
                 let arr = $("." + new_class).children();
                 console.log(new_class)
@@ -160,13 +147,15 @@ let List = {
                             json.time, json.time_create,
                             json.text, JSON.stringify(status)))
                     }
-
                 }
                 LocalInfo.list = listArr;
+                //console.log(JSON.parse(LocalInfo.list))
+                //console.log(JSON.parse(listArr))
                 localStorage.setItem("content", JSON.stringify(
                     new Content(LocalInfo.list, LocalInfo.status)));
                 List.render();
-            }
+            },
+
         });
     },
 };
@@ -371,6 +360,7 @@ let Status = {
         localStorage.setItem("content", JSON.stringify(
             new Content(LocalInfo.list, LocalInfo.status)));
         this.render();
+        List.render();
     },
     update: function (key, text, color) {
         let str = JSON.parse(LocalInfo.status[key]);
@@ -380,6 +370,7 @@ let Status = {
         localStorage.setItem("content", JSON.stringify(
             new Content(LocalInfo.list, LocalInfo.status)));
         this.render();
+        List.render();
     },
     render: function () {
         this.load_status(".status_select");
