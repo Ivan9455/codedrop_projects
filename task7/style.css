@@ -326,3 +326,21 @@ div {
     display: inline-block;
     cursor: move;
 }
+/*body.dragging, body.dragging * {*/
+    /*cursor: move !important;*/
+/*}*/
+
+/*.dragged {*/
+    /*position: absolute;*/
+    /*opacity: 0.5;*/
+    /*z-index: 2000;*/
+/*}*/
+
+/*ul.st li.item {*/
+    /*position: relative;*/
+    /*!** More li styles **!*/
+/*}*/
+/*ul.st li.item:before {*/
+    /*position: absolute;*/
+    /*!** Define arrowhead **!*/
+/*}*/
