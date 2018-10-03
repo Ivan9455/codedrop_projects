@@ -129,12 +129,12 @@ let List = {
         $("ul.st").sortable({
             group: 'st',
             handle: 'li.item',
-            onDrop: function ($item, container, _super) {
+            onDrop: function  ($item, container, _super) {
                 var $clonedItem = $('<li/>').css({height: 0});
                 $item.before($clonedItem);
                 $clonedItem.animate({'height': $item.height()});
 
-                $item.animate($clonedItem.position(), function () {
+                $item.animate($clonedItem.position(), function  () {
                     $clonedItem.detach();
                     _super($item, container);
                 });
@@ -143,14 +143,12 @@ let List = {
 
                 let listArr = LocalInfo.list;
                 for (let i = 0; i < arr.length; i++) {
-                    let key;
-                    let json;
-                    let status;
-                    try {
-                        key = arr[i].dataset.key;
-                        json = JSON.parse(listArr[key])
-                        status = JSON.parse(json.status);
-
+                    console.log()
+                    if(arr[i].dataset.key!==undefined){
+                        let key = arr[i].dataset.key;
+                        console.log(key)
+                        let json = JSON.parse(listArr[key]);
+                        let status = JSON.parse(json.status);
                         console.log(status)
                         if (status.name !== new_class) {
                             status.name = new_class;
@@ -158,8 +156,6 @@ let List = {
                                 json.time, json.time_create,
                                 json.text, JSON.stringify(status)))
                         }
-                    } catch {
-
                     }
                 }
                 LocalInfo.list = listArr;
@@ -220,6 +216,11 @@ let List = {
 
             },
             */
+
+
+
+
+
 
 
         });
