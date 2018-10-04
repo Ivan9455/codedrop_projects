@@ -109,7 +109,6 @@ let List = {
         for (let n in listArr) {
             let json = JSON.parse(listArr[n])
             let status = JSON.parse(String(json.status));
-            console.log(status.name)
             let r = "" +
                 "<li class='item'  data-key='" + n + "' >" +
                 "<div class='item_time_create'>Дата создания события" +
@@ -126,32 +125,39 @@ let List = {
             $("." + status.name).html(r + $("." + status.name).html())
         }
         var adjustment;
+        var pos;
         $("ul.st").sortable({
             group: 'st',
             handle: 'li.item',
-            onDrop: function  ($item, container, _super) {
-                var $clonedItem = $('<li/>').css({height: 0});
-                $item.before($clonedItem);
-                $clonedItem.animate({'height': $item.height()});
-
-                $item.animate($clonedItem.position(), function  () {
-                    $clonedItem.detach();
-                    _super($item, container);
-                });
+            pullPlaceholder: false,
+            onDrop: function ($item, container, _super) {
+                // var $clonedItem = $('<li/>').css({height: 0});
+                // $item.before($clonedItem);
+                // $clonedItem.animate({'height': $item.height()});
+                //
+                // $item.animate($clonedItem.position(), function () {
+                //     $clonedItem.detach();
+                //     _super($item, container);
+                // });
+                if (!container.options.drop)
+                    $item.clone().insertAfter($item);
+                _super($item, container);
                 let new_class = container.target.context.classList[1];
                 let arr = $("." + new_class).children();
 
                 let listArr = LocalInfo.list;
+                let color = JSON.parse(LocalInfo.status.filter(function (item) {
+                    let json = JSON.parse(item);
+                    return json.name === new_class ? json.color : "";
+                })).color;
                 for (let i = 0; i < arr.length; i++) {
-                    console.log()
-                    if(arr[i].dataset.key!==undefined){
+                    if (arr[i].dataset.key !== undefined) {
                         let key = arr[i].dataset.key;
-                        console.log(key)
                         let json = JSON.parse(listArr[key]);
                         let status = JSON.parse(json.status);
-                        console.log(status)
                         if (status.name !== new_class) {
                             status.name = new_class;
+                            status.color = color
                             listArr[key] = JSON.stringify(new obj(
                                 json.time, json.time_create,
                                 json.text, JSON.stringify(status)))
@@ -159,72 +165,50 @@ let List = {
                     }
                 }
                 LocalInfo.list = listArr;
-                //console.log(JSON.parse(LocalInfo.list))
-                //console.log(JSON.parse(listArr))
                 localStorage.setItem("content", JSON.stringify(
                     new Content(LocalInfo.list, LocalInfo.status)));
 
                 //List.render();
             },
-
-            // set $item relative to cursor position
             onDragStart: function ($item, container, _super) {
+                if (!container.options.drop)
+                    $item.clone().insertAfter($item);
                 var offset = $item.offset(),
                     pointer = container.rootGroup.pointer;
 
                 adjustment = {
-                    left: pointer.left - offset.left,
+                    left: (pointer.left - offset.left) / offset.left,
                     top: pointer.top - offset.top
                 };
-
+                pos = {
+                    top: pointer.top
+                };
+                console.log(offset.top)
+                console.log(pointer.top)
+                /*
+                               adjustment = {
+                    left: (pointer.left - offset.left) / offset.left,
+                    top: (pointer.top - offset.top) / offset.top
+                };
+                 */
                 _super($item, container);
             },
             onDrag: function ($item, position) {
+                /*
+                    left:( position.left - adjustment.left)/adjustment.left,
+                    top: (position.top - adjustment.top)/adjustment.top
+                 */
+
+                //console.log(this)
+                console.log(adjustment.top)
                 $item.css({
-                    left: position.left - adjustment.left,
-                    top: position.top - adjustment.top
+                    left: adjustment.left,
+                    top: (position.top - pos.top) + 200
                 });
-            }
-            /*
-            onDrop: function ($item, container, _super, event) {
-
-                let new_class = container.target.context.classList[1];
-                let arr = $("." + new_class).children();
-                console.log(new_class)
-                let listArr = LocalInfo.list;
-                for (let i = 0; i < arr.length; i++) {
-                    let key = arr[i].dataset.key;
-                    console.log(key)
-                    //
-                    let json = JSON.parse(listArr[key]);
-                    let status = JSON.parse(json.status);
-                    console.log(status)
-                    if (status.name !== new_class) {
-                        status.name = new_class;
-                        listArr[key] = JSON.stringify(new obj(
-                            json.time, json.time_create,
-                            json.text, JSON.stringify(status)))
-                    }
-                }
-                LocalInfo.list = listArr;
-                //console.log(JSON.parse(LocalInfo.list))
-                //console.log(JSON.parse(listArr))
-                localStorage.setItem("content", JSON.stringify(
-                    new Content(LocalInfo.list, LocalInfo.status)));
-
-                List.render();
-
             },
-            */
-
-
-
-
-
-
-
+            tolerance: 6,
+            distance: 10
         });
-
     },
 };
 
