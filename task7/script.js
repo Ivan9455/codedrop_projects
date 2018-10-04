@@ -131,14 +131,6 @@ let List = {
             handle: 'li.item',
             pullPlaceholder: false,
             onDrop: function ($item, container, _super) {
-                // var $clonedItem = $('<li/>').css({height: 0});
-                // $item.before($clonedItem);
-                // $clonedItem.animate({'height': $item.height()});
-                //
-                // $item.animate($clonedItem.position(), function () {
-                //     $clonedItem.detach();
-                //     _super($item, container);
-                // });
                 if (!container.options.drop)
                     $item.clone().insertAfter($item);
                 _super($item, container);
@@ -168,7 +160,6 @@ let List = {
                 localStorage.setItem("content", JSON.stringify(
                     new Content(LocalInfo.list, LocalInfo.status)));
 
-                //List.render();
             },
             onDragStart: function ($item, container, _super) {
                 if (!container.options.drop)
@@ -185,22 +176,9 @@ let List = {
                 };
                 console.log(offset.top)
                 console.log(pointer.top)
-                /*
-                               adjustment = {
-                    left: (pointer.left - offset.left) / offset.left,
-                    top: (pointer.top - offset.top) / offset.top
-                };
-                 */
                 _super($item, container);
             },
             onDrag: function ($item, position) {
-                /*
-                    left:( position.left - adjustment.left)/adjustment.left,
-                    top: (position.top - adjustment.top)/adjustment.top
-                 */
-
-                //console.log(this)
-                console.log(adjustment.top)
                 $item.css({
                     left: adjustment.left,
                     top: (position.top - pos.top) + 200
