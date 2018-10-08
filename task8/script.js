@@ -9,6 +9,8 @@ $(document).ready(function () {
     List.render();
     Status.render();
     Events.init();
+
+
 });
 
 let obj = function (time, time_create, text, status) {
@@ -156,8 +158,7 @@ let List = {
                     }
                 }
                 LocalInfo.list = listArr;
-                localStorage.setItem("content", JSON.stringify(
-                    new Content(LocalInfo.list, LocalInfo.status)));
+                UpPosition.init();
 
             },
             onDragStart: function ($item, container, _super) {
@@ -173,8 +174,6 @@ let List = {
                 pos = {
                     top: pointer.top
                 };
-                console.log(offset.top)
-                console.log(pointer.top)
                 _super($item, container);
             },
             onDrag: function ($item, position) {
@@ -635,3 +634,17 @@ let dat_format = function (t) {
 };
 
 
+let UpPosition = {
+    init: function () {
+        let ob = $("li.item");
+        let list = [];
+        for (let i = 0; i < ob.length; i++) {
+            if (LocalInfo.list[ob[i].dataset.key] !== undefined) {
+                list[i] = LocalInfo.list[ob[ob.length - i - 1].dataset.key];
+            }
+        }
+        LocalInfo.list = list;
+        localStorage.setItem("content", JSON.stringify(
+            new Content(LocalInfo.list, LocalInfo.status)));
+    }
+};
