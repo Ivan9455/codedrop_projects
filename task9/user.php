@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>User</title>
-    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="../bootstrap/bootstrap-grid.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/style_user.css">
 </head>
@@ -39,7 +39,7 @@ require_once("src/header.php");
         </div>
     </div>
 </div>
-<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="../jquery/jquery.js"></script>
 <script type="text/javascript" src="js/script_user.js"></script>
 </body>
 </html>
