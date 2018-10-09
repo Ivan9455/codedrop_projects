@@ -9,7 +9,6 @@ $(document).ready(function () {
     List.render();
     Status.render();
     Events.init();
-
 });
 
 let obj = function (time, time_create, text, status) {
