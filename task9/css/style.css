@@ -1,0 +1,28 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    margin: 0 auto;
+}
+.header div{
+    box-sizing: border-box;
+    border: 1px solid black;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    padding: 0;
+}
+.header div a{
+    display: block;
+    background: aqua;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+.error{
+    border: 2px solid red;
+}
+.block_error{
+    color:red;
+}

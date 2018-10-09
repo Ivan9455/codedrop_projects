@@ -1,0 +1,20 @@
+.user{
+    width: 100%;
+    text-align: center;
+}
+.user input{
+    width: 300px;
+}
+.block_name , .block_email , .block_status{
+    height: 80px;
+    padding: 10px 0;
+}
+.add{
+    width: 200px;
+    height: 50px;
+    line-height: 50px;
+    background: aqua;
+    margin: 0 auto;
+    cursor: pointer;
+    border-radius:8px ;
+}
