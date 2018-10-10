@@ -21,7 +21,7 @@ require_once("src/header.php");
             <input type="text" class="status">
             <div class="add_category">Add</div>
         </div>
-        <div class="category_load">
+        <div class="category_load col-12">
 
         </div>
     </div>
