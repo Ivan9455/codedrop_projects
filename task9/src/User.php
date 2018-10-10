@@ -46,13 +46,19 @@ class User
     }
 
     public function updateUser($json){
+//        $sql = "
+//        UPDATE `User` SET
+//        `name` = " . $json->name . ",
+//        `email` = " . $json->email . ",
+//        `status` = " . $json->status . ",
+//        WHERE `User`.`id` = '" . $json->id . "';
+//        ";
         $sql = "
-        UPDATE `User` SET  
-        `name` = " . $json->name . ", 
-        `email` = " . $json->email . ", 
-        `status` = " . $json->status . ", 
-        WHERE `User`.`id` = '" . $json->id . "';
-        ";
+        UPDATE `User`  SET 
+        `name` = '$json->name',
+        `email` = '$json->email',
+        `status` = '$json->status'
+        WHERE `id` = 2";
         mysqli_query($this->db->getConnect(), $sql);
         return $json->id;
     }

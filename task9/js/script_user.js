@@ -2,7 +2,6 @@ $(document).ready(function () {
     User.event();
     User.eventUpdate();
     User.load();
-
 });
 
 let User = {
@@ -117,11 +116,8 @@ let User = {
                     "</div>"
             }
             $(".load").html(str);
-
         });
-
     }
-
 };
 let UserValid = {
     name: function (name, block, block_error) {

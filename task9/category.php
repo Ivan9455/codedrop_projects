@@ -13,6 +13,6 @@
 require_once ("src/header.php");
 ?>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
-<!--<script type="text/javascript" src="js/script.js"></script>-->
+<script type="text/javascript" src="js/script_category.js"></script>
 </body>
 </html>
