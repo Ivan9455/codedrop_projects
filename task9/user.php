@@ -39,6 +39,24 @@ require_once("src/header.php");
         </div>
     </div>
 </div>
+<div class="update">
+    <div class="update_info">
+        <label >name :
+            <input type="text" class="update_name">
+        </label>
+        <label>email :
+            <input type="text" class="update_email">
+        </label>
+        <label>status :
+            <input type="text" class="update_status">
+        </label>
+    </div>
+    <div class="update_setting">
+        <div class="update_save">Save</div>
+        <div class="update_exit">Exit</div>
+    </div>
+</div>
+<div class="overlay"></div>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
 <script type="text/javascript" src="js/script_user.js"></script>
 </body>

@@ -5,7 +5,7 @@ class DataBase
     private $host = "localhost";
     private $name = "w90831a3_i";
     private $password = "PTUP*vI2";
-    private $database = "w90831a3_i";
+    private $database = 'w90831a3_i';
     private $connect;
 
     public function __construct()
