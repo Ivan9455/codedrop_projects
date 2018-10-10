@@ -36,7 +36,7 @@ let User = {
     load:function () {
         $.ajax({
             type: "POST",
-            url: "/src/ajax/user/load.php",
+            url: "src/ajax/user/load.php",
             data:{}
         }).done(function (result) {
             console.log(result)

@@ -1,6 +1,4 @@
 <?php
-require_once "src/User.php";
-$db = new User();
-$res = $db->getUsers();
-print_r($res);
-
+require_once "../../User.php";
+$user = new User();
+print_r(json_encode($user->getUsers()));

@@ -7,15 +7,18 @@ class User
 
     public function __construct()
     {
-        $database = new DataBase();
-        $this->db = $database->getConnect();
+        $this->db = new DataBase();
     }
 
     public function getUsers()
     {
         $sql = "SELECT * FROM `User`";
-        $res = mysqli_query($this->db, $sql);
-        return mysqli_fetch_array($res, MYSQLI_ASSOC);
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return $arr;
     }
 
 }
