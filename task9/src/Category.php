@@ -1,7 +1,8 @@
 <?php
 require_once("database/DataBase.php");
+require_once("abstract/CRUD.php");
 
-class Category
+class Category extends CRUD
 {
 
     private $db;
@@ -11,7 +12,7 @@ class Category
         $this->db = new DataBase();
     }
 
-    public function getCategories()
+    public function getS()
     {
         $sql = "SELECT * FROM `Category`";
         $res = mysqli_query($this->db->getConnect(), $sql);
@@ -35,7 +36,7 @@ class Category
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function getCategory($id)
+    public function get($id)
     {
         $sql = "SELECT * FROM `Category` WHERE `id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
@@ -45,7 +46,7 @@ class Category
         }
         return $arr[0];
     }
-    public function updateCategory($json){
+    public function update($json){
         $sql = "
         UPDATE `Category`  SET 
         `name` = '$json->name',
