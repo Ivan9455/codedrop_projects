@@ -58,6 +58,7 @@ require_once("src/header.php");
 </div>
 <div class="overlay"></div>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="js/valid.js"></script>
 <script type="text/javascript" src="js/script_user.js"></script>
 </body>
 </html>
