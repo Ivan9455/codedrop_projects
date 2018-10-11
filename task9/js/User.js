@@ -83,35 +83,43 @@ let User = {
             $(".update").css("display", "none");
         })
     },
-    load: function () {
-        let z = {}
+    users: "",
+    loadUsers: function (con) {
+        let res = "";
         $.ajax({
             type: "POST",
             url: "src/ajax/user/load.php",
             data: {}
         }).done(function (result) {
-            z = result
-            let str = ""
-            for (let item in result) {
-                let json = JSON.parse(result)[item]
-                if (json === undefined) {
+            User.users = result;
+            switch (con) {
+                case "load":
+                    User.load();
                     break;
-                }
-                str += "" +
-                    "<div class='item'>" +
-                    "<div class='item_info'>" +
-                    "<div class='item_name'>name : " + json.name + "</div>" +
-                    "<div class='item_email'>email : " + json.email + "</div>" +
-                    "<div class='item_status'>status : " + json.status + "</div>" +
-                    "</div>" +
-                    "<div class='item_setting'>" +
-                    "<div class='item_edit' data-id='" + json.id + "'>Edit</div>" +
-                    "<div class='item_remove' data-id='" + json.id + "'>Remove</div> " +
-                    "</div>" +
-                    "</div>"
             }
-            $(".load").html(str);
-            return z;
-        });
+        })
+    },
+    load: function () {
+        let result = User.users;
+        let str = ""
+        for (let item in result) {
+            let json = JSON.parse(result)[item]
+            if (json === undefined) {
+                break;
+            }
+            str += "" +
+                "<div class='item'>" +
+                "<div class='item_info'>" +
+                "<div class='item_name'>name : " + json.name + "</div>" +
+                "<div class='item_email'>email : " + json.email + "</div>" +
+                "<div class='item_status'>status : " + json.status + "</div>" +
+                "</div>" +
+                "<div class='item_setting'>" +
+                "<div class='item_edit' data-id='" + json.id + "'>Edit</div>" +
+                "<div class='item_remove' data-id='" + json.id + "'>Remove</div>" +
+                "</div>" +
+                "</div>"
+        }
+        $(".load").html(str);
     }
 };
