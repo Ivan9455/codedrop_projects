@@ -10,7 +10,7 @@ class User
         $this->db = new DataBase();
     }
 
-    public function getUsers()
+    public function getS()
     {
         $sql = "SELECT * FROM `User`";
         $res = mysqli_query($this->db->getConnect(), $sql);
@@ -21,7 +21,7 @@ class User
         return $arr;
     }
 
-    public function addUser($json)
+    public function add($json)
     {
         $sql = "INSERT INTO `User` (name, email, status) 
                 VALUE (" . $json->name . "," . $json->email . "," . $json->status . ");";
@@ -34,7 +34,7 @@ class User
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function getUser($id)
+    public function get($id)
     {
         $sql = "SELECT * FROM `User` WHERE `id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
@@ -45,7 +45,8 @@ class User
         return $arr[0];
     }
 
-    public function updateUser($json){
+    public function update($json)
+    {
         $sql = "
         UPDATE `User`  SET 
         `name` = '$json->name',

@@ -2,4 +2,4 @@
 require_once ("../../User.php");
 $user = new User();
 $json = json_decode($_POST['json']);
-$user->addUser($json);
+$user->add($json);
