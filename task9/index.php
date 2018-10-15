@@ -13,6 +13,34 @@
 <?php
 require_once ("src/header.php");
 ?>
+<div class="container">
+    <div class="row">
+        <div class="form">
+            <div class="block_content">
+                <p>Content</p>
+                <textarea class="content_text"></textarea>
+                <div class="content_text_error"></div>
+            </div>
+            <div class="block_status">
+                <p>Status</p>
+                <input class="status_number" type="number">
+                <div class="status_number_error"></div>
+            </div>
+            <div class="user_and_category">
+                <div class="block_user">
+
+                </div>
+                <div class="block_category">
+
+                </div>
+            </div>
+            <div class="add">Add</div>
+        </div>
+        <div class="post_load">
+
+        </div>
+    </div>
+</div>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
 <script type="text/javascript" src="js/User.js"></script>
 <script type="text/javascript" src="js/Category.js"></script>

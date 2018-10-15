@@ -14,8 +14,8 @@ require_once("src/header.php");
 ?>
 <div class="container">
     <div class="row">
-        <div class="user">
-            <div class="form_add">
+        <div class="form">
+            <div class="form">
                 <div class="block_name">
                     <p>Name</p>
                     <input type="text" class="name" maxlength="15">

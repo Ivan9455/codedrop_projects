@@ -44,4 +44,19 @@ let Valid = {
             return true;
         }
     },
+    content:function (content,block,block_error) {
+        if (content === "") {
+            $(block_error).html("Заполните поле!");
+            $(block).addClass("error");
+            return false;
+        } else if (content>255) {
+            $(block_error).html("Слишком длинный пост!");
+            $(block).addClass("error");
+            return false;
+        } else {
+            $(block_error).html("");
+            $(block).removeClass("error");
+            return true;
+        }
+    }
 };
