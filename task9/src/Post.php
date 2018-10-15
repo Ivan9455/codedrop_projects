@@ -10,9 +10,16 @@ class Post
         $this->db = new DataBase();
     }
 
-    public function add()
+    public function add($json)
     {
-        // TODO: Implement add() method.
+        $sql = "INSERT INTO `Post` (user_id, content, status, created_at, category_id)  
+                VALUE (
+                " . $json->user_id . ",
+                " . $json->content . ",
+                " . $json->status . ",
+                " . $json->created_at . ",
+                " . $json->category_id . ");";
+        mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function getUser($id)

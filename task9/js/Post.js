@@ -1,10 +1,17 @@
 let Post = {
-    add:function(json){
-        console.log(json)
+    add: function (json) {
+        console.log(json);
+        $.ajax({
+            type: "POST",
+            url: "src/ajax/post/add.php",
+            data: {json: JSON.stringify(json)}
+        }).done(function (result) {
+            Post.loadUser(Post.load)
+        })
     },
-    posts:"",
-    load:function(){
-
+    posts: "",
+    load: function () {
+        //дописать отображение постов
     },
     loadPost: function (func) {
         $.ajax({
@@ -48,8 +55,10 @@ let Post = {
             json.id_user = $(".block_user select :selected").attr('data-id');
             json.id_category = $(".block_category select :selected").attr('data-id');
             json.time_create = dat_format_input(new Date().getTime());
-            Post.add(json);
-            console.log("work")
+            if (Valid.content(json.content, ".content_text", ".content_text_error") &
+                Valid.status(json.status, ".status_number", ".status_number_error")) {
+                Post.add(json);
+            }
         })
     }
 };
