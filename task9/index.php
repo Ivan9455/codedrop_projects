@@ -14,6 +14,9 @@
 require_once ("src/header.php");
 ?>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="js/User.js"></script>
+<script type="text/javascript" src="js/Category.js"></script>
+<script type="text/javascript" src="js/Post.js"></script>
 <script type="text/javascript" src="js/script_post.js"></script>
 </body>
 </html>

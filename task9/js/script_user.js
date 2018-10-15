@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    User.loadUsers("load");
+    User.loadUsers();
+    User.load();
     User.event();
     User.eventUpdate();
 });

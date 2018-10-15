@@ -83,23 +83,18 @@ let User = {
             $(".update").css("display", "none");
         })
     },
-    users: "",
-    loadUsers: function (con) {
-        let res = "";
+    users: false,
+    loadUsers: function () {
         $.ajax({
             type: "POST",
             url: "src/ajax/user/load.php",
             data: {}
         }).done(function (result) {
             User.users = result;
-            switch (con) {
-                case "load":
-                    User.load();
-                    break;
-            }
         })
     },
     load: function () {
+
         let result = User.users;
         let str = ""
         for (let item in result) {
@@ -118,7 +113,7 @@ let User = {
                 "<div class='item_edit' data-id='" + json.id + "'>Edit</div>" +
                 "<div class='item_remove' data-id='" + json.id + "'>Remove</div>" +
                 "</div>" +
-                "</div>"
+                "</div>";
         }
         $(".load").html(str);
     }
