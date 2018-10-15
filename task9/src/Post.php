@@ -15,9 +15,15 @@ class Post
         // TODO: Implement add() method.
     }
 
-    public function get()
+    public function getUser($id)
     {
-        // TODO: Implement get() method.
+        $sql = "SELECT * FROM `Post` WHERE `user_id` = " . $id . ";";
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return count($arr);
     }
 
     public function getS()

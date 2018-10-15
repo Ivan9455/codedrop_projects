@@ -11,6 +11,7 @@ let Valid = {
         } else {
             $(block_error).html("");
             $(block).removeClass("error");
+            $(block).val("")
             return true;
         }
     },
@@ -26,6 +27,7 @@ let Valid = {
         } else {
             $(block_error).html("");
             $(block).removeClass("error");
+            $(block).val("")
             return true;
         }
     },
@@ -41,6 +43,7 @@ let Valid = {
         } else {
             $(block_error).html("");
             $(block).removeClass("error");
+            $(block).val("")
             return true;
         }
     },
@@ -56,6 +59,7 @@ let Valid = {
         } else {
             $(block_error).html("");
             $(block).removeClass("error");
+            $(block).val("")
             return true;
         }
     }

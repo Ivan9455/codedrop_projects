@@ -8,7 +8,7 @@ let Category = {
             url: "src/ajax/category/add.php",
             data: {json:JSON.stringify(json)}
         }).done(function (result) {
-            Category.load();
+            Category.load(Category.loadCategory);
         })
     },
     updateOpen:function(id){
@@ -32,7 +32,7 @@ let Category = {
             url: "src/ajax/category/category_update.php",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
-            Category.load();
+            Category.load(Category.loadCategory);
         });
     },
     remove:function(id){
@@ -41,7 +41,7 @@ let Category = {
             url: "src/ajax/category/remove.php",
             data: {id: id}
         }).done(function () {
-            Category.load();
+            Category.load(Category.loadCategory);
         });
     },
     event: function () {
@@ -106,6 +106,6 @@ let Category = {
                 "</div>" +
                 "</div>"
         }
-        $(".category_load").html(str)
+        $(".category_load").html(str);
     }
 }

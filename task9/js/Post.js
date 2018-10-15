@@ -47,7 +47,7 @@ let Post = {
             json.status = $(".status_number").val();
             json.id_user = $(".block_user select :selected").attr('data-id');
             json.id_category = $(".block_category select :selected").attr('data-id');
-            json.time_create = new Date().getTime();
+            json.time_create = dat_format_input(new Date().getTime());
             Post.add(json);
             console.log("work")
         })

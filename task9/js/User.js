@@ -12,7 +12,7 @@ let User = {
                 json: JSON.stringify(json)
             }
         }).done(function (result) {
-            User.load();
+            User.loadUsers(User.load);
         });
     },
     remove: function (id) {
@@ -21,7 +21,23 @@ let User = {
             url: "src/ajax/user/remove.php",
             data: {id: id}
         }).done(function () {
-            User.load();
+            User.loadUsers(User.load);
+        });
+    },
+    removeValid:function(id){
+        $.ajax({
+            type: "POST",
+            url: "src/ajax/post/getuser.php",
+            data: {id: id}
+        }).done(function (result) {
+            console.log(result);
+            if(result==0){
+                User.remove(id)
+            }
+            else{
+                alert("Не возможно удалить user \n " +
+                    "пока у него есть post!");
+            }
         });
     },
     updateOpen: function (id) {
@@ -46,7 +62,7 @@ let User = {
             url: "src/ajax/user/user_update.php",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
-            User.load();
+            User.loadUsers(User.load);
         });
     },
     event: function () {
@@ -61,7 +77,7 @@ let User = {
             }
         });
         $(".load").on('click', ".item_remove", function () {
-            User.remove($(this).attr("data-id"));
+            User.removeValid($(this).attr("data-id"));
         });
         $(".load").on('click', ".item_edit", function () {
             User.updateOpen($(this).attr("data-id"));
@@ -83,7 +99,7 @@ let User = {
             $(".update").css("display", "none");
         })
     },
-    users: false,
+    users: "",
     loadUsers: function (func) {
         $.ajax({
             type: "POST",
@@ -95,7 +111,6 @@ let User = {
         })
     },
     load: function () {
-        console.log("load");
         let result = User.users;
         let str = ""
         for (let item in result) {
