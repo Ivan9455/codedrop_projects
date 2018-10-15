@@ -84,17 +84,18 @@ let User = {
         })
     },
     users: false,
-    loadUsers: function () {
+    loadUsers: function (func) {
         $.ajax({
             type: "POST",
             url: "src/ajax/user/load.php",
             data: {}
         }).done(function (result) {
             User.users = result;
+            func();
         })
     },
     load: function () {
-
+        console.log("load");
         let result = User.users;
         let str = ""
         for (let item in result) {
