@@ -44,6 +44,21 @@ let Category = {
             Category.load(Category.loadCategory);
         });
     },
+    removeValid:function(id){
+        $.ajax({
+            type: "POST",
+            url: "src/ajax/post/getcategory.php",
+            data: {id: id}
+        }).done(function (result) {
+            if(result==0){
+                Category.remove(id)
+            }
+            else{
+                alert("Не возможно удалить category \n " +
+                    "пока он содержиться хоть в одном post !");
+            }
+        });
+    },
     event: function () {
         $(".add").click(function () {
             let name = $(".name").val();
@@ -54,7 +69,7 @@ let Category = {
             }
         })
         $(".category_load").on('click', ".item_remove", function () {
-            Category.remove($(this).attr("data-id"));
+            Category.removeValid($(this).attr("data-id"));
         });
         $(".category_load").on('click', ".item_edit", function () {
             Category.updateOpen($(this).attr("data-id"));

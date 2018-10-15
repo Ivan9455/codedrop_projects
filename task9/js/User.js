@@ -30,7 +30,6 @@ let User = {
             url: "src/ajax/post/getuser.php",
             data: {id: id}
         }).done(function (result) {
-            console.log(result);
             if(result==0){
                 User.remove(id)
             }
