@@ -36,12 +36,13 @@ require_once ("src/header.php");
             </div>
             <div class="add">Add</div>
         </div>
-        <div class="post_load">
+        <div class="post_load col-12">
 
         </div>
     </div>
 </div>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
+<script type="text/javascript" src="js/valid.js"></script>
 <script type="text/javascript" src="js/User.js"></script>
 <script type="text/javascript" src="js/Category.js"></script>
 <script type="text/javascript" src="js/Post.js"></script>

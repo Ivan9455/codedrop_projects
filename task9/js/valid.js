@@ -52,7 +52,7 @@ let Valid = {
             $(block_error).html("Заполните поле!");
             $(block).addClass("error");
             return false;
-        } else if (content>255) {
+        } else if (content.length>255) {
             $(block_error).html("Слишком длинный пост!");
             $(block).addClass("error");
             return false;

@@ -17,7 +17,7 @@ class Post
                 " . $json->user_id . ",
                 " . $json->content . ",
                 " . $json->status . ",
-                " . $json->created_at . ",
+                '" . $json->created_at . "',
                 " . $json->category_id . ");";
         mysqli_query($this->db->getConnect(), $sql);
     }
@@ -44,7 +44,13 @@ class Post
     }
     public function getS()
     {
-        // TODO: Implement getS() method.
+        $sql = "SELECT * FROM `Post`";
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return $arr;
     }
 
     public function update()
