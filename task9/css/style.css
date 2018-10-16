@@ -58,13 +58,14 @@
 
 .item {
     width: 100%;
-    height: 70px;
+    display: inline-block;
     border: 1px solid black;
     box-sizing: border-box;
     margin: 2px 0;
 }
 
 .item_info {
+    width: calc(100% - 100px);
     text-align: left;
     float: left;
 }

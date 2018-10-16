@@ -17,7 +17,10 @@ let Post = {
             str += "" +
                 "<div class='item'>" +
                 "<div class='item_info'>" +
-                "" +
+                "<div class='item_user'>User : " + Post.getUser(res[i].user_id,) + "</div>" +
+                "<div class='item_category'>Category : " + Post.getCategory(res[i].category_id) + "</div>" +
+                "<div class='item_status'>Status : " + res[i].status + "</div>" +
+                "<div class='item_content'>" + res[i].content + "</div> " +
                 "</div>" +
                 "<div class='item_setting'>" +
                 "<div class='item_edit' data-id='" + res[i].id + "'>Edit</div> " +
@@ -26,7 +29,7 @@ let Post = {
                 "</div>"
         }
         $(".post_load").html(str);
-        //дописать отображение постов
+
     },
     loadPost: function (func) {
         $.ajax({
@@ -75,5 +78,21 @@ let Post = {
                 Post.add(json);
             }
         })
+    },
+    getUser: function (user_id) {
+        let res = JSON.parse(User.users);
+        for (let i in res) {
+            if (user_id == res[i].id) {
+                return res[i].name;
+            }
+        }
+    },
+    getCategory: function (category_id) {
+        let res = JSON.parse(Category.categories);
+        for (let i in res) {
+            if (category_id == res[i].id) {
+                return res[i].name;
+            }
+        }
     }
 };

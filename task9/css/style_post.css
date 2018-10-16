@@ -1,5 +1,4 @@
-
-.content_text{
+.content_text {
     overflow-y: hidden;
     height: 100px;
     margin: 12px 20px;
@@ -7,7 +6,20 @@
     display: inline-table;
     word-wrap: break-word;
 }
-.block_category, .block_user{
+
+.block_category, .block_user {
     width: 50%;
     float: left;
+}
+
+.item_user, .item_category, .item_status {
+    margin-right: 30px;
+    float: left;
+}
+
+.item_content {
+    padding-top: 10px;
+    margin: 10px;
+    clear:left;
+    word-wrap: break-word;
 }
