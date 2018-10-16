@@ -58,9 +58,10 @@ class Post
         // TODO: Implement update() method.
     }
 
-    public function remove()
+    public function remove($id)
     {
-        // TODO: Implement remove() method.
+        $sql = "DELETE FROM `Post` WHERE `id` = " . $id . ";";
+        mysqli_query($this->db->getConnect(), $sql);
     }
 
 }

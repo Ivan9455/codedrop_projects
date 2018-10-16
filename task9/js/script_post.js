@@ -3,4 +3,5 @@ $(document).ready(function () {
     Category.load(Post.loadCategory);
     Post.loadPost(Post.load)
     Post.event();
+    Post.eventUpdate();
 });

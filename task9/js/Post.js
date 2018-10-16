@@ -1,12 +1,20 @@
 let Post = {
     add: function (json) {
-        console.log(json);
         $.ajax({
             type: "POST",
             url: "src/ajax/post/add.php",
             data: {json: JSON.stringify(json)}
         }).done(function () {
-            Post.loadPost(Post.load)
+            Post.loadPost(Post.load);
+        })
+    },
+    remove:function(id){
+        $.ajax({
+            type: "POST",
+            url: "src/ajax/post/remove.php",
+            data: {id: id}
+        }).done(function () {
+            Post.loadPost(Post.load);
         })
     },
     posts: "",
@@ -77,6 +85,31 @@ let Post = {
                 Valid.status(json.status, ".status_number", ".status_number_error")) {
                 Post.add(json);
             }
+        });
+        $(".post_load").on('click',".item_remove",function () {
+            Post.remove($(this).attr("data-id")) ;
+        });
+
+        $(".post_load").on('click', ".item_edit", function () {
+            //User.updateOpen($(this).attr("data-id"));
+            $(".overlay").css("display", "block");
+            $(".update").css("display", "block");
+        })
+    },
+    eventUpdate: function () {
+        $(".update_save").click(function () {
+            // let json = {};
+            // json.id = $(this).attr("data-id");
+            // json.name = $(".update_name").val();
+            // json.email = $(".update_email").val();
+            // json.status = $(".update_status").val();
+            // User.update(json);
+            $(".overlay").css("display", "none");
+            $(".update").css("display", "none");
+        });
+        $(".update").on('click', ".update_exit", function () {
+            $(".overlay").css("display", "none");
+            $(".update").css("display", "none");
         })
     },
     getUser: function (user_id) {
