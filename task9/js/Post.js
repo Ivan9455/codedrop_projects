@@ -6,7 +6,7 @@ let Post = {
             url: "src/ajax/post/add.php",
             data: {json: JSON.stringify(json)}
         }).done(function () {
-            Post.loadUser(Post.load)
+            Post.loadPost(Post.load)
         })
     },
     posts: "",
