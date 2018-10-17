@@ -55,7 +55,7 @@ require_once ("src/header.php");
         </div>
         <div class="textarea_block">
             <textarea class="update_content"></textarea>
-            <div class="textarea_block_error"></div>
+            <div class="update_content_error"></div>
         </div>
     </div>
     <div class="update_setting">
@@ -66,10 +66,11 @@ require_once ("src/header.php");
 <div class="overlay"></div>
 <script type="text/javascript" src="../jquery/jquery.js"></script>
 <script type="text/javascript" src="js/valid.js"></script>
+<script type="text/javascript" src="js/help_func.js"></script>
 <script type="text/javascript" src="js/User.js"></script>
 <script type="text/javascript" src="js/Category.js"></script>
 <script type="text/javascript" src="js/Post.js"></script>
 <script type="text/javascript" src="js/script_post.js"></script>
-<script type="text/javascript" src="js/help_func.js"></script>
+
 </body>
 </html>

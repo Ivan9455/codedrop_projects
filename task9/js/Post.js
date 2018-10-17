@@ -37,6 +37,27 @@ let Post = {
         });
 
     },
+    update: function (id) {
+        let json = {}
+        json.id = id;
+        json.user_id = $(".update_user select :selected").attr("data-id");
+        json.category_id = $(".update_category select :selected").attr("data-id");
+        json.status = $(".update_status").val();
+        json.content = $(".update_content").val();
+        json.updated_at = dat_format_input(new Date().getTime());
+        console.log(json)
+        if (Valid.status(json.status, ".update_status", ".update_status_error"),
+            Valid.content(json.content, ".update_content", ".update_content_error")) {
+            $.ajax({
+                type: "POST",
+                url: "src/ajax/post/post_update.php",
+                data: {json: JSON.stringify(json)}
+            }).done(function () {
+                Post.loadPost(Post.load);
+            })
+        }
+
+    },
     posts: "",
     load: function () {
         let res = JSON.parse(Post.posts)
@@ -106,7 +127,7 @@ let Post = {
             json.status = $(".status_number").val();
             json.user_id = $(".block_user select :selected").attr('data-id');
             json.category_id = $(".block_category select :selected").attr('data-id');
-            json.created_at = dat_format_input(new Date().getTime());
+            json.updated_at = dat_format_input(new Date().getTime());
             if (Valid.content(json.content, ".content_text", ".content_text_error") &
                 Valid.status(json.status, ".status_number", ".status_number_error")) {
                 Post.add(json);
@@ -121,12 +142,7 @@ let Post = {
     },
     eventUpdate: function () {
         $(".update_save").click(function () {
-            // let json = {};
-            // json.id = $(this).attr("data-id");
-            // json.name = $(".update_name").val();
-            // json.email = $(".update_email").val();
-            // json.status = $(".update_status").val();
-            // User.update(json);
+            Post.update($(this).attr("data-id"));
             $(".overlay").css("display", "none");
             $(".update").css("display", "none");
         });

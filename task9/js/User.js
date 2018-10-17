@@ -24,16 +24,16 @@ let User = {
             User.loadUsers(User.load);
         });
     },
-    removeValid:function(id){
+    removeValid: function (id) {
         $.ajax({
             type: "POST",
             url: "src/ajax/post/getuser.php",
             data: {id: id}
         }).done(function (result) {
-            if(result==0){
+            if (result == 0) {
                 User.remove(id)
             }
-            else{
+            else {
                 alert("Не возможно удалить user \n " +
                     "пока у него есть post!");
             }
