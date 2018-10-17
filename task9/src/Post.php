@@ -63,5 +63,14 @@ class Post
         $sql = "DELETE FROM `Post` WHERE `id` = " . $id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
+    public function get($id){
+        $sql = "SELECT * FROM `Post` WHERE `id` = " . $id . ";";
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return $arr[0];
+    }
 
 }

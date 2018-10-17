@@ -46,9 +46,17 @@ require_once ("src/header.php");
         <div class="update_info1">
             <div class="update_user"></div>
             <div class="update_category"></div>
-            <input class="update_status" type="number">
+            <div class="update_status_block">
+                <p>Status : </p>
+                <input class="update_status" type="number">
+                <div class="update_status_error"></div>
+            </div>
+            <div class="update_time"></div>
         </div>
-        <textarea class="update_content"></textarea>
+        <div class="textarea_block">
+            <textarea class="update_content"></textarea>
+            <div class="textarea_block_error"></div>
+        </div>
     </div>
     <div class="update_setting">
         <div class="update_save">Save</div>

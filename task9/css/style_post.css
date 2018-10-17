@@ -12,14 +12,39 @@
     float: left;
 }
 
-.item_user, .item_category, .item_status {
+.item_user,
+.item_category,
+.item_status,
+.item_time_create,
+.item_time_update {
     margin-right: 30px;
+    padding: 5px;
     float: left;
 }
-
 .item_content {
     padding-top: 10px;
     margin: 10px;
-    clear:left;
+    clear: left;
     word-wrap: break-word;
+}
+.update_user , .update_category{
+    float: left;
+    width: 50%;
+}
+.update_status_block{
+    margin-top: 10px ;
+    float: left;
+    width: 100%;
+    height: 70px;
+}
+.update_content{
+    overflow-y: hidden;
+    height: 200px;
+    margin:12px auto;
+    width: 100%;
+    display: inline-table;
+    word-wrap: break-word;
+}
+.textarea_block{
+    height: 350px;
 }

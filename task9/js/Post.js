@@ -8,7 +8,7 @@ let Post = {
             Post.loadPost(Post.load);
         })
     },
-    remove:function(id){
+    remove: function (id) {
         $.ajax({
             type: "POST",
             url: "src/ajax/post/remove.php",
@@ -16,6 +16,26 @@ let Post = {
         }).done(function () {
             Post.loadPost(Post.load);
         })
+    },
+    updateOpen: function (id) {
+        $(".overlay").css("display", "block");
+        $(".update").css("display", "block");
+        $(".update_save").attr("data-id", id);
+        $.ajax({
+            type: "POST",
+            url: "src/ajax/post/get_post.php",//update
+            data: {id: id}
+        }).done(function (result) {
+            let json = JSON.parse(result);
+            console.log(json)
+            Post.loadUser(".update_user");
+            Post.loadCategory(".update_category");
+            $(".update_user select").children('[data-id="' + json.user_id + '"]').attr("selected", "selected");
+            $(".update_category select").children('[data-id="' + json.category_id + '"]').attr("selected", "selected");
+            $(".update_status").val(json.status);
+            $(".update_content").val(json.content);
+        });
+
     },
     posts: "",
     load: function () {
@@ -28,13 +48,19 @@ let Post = {
                 "<div class='item_user'>User : " + Post.getUser(res[i].user_id,) + "</div>" +
                 "<div class='item_category'>Category : " + Post.getCategory(res[i].category_id) + "</div>" +
                 "<div class='item_status'>Status : " + res[i].status + "</div>" +
-                "<div class='item_content'>" + res[i].content + "</div> " +
+                "<div class='item_time_create'>Time created : " + res[i].created_at + "</div>" +
+                "<div class='item_content'>" + res[i].content + "</div> ";
+            if (res[i].updated_at !== null) {
+                str += "<div class='item_time_update'>Time update : " + res[i].updated_at + "</div>";
+            }
+            str +=
                 "</div>" +
                 "<div class='item_setting'>" +
                 "<div class='item_edit' data-id='" + res[i].id + "'>Edit</div> " +
                 "<div class='item_remove' data-id='" + res[i].id + "'>Remove</div> " +
                 "</div>" +
                 "</div>"
+
         }
         $(".post_load").html(str);
 
@@ -49,7 +75,7 @@ let Post = {
             func();
         })
     },
-    loadCategory: function () {
+    loadCategory: function (block = ".block_category") {
         let res = JSON.parse(Category.categories);
         let str = "<p>Category</p><select>";
         for (let item in res) {
@@ -59,9 +85,9 @@ let Post = {
                 "</option>";
         }
         str += "</select>";
-        $(".block_category").html(str);
+        $(block).html(str);
     },
-    loadUser: function () {
+    loadUser: function (block = ".block_user") {
         let res = JSON.parse(User.users);
         let str = "<p>User</p><select>";
         for (let item in res) {
@@ -71,7 +97,7 @@ let Post = {
                 "</option>";
         }
         str += "</select>";
-        $(".block_user").html(str);
+        $(block).html(str);
     },
     event: function () {
         $(".add").click(function () {
@@ -86,13 +112,11 @@ let Post = {
                 Post.add(json);
             }
         });
-        $(".post_load").on('click',".item_remove",function () {
-            Post.remove($(this).attr("data-id")) ;
+        $(".post_load").on('click', ".item_remove", function () {
+            Post.remove($(this).attr("data-id"));
         });
         $(".post_load").on('click', ".item_edit", function () {
-            //User.updateOpen($(this).attr("data-id"));
-            $(".overlay").css("display", "block");
-            $(".update").css("display", "block");
+            Post.updateOpen($(this).attr("data-id"));
         })
     },
     eventUpdate: function () {

@@ -108,7 +108,7 @@
     display: none;
     margin-left: -180px;
     left: 50%;
-    position: absolute;
+    position: fixed;
     text-align: center;
     background-color: #fff;
     z-index: 100;
@@ -116,7 +116,6 @@
 
 .update_info {
     width: 250px;
-    height: 70px;
     margin: 0 auto;
 }
 
