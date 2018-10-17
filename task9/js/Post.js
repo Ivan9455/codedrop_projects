@@ -89,7 +89,6 @@ let Post = {
         $(".post_load").on('click',".item_remove",function () {
             Post.remove($(this).attr("data-id")) ;
         });
-
         $(".post_load").on('click', ".item_edit", function () {
             //User.updateOpen($(this).attr("data-id"));
             $(".overlay").css("display", "block");

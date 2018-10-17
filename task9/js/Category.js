@@ -6,12 +6,12 @@ let Category = {
         $.ajax({
             type: "POST",
             url: "src/ajax/category/add.php",
-            data: {json:JSON.stringify(json)}
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
             Category.load(Category.loadCategory);
         })
     },
-    updateOpen:function(id){
+    updateOpen: function (id) {
         $(".overlay").css("display", "block");
         $(".update").css("display", "block");
         $(".update_save").attr("data-id", id);
@@ -25,7 +25,7 @@ let Category = {
             $(".update_status").val(json.status);
         });
     },
-    update:function(json){
+    update: function (json) {
         console.log(json)
         $.ajax({
             type: "POST",
@@ -35,7 +35,7 @@ let Category = {
             Category.load(Category.loadCategory);
         });
     },
-    remove:function(id){
+    remove: function (id) {
         $.ajax({
             type: "POST",
             url: "src/ajax/category/remove.php",
@@ -44,16 +44,16 @@ let Category = {
             Category.load(Category.loadCategory);
         });
     },
-    removeValid:function(id){
+    removeValid: function (id) {
         $.ajax({
             type: "POST",
             url: "src/ajax/post/getcategory.php",
             data: {id: id}
         }).done(function (result) {
-            if(result==0){
+            if (result == 0) {
                 Category.remove(id)
             }
-            else{
+            else {
                 alert("Не возможно удалить category \n " +
                     "пока он содержиться хоть в одном post !");
             }
@@ -90,18 +90,21 @@ let Category = {
             $(".update").css("display", "none");
         })
     },
-    categories:"",
+    categories: "",
     load: function (func) {
         $.ajax({
             type: "POST",
             url: "src/ajax/category/load.php",
-            data: {}
         }).done(function (result) {
             Category.categories = result;
             func();
-        });
+            console.log("done load_category")
+        }).success(function () {
+            console.log("success load_category")
+            return true;
+        })
     },
-    loadCategory:function () {
+    loadCategory: function () {
         let result = Category.categories;
         let str = "";
         for (let item in result) {

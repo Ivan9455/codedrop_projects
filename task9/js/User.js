@@ -107,6 +107,10 @@ let User = {
         }).done(function (result) {
             User.users = result;
             func();
+            console.log("done load_user")
+        }).success(function () {
+            console.log("success load_user")
+            return true;
         })
     },
     load: function () {
