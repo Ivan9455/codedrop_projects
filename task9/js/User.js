@@ -100,7 +100,7 @@ let User = {
     },
     users: "",
     loadUsers: function (func) {
-        $.ajax({
+        return $.ajax({
             type: "POST",
             url: "src/ajax/user/load.php",
             data: {}

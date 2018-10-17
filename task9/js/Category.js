@@ -92,7 +92,7 @@ let Category = {
     },
     categories: "",
     load: function (func) {
-        $.ajax({
+        return $.ajax({
             type: "POST",
             url: "src/ajax/category/load.php",
         }).done(function (result) {

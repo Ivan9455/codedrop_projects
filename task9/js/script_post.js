@@ -1,12 +1,15 @@
 "use strict";
 
-let promise = new Promise(function (resolve, reject) {
-    User.loadUsers(Post.loadUser);
-    Category.load(Post.loadCategory);
-    resolve();
-});
+// let promise = new Promise(function (resolve, reject) {
+//     User.loadUsers(Post.loadUser);
+//     Category.load(Post.loadCategory);
+//     resolve();
+// });
 $(document).ready(function () {
-    promise.then(function (data) {
+    // promise.then(function (data) {
+    //     Post.loadPost(Post.load);
+    // });
+    $.when(User.loadUsers(Post.loadUser), Category.load(Post.loadCategory)).done(function(){
         Post.loadPost(Post.load);
     });
     Post.event();
