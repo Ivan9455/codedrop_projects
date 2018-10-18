@@ -13,7 +13,7 @@ class Category
 
     public function getS()
     {
-        $sql = "SELECT * FROM `Category`";
+        $sql = "SELECT * FROM `category`";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -24,20 +24,20 @@ class Category
 
     public function remove($id)
     {
-        $sql = "DELETE FROM `Category` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `category` WHERE `id` = " . $id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function add($json)
     {
-        $sql = "INSERT INTO `Category` (name, status) 
+        $sql = "INSERT INTO `category` (name, status) 
                 VALUE (" . $json->name . "," . $json->status . ");";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function get($id)
     {
-        $sql = "SELECT * FROM `Category` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `category` WHERE `id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -45,9 +45,11 @@ class Category
         }
         return $arr[0];
     }
-    public function update($json){
+
+    public function update($json)
+    {
         $sql = "
-        UPDATE `Category`  SET 
+        UPDATE `category`  SET 
         `name` = '$json->name',
         `status` = '$json->status'
         WHERE `id` = '$json->id'";

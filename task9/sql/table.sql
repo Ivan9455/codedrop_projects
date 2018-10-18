@@ -1,41 +1,26 @@
-create table Category
-(
-  id     int auto_increment
-    primary key,
-  name   varchar(50) not null,
-  status int         null
-);
+CREATE TABLE `user` (
+  `id` INTEGER AUTO_INCREMENT,
+  `name` VARCHAR (15) NOT NULL ,
+  `email` VARCHAR(50) NOT NULL ,
+  `status` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-create table User
-(
-  id     int auto_increment,
-  name   varchar(15) not null,
-  email  varchar(50) not null,
-  status int         not null,
-  constraint User_id_uindex
-  unique (id)
-);
+CREATE TABLE `category` (
+  `id` INTEGER AUTO_INCREMENT ,
+  `name` VARCHAR (50) NOT NULL ,
+  `status` INTEGER NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-alter table User
-  add primary key (id);
 
-create table Post
-(
-  id          int auto_increment
-    primary key,
-  user_id     int                                 null,
-  content     varchar(255)                        not null,
-  status      int                                 not null,
-  created_at  timestamp default CURRENT_TIMESTAMP not null
-  on update CURRENT_TIMESTAMP,
-  updated_at  timestamp                           null,
-  category_id int                                 not null,
-  constraint Post_category_id_uindex
-  unique (category_id),
-  constraint Post_user_id_uindex
-  unique (user_id),
-  constraint Post_Category_id_fk
-  foreign key (category_id) references Category (id),
-  constraint Post_User_id_fk
-  foreign key (user_id) references User (id)
-);
+CREATE TABLE `post` (
+  `id` INTEGER AUTO_INCREMENT,
+  `user_id` INTEGER NOT NULL ,
+  `content` VARCHAR(255) NOT NULL ,
+  `status` INTEGER NOT NULL,
+  `created_at` TIMESTAMP NOT NULL ,
+  `updated_at` DATETIME  ,
+  `category_id` INTEGER NOT NULL,
+  PRIMARY KEY (`id`),
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

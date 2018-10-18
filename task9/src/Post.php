@@ -12,7 +12,7 @@ class Post
 
     public function add($json)
     {
-        $sql = "INSERT INTO `Post` (user_id, content, status, created_at, category_id)  
+        $sql = "INSERT INTO `post` (user_id, content, status, updated_at, category_id)  
                 VALUE (
                 " . $json->user_id . ",
                 " . $json->content . ",
@@ -24,7 +24,7 @@ class Post
 
     public function getUser($id)
     {
-        $sql = "SELECT * FROM `Post` WHERE `user_id` = " . $id . ";";
+        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -35,7 +35,7 @@ class Post
 
     public function getCategory($id)
     {
-        $sql = "SELECT * FROM `Post` WHERE `category_id` = " . $id . ";";
+        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -46,7 +46,7 @@ class Post
 
     public function getS()
     {
-        $sql = "SELECT * FROM `Post`";
+        $sql = "SELECT * FROM `post`";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -58,25 +58,25 @@ class Post
     public function update($json)
     {
         $sql = "
-        UPDATE `Post`  SET 
+        UPDATE `post`  SET 
         `user_id` = '$json->user_id',
         `category_id` = '$json->category_id',
         `status` = '$json->status',
         `content` = '$json->content',
-        `updated_at` = '$json->updated_at'
+        created_at = '$json->updated_at'
         WHERE `id` = '$json->id'";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function remove($id)
     {
-        $sql = "DELETE FROM `Post` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `post` WHERE `id` = " . $id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function get($id)
     {
-        $sql = "SELECT * FROM `Post` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `post` WHERE `id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {

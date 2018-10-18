@@ -12,7 +12,7 @@ class User
 
     public function getS()
     {
-        $sql = "SELECT * FROM `User`";
+        $sql = "SELECT * FROM `user` ";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -23,20 +23,20 @@ class User
 
     public function add($json)
     {
-        $sql = "INSERT INTO `User` (name, email, status) 
+        $sql = "INSERT INTO `user`  (name, email, status) 
                 VALUE (" . $json->name . "," . $json->email . "," . $json->status . ");";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function remove($id)
     {
-        $sql = "DELETE FROM `User` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `user`  WHERE `id` = " . $id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function get($id)
     {
-        $sql = "SELECT * FROM `User` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `user`  WHERE `id` = " . $id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -48,7 +48,7 @@ class User
     public function update($json)
     {
         $sql = "
-        UPDATE `User`  SET 
+        UPDATE `user`  SET 
         `name` = '$json->name',
         `email` = '$json->email',
         `status` = '$json->status'
