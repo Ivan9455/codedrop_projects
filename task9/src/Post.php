@@ -12,7 +12,7 @@ class Post
 
     public function add($json)
     {
-        $sql = "INSERT INTO `post` (user_id, content, status, updated_at, category_id)  
+        $sql = "INSERT INTO `post` (user_id, content, status, created_at, category_id)  
                 VALUE (
                 " . $json->user_id . ",
                 " . $json->content . ",
@@ -63,7 +63,7 @@ class Post
         `category_id` = '$json->category_id',
         `status` = '$json->status',
         `content` = '$json->content',
-        created_at = '$json->updated_at'
+        `updated_at` = '". $json->updated_at ."'
         WHERE `id` = '$json->id'";
         mysqli_query($this->db->getConnect(), $sql);
     }

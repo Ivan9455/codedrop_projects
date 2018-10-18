@@ -1,5 +1,6 @@
 let Post = {
     add: function (json) {
+        console.log(json)
         $.ajax({
             type: "POST",
             url: "src/ajax/post/add.php",
@@ -127,7 +128,7 @@ let Post = {
             json.status = $(".status_number").val();
             json.user_id = $(".block_user select :selected").attr('data-id');
             json.category_id = $(".block_category select :selected").attr('data-id');
-            json.updated_at = dat_format_input(new Date().getTime());
+            json.created_at = dat_format_input(new Date().getTime());
             if (Valid.content(json.content, ".content_text", ".content_text_error") &
                 Valid.status(json.status, ".status_number", ".status_number_error")) {
                 Post.add(json);
