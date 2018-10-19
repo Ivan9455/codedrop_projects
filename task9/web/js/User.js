@@ -7,11 +7,12 @@ let User = {
         console.log(json)
         $.ajax({
             type: "GET",
-            url: "src/ajax/user/add.php",
+            url: "/user/get/add",
             data: {
                 json: JSON.stringify(json)
             }
         }).done(function (result) {
+            console.log(result);
             User.loadUsers(User.load);
         });
     },
@@ -103,7 +104,6 @@ let User = {
         return $.ajax({
             type: "POST",
             url: "/user/post/getS",
-            data: {}
         }).done(function (result) {
             User.users = result;
             func();

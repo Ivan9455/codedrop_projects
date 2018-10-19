@@ -9,15 +9,18 @@ switch ($uri) {
         $func_name = str_replace("/user/post/", '', $uri);
         print_r(json_encode(call_user_func(array(new User(), $func_name))));
         break;
-    case preg_match('/user.get?/', $uri) ? true : false:
+    case preg_match('/user.get/', $uri) ? true : false:
         require_once "../src/User.php";
+        $func_name = strstr(str_replace("/user/get/", '', $uri), '?', true);
         echo "<br>";
-        $get_name = strstr(substr(strstr($uri,'?'),1),"=",true);
-        print_r($_GET[$get_name]);
+        $get_name = strstr(substr(strstr($uri, '?'), 1), "=", true);
+        echo $get_name;
         echo "<br>";
-        print_r($_GET) ;
+        print_r(json_decode($_GET[$get_name])->name);
+        echo "<br>";
+        print_r($_GET);
 //        $func_name = str_replace("/user/get?", "", $uri);
-//        call_user_method($func_name, new User);
+        call_user_func_array(array(new User, $func_name), array(json_decode($_GET[$get_name])));
 
         break;
     case $uri == '/post':
