@@ -6,7 +6,7 @@ let User = {
         json.status = status;
         console.log(json)
         $.ajax({
-            type: "POST",
+            type: "GET",
             url: "src/ajax/user/add.php",
             data: {
                 json: JSON.stringify(json)
@@ -102,7 +102,7 @@ let User = {
     loadUsers: function (func) {
         return $.ajax({
             type: "POST",
-            url: "src/ajax/user/load.php",
+            url: "/user/post/getS",
             data: {}
         }).done(function (result) {
             User.users = result;
