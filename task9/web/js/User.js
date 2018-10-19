@@ -12,7 +12,6 @@ let User = {
                 json: JSON.stringify(json)
             }
         }).done(function (result) {
-            console.log(result);
             User.loadUsers(User.load);
         });
     },

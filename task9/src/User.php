@@ -26,7 +26,6 @@ class User
         $sql = "INSERT INTO `user`  (name, email, status) 
                 VALUE (" . $json->name . "," . $json->email . "," . $json->status . ");";
         mysqli_query($this->db->getConnect(), $sql);
-        return true;
     }
 
     public function remove($id)
