@@ -22,9 +22,9 @@ class Category
         return $arr;
     }
 
-    public function remove($id)
+    public function remove($json)
     {
-        $sql = "DELETE FROM `category` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `category` WHERE `id` = " . $json->id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
@@ -35,15 +35,15 @@ class Category
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function get($id)
+    public function get($json)
     {
-        $sql = "SELECT * FROM `category` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `category` WHERE `id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
             array_push($arr, $result);
         }
-        return $arr[0];
+        return json_encode($arr[0]);
     }
 
     public function update($json)
@@ -54,5 +54,16 @@ class Category
         `status` = '$json->status'
         WHERE `id` = '$json->id'";
         mysqli_query($this->db->getConnect(), $sql);
+    }
+
+    public function getCategory($json)
+    {
+        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $json->id . ";";
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return count($arr);
     }
 }
