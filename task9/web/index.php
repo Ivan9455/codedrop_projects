@@ -12,15 +12,15 @@ switch ($uri) {
     case preg_match('/user.get/', $uri) ? true : false:
         require_once "../src/User.php";
         $func_name = strstr(str_replace("/user/get/", '', $uri), '?', true);
-        echo "<br>";
+        //echo "<br>";
         $get_name = strstr(substr(strstr($uri, '?'), 1), "=", true);
-        echo $get_name;
-        echo "<br>";
-        print_r(json_decode($_GET[$get_name])->name);
-        echo "<br>";
-        print_r($_GET);
+        //echo $get_name;
+        //echo "<br>";
+        //print_r(json_decode($_GET[$get_name])->name);
+        //echo "<br>";
+
 //        $func_name = str_replace("/user/get?", "", $uri);
-        call_user_func_array(array(new User, $func_name), array(json_decode($_GET[$get_name])));
+         print_r(call_user_func_array(array(new User, $func_name), array(json_decode($_GET[$get_name]))));
 
         break;
     case $uri == '/post':

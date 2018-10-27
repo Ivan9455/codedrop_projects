@@ -28,21 +28,21 @@ class User
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function remove($id)
+    public function remove($json)
     {
-        $sql = "DELETE FROM `user`  WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `user`  WHERE `id` = " . $json->id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function get($id)
+    public function get($json)
     {
-        $sql = "SELECT * FROM `user`  WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `user`  WHERE `id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
             array_push($arr, $result);
         }
-        return $arr[0];
+        return json_encode($arr[0]);
     }
 
     public function update($json)
@@ -54,5 +54,16 @@ class User
         `status` = '$json->status'
         WHERE `id` = '$json->id'";
         mysqli_query($this->db->getConnect(), $sql);
+    }
+
+    public function getUser($json)
+    {
+        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $json->id . ";";
+        $res = mysqli_query($this->db->getConnect(), $sql);
+        $arr = [];
+        while ($result = mysqli_fetch_assoc($res)) {
+            array_push($arr, $result);
+        }
+        return count($arr);
     }
 }
