@@ -22,27 +22,27 @@ class Post
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function getUser($id)
-    {
-        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
-        $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
-        }
-        return $arr;
-    }
+//    public function getUser($id)
+//    {
+//        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $id . ";";
+//        $res = mysqli_query($this->db->getConnect(), $sql);
+//        $arr = [];
+//        while ($result = mysqli_fetch_assoc($res)) {
+//            array_push($arr, $result);
+//        }
+//        return $arr;
+//    }
 
-    public function getCategory($id)
-    {
-        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
-        $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
-        }
-        return $arr;
-    }
+//    public function getCategory($id)
+//    {
+//        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $id . ";";
+//        $res = mysqli_query($this->db->getConnect(), $sql);
+//        $arr = [];
+//        while ($result = mysqli_fetch_assoc($res)) {
+//            array_push($arr, $result);
+//        }
+//        return $arr;
+//    }
 
     public function getS()
     {
