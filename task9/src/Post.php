@@ -22,28 +22,6 @@ class Post
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-//    public function getUser($id)
-//    {
-//        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $id . ";";
-//        $res = mysqli_query($this->db->getConnect(), $sql);
-//        $arr = [];
-//        while ($result = mysqli_fetch_assoc($res)) {
-//            array_push($arr, $result);
-//        }
-//        return $arr;
-//    }
-
-//    public function getCategory($id)
-//    {
-//        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $id . ";";
-//        $res = mysqli_query($this->db->getConnect(), $sql);
-//        $arr = [];
-//        while ($result = mysqli_fetch_assoc($res)) {
-//            array_push($arr, $result);
-//        }
-//        return $arr;
-//    }
-
     public function getS()
     {
         $sql = "SELECT * FROM `post`";
@@ -68,9 +46,9 @@ class Post
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function remove($id)
+    public function remove($json)
     {
-        $sql = "DELETE FROM `post` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `post` WHERE `id` = " . $json->id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 

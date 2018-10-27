@@ -2,18 +2,20 @@ let Post = {
     add: function (json) {
         console.log(json)
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/add.php",
+            type: "GET",
+            url: "/post/get/add",
             data: {json: JSON.stringify(json)}
         }).done(function () {
             Post.loadPost(Post.load);
         })
     },
     remove: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/remove.php",
-            data: {id: id}
+            type: "GET",
+            url: "/post/get/remove",
+            data: {json: JSON.stringify(json)}
         }).done(function () {
             Post.loadPost(Post.load);
         })
@@ -90,7 +92,7 @@ let Post = {
     loadPost: function (func) {
         $.ajax({
             type: "POST",
-            url: "src/ajax/post/load.php",
+            url: "/post/post/getS",
             data: {}
         }).done(function (result) {
             Post.posts = result;
