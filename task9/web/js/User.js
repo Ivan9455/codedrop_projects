@@ -6,8 +6,8 @@ let User = {
         json.status = status;
         console.log(json)
         $.ajax({
-            type: "POST",
-            url: "src/ajax/user/add.php",
+            type: "GET",
+            url: "/user/get/add",
             data: {
                 json: JSON.stringify(json)
             }
@@ -16,20 +16,25 @@ let User = {
         });
     },
     remove: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/user/remove.php",
-            data: {id: id}
+            type: "GET",
+            url: "/user/get/remove",
+            data: {json: JSON.stringify(json)}
         }).done(function () {
             User.loadUsers(User.load);
         });
     },
     removeValid: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/getuser.php",
-            data: {id: id}
+            type: "GET",
+            url: "/user/get/getUser",
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
+            console.log(result)
             if (result == 0) {
                 User.remove(id)
             }
@@ -40,13 +45,15 @@ let User = {
         });
     },
     updateOpen: function (id) {
+        let json = {};
+        json.id = id;
         $(".overlay").css("display", "block");
         $(".update").css("display", "block");
         $(".update_save").attr("data-id", id);
         $.ajax({
-            type: "POST",
-            url: "src/ajax/user/get_user.php",
-            data: {id: id}
+            type: "GET",
+            url: "/user/get/get",
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
             let json = JSON.parse(result);
             $(".update_name").val(json.name);
@@ -54,11 +61,11 @@ let User = {
             $(".update_status").val(json.status);
         });
     },
-    update(json) {
+    update:function(json) {
         console.log(json)
         $.ajax({
-            type: "POST",
-            url: "src/ajax/user/user_update.php",
+            type: "GET",
+            url: "/user/get/update",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
             User.loadUsers(User.load);
@@ -102,8 +109,7 @@ let User = {
     loadUsers: function (func) {
         return $.ajax({
             type: "POST",
-            url: "src/ajax/user/load.php",
-            data: {}
+            url: "/user/post/getS",
         }).done(function (result) {
             User.users = result;
             func();

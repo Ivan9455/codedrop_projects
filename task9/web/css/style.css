@@ -34,7 +34,7 @@
 }
 
 .block_name, .block_email, .block_status , .user_and_category{
-    height: 80px;
+    /*height: 80px;*/
     padding: 10px 0;
 }
 

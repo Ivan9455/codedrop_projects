@@ -4,21 +4,23 @@ let Category = {
         json.name = name;
         json.status = status;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/category/add.php",
+            type: "GET",
+            url: "/category/get/add",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
             Category.load(Category.loadCategory);
         })
     },
     updateOpen: function (id) {
+        let json = {};
+        json.id = id;
         $(".overlay").css("display", "block");
         $(".update").css("display", "block");
         $(".update_save").attr("data-id", id);
         $.ajax({
-            type: "POST",
-            url: "src/ajax/category/get_category.php",
-            data: {id: id}
+            type: "GET",
+            url: "/category/get/get",
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
             let json = JSON.parse(result);
             $(".update_name").val(json.name);
@@ -26,29 +28,32 @@ let Category = {
         });
     },
     update: function (json) {
-        console.log(json)
         $.ajax({
-            type: "POST",
-            url: "src/ajax/category/category_update.php",
+            type: "GET",
+            url: "/category/get/update",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
             Category.load(Category.loadCategory);
         });
     },
     remove: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/category/remove.php",
-            data: {id: id}
+            type: "GET",
+            url: "/category/get/remove",
+            data: {json: JSON.stringify(json)}
         }).done(function () {
             Category.load(Category.loadCategory);
         });
     },
     removeValid: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/getcategory.php",
-            data: {id: id}
+            type: "GET",
+            url: "/category/get/getCategory",
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
             if (result == 0) {
                 Category.remove(id)
@@ -94,7 +99,7 @@ let Category = {
     load: function (func) {
         return $.ajax({
             type: "POST",
-            url: "src/ajax/category/load.php",
+            url: "/category/post/getS",
         }).done(function (result) {
             Category.categories = result;
             func();
