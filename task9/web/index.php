@@ -23,12 +23,12 @@ switch ($uri) {
         $func_name = str_replace("/post/post/", '', $uri);
         print_r(json_encode(call_user_func(array(new Post(), $func_name))));
         break;
-//    case preg_match('/post.get/', $uri) ? true : false:
-//        require_once "../src/Post.php";
-//        $func_name = strstr(str_replace("/post/get/", '', $uri), '?', true);
-//        $get_name = strstr(substr(strstr($uri, '?'), 1), "=", true);
-//        print_r(call_user_func_array(array(new Post, $func_name), array(json_decode($_GET[$get_name]))));
-//        break;
+    case preg_match('/post.gett/', $uri) ? true : false:
+        require_once "../src/Post.php";
+        $func_name = strstr(str_replace("/post/gett/", '', $uri), '?', true);
+        $get_name = strstr(substr(strstr($uri, '?'), 1), "=", true);
+        print_r(call_user_func_array(array(new Post, $func_name), array(json_decode($_GET[$get_name]))));
+        break;
     case $uri == '/category':
         require_once "../view/category.php";
         break;

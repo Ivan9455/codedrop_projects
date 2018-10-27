@@ -52,15 +52,15 @@ class Post
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function get($id)
+    public function get($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `post` WHERE `id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
             array_push($arr, $result);
         }
-        return $arr[0];
+        return json_encode($arr[0]);
     }
 
 }
