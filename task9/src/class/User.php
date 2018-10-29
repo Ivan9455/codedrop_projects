@@ -21,7 +21,8 @@ class User
 
     public function add($json)
     {
-        $sql = "INSERT INTO `user`  (name, email, status) VALUE (:name, :email, :status)";
+        $sql = "INSERT INTO `user`  (name, email, status) 
+                VALUE (:name, :email, :status)";
         $res = $this->db->getConnect()->prepare($sql);
         $res->execute(array(
             ':name' => $json->name,
