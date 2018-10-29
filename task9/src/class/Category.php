@@ -12,56 +12,63 @@ class Category
 
     public function getS()
     {
-        $sql = "SELECT * FROM `category`";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `category` ";
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($this->db->getConnect()->query($sql) as $row) {
+            array_push($arr, $row);
         }
         return $arr;
     }
 
     public function remove($json)
     {
-        $sql = "DELETE FROM `category` WHERE `id` = " . $json->id . ";";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "DELETE FROM `category`  WHERE `id` =  :id";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array('id' => $json->id));
     }
 
     public function add($json)
     {
-        $sql = "INSERT INTO `category` (name, status) 
-                VALUE (" . $json->name . "," . $json->status . ");";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "INSERT INTO `category`  (name, status) VALUE (:name, :status)";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':name' => $json->name,
+            ':status' => $json->status));
     }
 
     public function get($json)
     {
-        $sql = "SELECT * FROM `category` WHERE `id` = " . $json->id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `category` WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(':id' => $json->id));
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($res as $row) {
+            array_push($arr, $row);
         }
         return json_encode($arr[0]);
     }
 
     public function update($json)
     {
-        $sql = "
-        UPDATE `category`  SET 
-        `name` = '$json->name',
-        `status` = '$json->status'
-        WHERE `id` = '$json->id'";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "UPDATE `category` SET 
+        `name` = :name , 
+        `status` = :status 
+        WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':name' => $json->name,
+            ':status' => $json->status,
+            ':id' => $json->id));
     }
 
     public function getCategory($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $json->id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `post` WHERE `category_id` = :id";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(':id' => $json->id));
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($res as $row) {
+            array_push($arr, $row);
         }
         return count($arr);
     }
