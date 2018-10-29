@@ -13,7 +13,7 @@
 </head>
 <body
 <?php
-require_once("../src/template/header.php");
+require_once("template/header.php");
 ?>
 <div class="container">
     <div class="row">
