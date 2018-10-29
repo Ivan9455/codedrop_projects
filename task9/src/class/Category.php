@@ -1,8 +1,8 @@
 <?php
-require_once("database/DataBase.php");
 
-class User
+class Category
 {
+
     private $db;
 
     public function __construct()
@@ -12,7 +12,7 @@ class User
 
     public function getS()
     {
-        $sql = "SELECT * FROM `user` ";
+        $sql = "SELECT * FROM `category`";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -21,22 +21,22 @@ class User
         return $arr;
     }
 
-    public function add($json)
+    public function remove($json)
     {
-        $sql = "INSERT INTO `user`  (name, email, status) 
-                VALUE (" . $json->name . "," . $json->email . "," . $json->status . ");";
+        $sql = "DELETE FROM `category` WHERE `id` = " . $json->id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function remove($json)
+    public function add($json)
     {
-        $sql = "DELETE FROM `user`  WHERE `id` = " . $json->id . ";";
+        $sql = "INSERT INTO `category` (name, status) 
+                VALUE (" . $json->name . "," . $json->status . ");";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
     public function get($json)
     {
-        $sql = "SELECT * FROM `user`  WHERE `id` = " . $json->id . ";";
+        $sql = "SELECT * FROM `category` WHERE `id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
@@ -48,17 +48,16 @@ class User
     public function update($json)
     {
         $sql = "
-        UPDATE `user`  SET 
+        UPDATE `category`  SET 
         `name` = '$json->name',
-        `email` = '$json->email',
         `status` = '$json->status'
         WHERE `id` = '$json->id'";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function getUser($json)
+    public function getCategory($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $json->id . ";";
+        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
