@@ -68,6 +68,7 @@ switch ($uri) {
         break;
     default:
         require_once "../view/index.php";
+
         break;
 }
 ?>

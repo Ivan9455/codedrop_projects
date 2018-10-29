@@ -10,11 +10,18 @@ class DataBase
 
     public function __construct()
     {
-        $this->connect = mysqli_connect(
-            $this->host,
-            $this->name,
-            $this->password,
-            $this->database);
+        try {
+            $this->connect = new PDO(
+                "mysql:host=".$this->host.
+                ";dbname=".$this->database,
+                $this->name,
+                $this->password);
+        } catch (PDOException $e) {
+            file_put_contents(
+                'PDOErrors.txt',
+                $e->getMessage(),
+                FILE_APPEND);
+        }
     }
 
     public function getConnect()
@@ -24,6 +31,6 @@ class DataBase
 
     public function __destruct()
     {
-        mysqli_close($this->connect);
+        $this->connect = null;
     }
 }
