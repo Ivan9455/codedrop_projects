@@ -11,53 +11,61 @@ class Post
 
     public function add($json)
     {
-        $sql = "INSERT INTO `post` (user_id, content, status, created_at, category_id)  
-                VALUE (
-                " . $json->user_id . ",
-                " . $json->content . ",
-                " . $json->status . ",
-                '" . $json->created_at . "',
-                " . $json->category_id . ");";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "INSERT INTO `post`  (user_id, content, status, created_at, category_id) 
+                VALUE (:user_id, :content, :status, :created_at, :category_id)";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':user_id' => $json->user_id,
+            ':content' => $json->content,
+            ':status' => $json->status,
+            ':created_at' => $json->created_at,
+            ':category_id' => $json->category_id));
     }
 
     public function getS()
     {
-        $sql = "SELECT * FROM `post`";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `post` ";
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($this->db->getConnect()->query($sql) as $row) {
+            array_push($arr, $row);
         }
         return $arr;
     }
 
     public function update($json)
     {
-        $sql = "
-        UPDATE `post`  SET 
-        `user_id` = '$json->user_id',
-        `category_id` = '$json->category_id',
-        `status` = '$json->status',
-        `content` = '$json->content',
-        `updated_at` = '". $json->updated_at ."'
-        WHERE `id` = '$json->id'";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "UPDATE `post` SET 
+        `user_id` = :user_id , 
+        `category_id` = :category_id ,
+        `status` = :status ,
+        `content` = :content ,
+        `updated_at` = :updated_at 
+        WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':user_id' => $json->user_id,
+            ':category_id' => $json->category_id,
+            ':status' => $json->status,
+            ':updated_at' => $json->updated_at,
+            ':content' => $json->content,
+            ':id' => $json->id));
     }
 
     public function remove($json)
     {
-        $sql = "DELETE FROM `post` WHERE `id` = " . $json->id . ";";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "DELETE FROM `post`  WHERE `id` =  :id";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array('id' => $json->id));
     }
 
     public function get($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `id` = " . $json->id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `post` WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(':id' => $json->id));
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($res as $row) {
+            array_push($arr, $row);
         }
         return json_encode($arr[0]);
     }

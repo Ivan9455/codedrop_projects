@@ -12,10 +12,9 @@ class User
     public function getS()
     {
         $sql = "SELECT * FROM `user` ";
-        $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($this->db->getConnect()->query($sql) as $row) {
+            array_push($arr, $row);
         }
         return $arr;
     }
@@ -23,45 +22,56 @@ class User
     public function add($json)
     {
         $sql = "INSERT INTO `user`  (name, email, status) 
-                VALUE (" . $json->name . "," . $json->email . "," . $json->status . ");";
-        mysqli_query($this->db->getConnect(), $sql);
+                VALUE (:name, :email, :status)";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':name' => $json->name,
+            ':email' => $json->email,
+            ':status' => $json->status));
     }
 
     public function remove($json)
     {
-        $sql = "DELETE FROM `user`  WHERE `id` = " . $json->id . ";";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "DELETE FROM `user`  WHERE `id` =  :id";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array('id' => $json->id));
     }
 
     public function get($json)
     {
-        $sql = "SELECT * FROM `user`  WHERE `id` = " . $json->id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `user` WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(':id' => $json->id));
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($res as $row) {
+            array_push($arr, $row);
         }
         return json_encode($arr[0]);
     }
 
     public function update($json)
     {
-        $sql = "
-        UPDATE `user`  SET 
-        `name` = '$json->name',
-        `email` = '$json->email',
-        `status` = '$json->status'
-        WHERE `id` = '$json->id'";
-        mysqli_query($this->db->getConnect(), $sql);
+        $sql = "UPDATE `user` SET 
+        `name` = :name , 
+        `email` = :email ,
+        `status` = :status 
+        WHERE `id` = :id ";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(
+            ':name' => $json->name,
+            ':email' => $json->email,
+            ':status' => $json->status,
+            ':id' => $json->id));
     }
 
     public function getUser($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $json->id . ";";
-        $res = mysqli_query($this->db->getConnect(), $sql);
+        $sql = "SELECT * FROM `post` WHERE `user_id` = :id";
+        $res = $this->db->getConnect()->prepare($sql);
+        $res->execute(array(':id' => $json->id));
         $arr = [];
-        while ($result = mysqli_fetch_assoc($res)) {
-            array_push($arr, $result);
+        foreach ($res as $row) {
+            array_push($arr, $row);
         }
         return count($arr);
     }

@@ -34,7 +34,6 @@ let User = {
             url: "/user/get/getUser",
             data: {json: JSON.stringify(json)}
         }).done(function (result) {
-            console.log(result)
             if (result == 0) {
                 User.remove(id)
             }
