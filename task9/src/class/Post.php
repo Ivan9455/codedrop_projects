@@ -1,5 +1,4 @@
 <?php
-require_once("database/DataBase.php");
 
 class Post
 {
@@ -21,28 +20,6 @@ class Post
                 " . $json->category_id . ");";
         mysqli_query($this->db->getConnect(), $sql);
     }
-
-//    public function getUser($id)
-//    {
-//        $sql = "SELECT * FROM `post` WHERE `user_id` = " . $id . ";";
-//        $res = mysqli_query($this->db->getConnect(), $sql);
-//        $arr = [];
-//        while ($result = mysqli_fetch_assoc($res)) {
-//            array_push($arr, $result);
-//        }
-//        return $arr;
-//    }
-
-//    public function getCategory($id)
-//    {
-//        $sql = "SELECT * FROM `post` WHERE `category_id` = " . $id . ";";
-//        $res = mysqli_query($this->db->getConnect(), $sql);
-//        $arr = [];
-//        while ($result = mysqli_fetch_assoc($res)) {
-//            array_push($arr, $result);
-//        }
-//        return $arr;
-//    }
 
     public function getS()
     {
@@ -68,21 +45,21 @@ class Post
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function remove($id)
+    public function remove($json)
     {
-        $sql = "DELETE FROM `post` WHERE `id` = " . $id . ";";
+        $sql = "DELETE FROM `post` WHERE `id` = " . $json->id . ";";
         mysqli_query($this->db->getConnect(), $sql);
     }
 
-    public function get($id)
+    public function get($json)
     {
-        $sql = "SELECT * FROM `post` WHERE `id` = " . $id . ";";
+        $sql = "SELECT * FROM `post` WHERE `id` = " . $json->id . ";";
         $res = mysqli_query($this->db->getConnect(), $sql);
         $arr = [];
         while ($result = mysqli_fetch_assoc($res)) {
             array_push($arr, $result);
         }
-        return $arr[0];
+        return json_encode($arr[0]);
     }
 
 }

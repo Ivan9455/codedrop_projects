@@ -1,34 +1,36 @@
 let Post = {
     add: function (json) {
-        console.log(json)
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/add.php",
+            type: "GET",
+            url: "/post/gett/add",
             data: {json: JSON.stringify(json)}
         }).done(function () {
             Post.loadPost(Post.load);
         })
     },
     remove: function (id) {
+        let json = {};
+        json.id = id;
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/remove.php",
-            data: {id: id}
+            type: "GET",
+            url: "/post/gett/remove",
+            data: {json: JSON.stringify(json)}
         }).done(function () {
             Post.loadPost(Post.load);
         })
     },
     updateOpen: function (id) {
+        let json = {};
+        json.id = id;
         $(".overlay").css("display", "block");
         $(".update").css("display", "block");
         $(".update_save").attr("data-id", id);
         $.ajax({
-            type: "POST",
-            url: "src/ajax/post/get_post.php",//update
-            data: {id: id}
+            type: "GET",
+            url: "/post/gett/get",
+            data: {json: JSON.stringify(json)}
         }).done(function (result) {
             let json = JSON.parse(result);
-            console.log(json)
             Post.loadUser(".update_user");
             Post.loadCategory(".update_category");
             $(".update_user select").children('[data-id="' + json.user_id + '"]').attr("selected", "selected");
@@ -39,25 +41,23 @@ let Post = {
 
     },
     update: function (id) {
-        let json = {}
+        let json = {};
         json.id = id;
         json.user_id = $(".update_user select :selected").attr("data-id");
         json.category_id = $(".update_category select :selected").attr("data-id");
         json.status = $(".update_status").val();
         json.content = $(".update_content").val();
         json.updated_at = dat_format_input(new Date().getTime());
-        console.log(json)
         if (Valid.status(json.status, ".update_status", ".update_status_error"),
             Valid.content(json.content, ".update_content", ".update_content_error")) {
             $.ajax({
-                type: "POST",
-                url: "src/ajax/post/post_update.php",
+                type: "GET",
+                url: "/post/gett/update",
                 data: {json: JSON.stringify(json)}
             }).done(function () {
                 Post.loadPost(Post.load);
             })
         }
-
     },
     posts: "",
     load: function () {
@@ -90,7 +90,7 @@ let Post = {
     loadPost: function (func) {
         $.ajax({
             type: "POST",
-            url: "src/ajax/post/load.php",
+            url: "/post/post/getS",
             data: {}
         }).done(function (result) {
             Post.posts = result;

@@ -1,26 +1,34 @@
-CREATE TABLE `user` (
-  `id` INTEGER AUTO_INCREMENT,
-  `name` VARCHAR (15) NOT NULL ,
-  `email` VARCHAR(50) NOT NULL ,
-  `status` INTEGER NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+create table category
+(
+  id     int auto_increment
+    primary key,
+  name   varchar(50) not null,
+  status int         null
+);
 
-CREATE TABLE `category` (
-  `id` INTEGER AUTO_INCREMENT ,
-  `name` VARCHAR (50) NOT NULL ,
-  `status` INTEGER NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+create table user
+(
+  id     int auto_increment
+    primary key,
+  name   varchar(15) not null,
+  email  varchar(50) not null,
+  status int         null
+);
 
+create table post
+(
+  id          int auto_increment
+    primary key,
+  user_id     int                                 null,
+  content     varchar(255)                        not null,
+  status      int                                 null,
+  updated_at  timestamp default CURRENT_TIMESTAMP not null
+  on update CURRENT_TIMESTAMP,
+  created_at  datetime                            null,
+  category_id int                                 not null,
+  constraint post_category_id_fk
+  foreign key (category_id) references category (id),
+  constraint post_user_id_fk
+  foreign key (user_id) references user (id)
+);
 
-CREATE TABLE `post` (
-  `id` INTEGER AUTO_INCREMENT,
-  `user_id` INTEGER NOT NULL ,
-  `content` VARCHAR(255) NOT NULL ,
-  `status` INTEGER NOT NULL,
-  `created_at` TIMESTAMP NOT NULL ,
-  `updated_at` DATETIME  ,
-  `category_id` INTEGER NOT NULL,
-  PRIMARY KEY (`id`),
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;

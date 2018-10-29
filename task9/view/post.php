@@ -9,11 +9,11 @@
 <!--          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"-->
 <!--          crossorigin="anonymous">-->
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/style_user.css">
+    <link rel="stylesheet" href="/css/style_post.css">
 </head>
 <body>
 <?php
-require_once("../src/header.php");
+require_once("../src/template/header.php");
 ?>
 <div class="container">
     <div class="row">
