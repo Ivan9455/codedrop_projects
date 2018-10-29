@@ -3,13 +3,8 @@ $uri = $_SERVER['REQUEST_URI'];
 
 
 spl_autoload_register(function ($class) {
-    $path1 = '../src/class/';
-    $path2 = $path1 . 'database/';
-    if (file_exists($path1 . $class . '.php')) {
-        include_once $path1 . $class . '.php';
-    } elseif (file_exists($path2 . $class . '.php')) {
-        include_once $path2 . $class . '.php';
-    }
+    require_once  '../src/class/' . $class . '.php';
+    require_once  '../src/class/database/' . $class . '.php';
 });
 switch ($uri) {
     case $uri == '/user':
