@@ -2,30 +2,32 @@
 $uri = $_SERVER['REQUEST_URI'];
 
 
-function search_file($folderName, $fileName)
-{
-    // открываем текущую папку
-    $dir = opendir($folderName);
-    // перебираем папку
-    while (($file = readdir($dir)) !== false) { // перебираем пока есть файлы
-        if ($file != "." && $file != "..") { // если это не папка
-            if (is_file($folderName . "/" . $file)) { // если файл проверяем имя
-                // если имя файла нужное, то вернем путь до него
-                if ($file == $fileName) return $folderName . "/" . $file;
-            }
-            // если папка, то рекурсивно вызываем search_file
-            if (is_dir($folderName . "/" . $file)) return search_file($folderName . "/" . $file, $fileName);
-        }
-    }
-    // закрываем папку
-    closedir($dir);
-}
+//function search_file($folderName, $fileName)
+//{
+//    // открываем текущую папку
+//    $dir = opendir($folderName);
+//    // перебираем папку
+//    while (($file = readdir($dir)) !== false) { // перебираем пока есть файлы
+//        if ($file != "." && $file != "..") { // если это не папка
+//            if (is_file($folderName . "/" . $file)) { // если файл проверяем имя
+//                // если имя файла нужное, то вернем путь до него
+//                if ($file == $fileName) return $folderName . "/" . $file;
+//            }
+//            // если папка, то рекурсивно вызываем search_file
+//            if (is_dir($folderName . "/" . $file)) return search_file($folderName . "/" . $file, $fileName);
+//        }
+//    }
+//    // закрываем папку
+//    closedir($dir);
+//}
 
 spl_autoload_register(function ($class) {
-    $result = search_file("../src/class/", $class . '.php');
-    if ($result) {
-        require_once $result;
-    }
+//    $result = search_file("../src/class/", $class . '.php');
+//    if ($result) {
+//        require_once $result;
+//    }
+    include  '../src/class/' . $class . '.php';
+    include  '../src/class/database/' . $class . '.php';
 });
 switch ($uri) {
     case $uri == '/user':
